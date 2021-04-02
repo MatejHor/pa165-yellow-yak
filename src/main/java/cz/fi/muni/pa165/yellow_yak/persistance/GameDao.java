@@ -5,7 +5,7 @@ import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import java.util.List;
 
 /**
- * Created by Matej Horniak on 1.4.2021.
+ * @author Matej Horniak
  */
 public interface GameDao {
 

@@ -7,6 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+/**
+ * @author Matej Horniak
+ */
 @Repository
 public class GameDaoImpl implements GameDao{
     @PersistenceContext

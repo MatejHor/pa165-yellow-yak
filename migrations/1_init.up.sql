@@ -27,8 +27,11 @@ CREATE TABLE event (
     id INT PRIMARY KEY,
     game_id INT NOT NULL REFERENCES game (id),
     name VARCHAR(80) UNIQUE NOT NULL,
+    prices VARCHAR(255),
     start_at TIME NOT NULL,
-    created_at TIME NOT NULL
+    created_at TIME NOT NULL,
+    finish_at TIME,
+
 );
 
 CREATE TABLE competitor (

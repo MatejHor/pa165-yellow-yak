@@ -3,6 +3,9 @@ package cz.fi.muni.pa165.yellow_yak.entity;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * @author Matej Horniak
+ */
 @Entity
 public class Game {
 
@@ -10,11 +13,11 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @NotNull
+    //    @NotNull
     @Column(nullable = false, unique = true)
     private String name;
 
-//    @NotNull
+    //    @NotNull
     @Column(nullable = false)
     private Date created_at;
 
@@ -67,3 +70,4 @@ public class Game {
         } else return name.equals(other.getName());
     }
 }
+
