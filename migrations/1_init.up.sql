@@ -23,7 +23,7 @@ CREATE TABLE team_member (
     team_id INT NOT NULL REFERENCES team (id)
 );
 
-CREATE TABLE event (
+CREATE TABLE competition (
     id INT PRIMARY KEY,
     game_id INT NOT NULL REFERENCES game (id),
     name VARCHAR(80) UNIQUE NOT NULL,
@@ -36,15 +36,14 @@ CREATE TABLE event (
 
 CREATE TABLE competitor (
     id INT PRIMARY KEY,
-    event_id INT NOT NULL REFERENCES event (id),
+    competition_id INT NOT NULL REFERENCES competition (id),
     team_id INT NOT NULL REFERENCES team (id),
     created_at TIME NOT NULL
 )
 
-CREATE TABLE rank (
+CREATE TABLE score (
     id INT PRIMARY KEY,
-    event_id INT NOT NULL REFERENCES event (id),
-    team_id INT NOT NULL REFERENCES team (id),
+    competitor_id INT NOT NULL REFERENCES competitor (id),
     index INT NOT NULL,
     created_at TIME NOT NULL
 )
