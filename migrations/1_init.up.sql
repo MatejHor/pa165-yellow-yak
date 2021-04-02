@@ -1,4 +1,4 @@
-CREATE TABLE member (
+CREATE TABLE player (
     id INT PRIMARY KEY,
     username VARCHAR(80) UNIQUE NOT NULL,
     email VARCHAR(80) UNIQUE NOT NULL,
@@ -18,8 +18,8 @@ CREATE TABLE team (
     created_at TIME NOT NULL
 );
 
-CREATE TABLE team_member (
-    member_id INT NOT NULL REFERENCES member (id),
+CREATE TABLE team_player (
+    player_id INT NOT NULL REFERENCES player (id),
     team_id INT NOT NULL REFERENCES team (id)
 );
 
