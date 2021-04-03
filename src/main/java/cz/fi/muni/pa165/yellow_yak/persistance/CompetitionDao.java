@@ -8,15 +8,15 @@ import java.util.List;
  * @author Lukas Mikula
  */
 public interface CompetitionDao {
-    void create(Competition e);
+    void create(Competition c);
 
     List<Competition> findAll();
 
     Competition findById(Long id);
 
-    void remove(Competition e);
+    void remove(Competition c);
 
-    void update(Competition e);
+    void update(Competition c);
 
     List<Competition> findByName(String name) ;
 }

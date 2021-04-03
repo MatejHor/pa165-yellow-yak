@@ -17,7 +17,7 @@ public class Competition {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "game_id", nullable = false)
     private Game game;
 
     @NotNull
