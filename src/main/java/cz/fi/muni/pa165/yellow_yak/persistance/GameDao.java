@@ -9,15 +9,15 @@ import java.util.List;
  */
 public interface GameDao {
 
-    void create(Game p);
+    void create(Game g);
 
     List<Game> findAll();
 
     Game findById(Long id);
 
-    void remove(Game p);
+    void remove(Game g);
 
-    void update(Game p);
+    void update(Game g);
 
-    List<Game> findByName(String name) ;
+    Game findByName(String name) ;
 }

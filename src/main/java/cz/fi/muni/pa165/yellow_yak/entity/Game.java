@@ -13,11 +13,9 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //    @NotNull
     @Column(nullable = false, unique = true)
     private String name;
 
-    //    @NotNull
     @Column(nullable = false)
     private Date created_at;
 

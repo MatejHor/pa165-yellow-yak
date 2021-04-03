@@ -2,22 +2,25 @@ package cz.fi.muni.pa165.yellow_yak.persistance;
 
 import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * @author Matej Horniak
  */
-@Repository
+@Service
+@Transactional
 public class GameDaoImpl implements GameDao{
     @PersistenceContext
     private EntityManager em;
 
     @Override
-    public void create(Game p) {
-        em.persist(p);
+    public void create(Game g) {
+        em.persist(g);
     }
 
     @Override
@@ -31,19 +34,19 @@ public class GameDaoImpl implements GameDao{
     }
 
     @Override
-    public void remove(Game p) {
-        em.remove(p);
+    public void remove(Game g) {
+        em.remove(this.findById(g.getId()));
     }
 
     @Override
-    public void update(Game p) {
-        em.merge(p);
+    public void update(Game g) {
+        em.merge(g);
     }
 
     @Override
-    public List<Game> findByName(String name) {
+    public Game findByName(String name) {
         return em.createQuery("select g from Game g where g.name LIKE :gameName", Game.class)
                 .setParameter("gameName", name)
-                .getResultList();
+                .getSingleResult();
     }
 }
