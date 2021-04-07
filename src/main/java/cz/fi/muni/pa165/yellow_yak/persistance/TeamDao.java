@@ -40,8 +40,9 @@ public interface TeamDao {
     List<Team> getAll();
 
     /**
-     * Get team from the database based
+     * Get team by an id
      *
+     * @param id team id of desired team
      * @return list of all teams from the database
      */
     Team getById(Long id);
@@ -57,7 +58,7 @@ public interface TeamDao {
     /**
      * Lists teams by a date of their creation
      *
-     * @param createdAt team's creation date to filter by
+     * @param createdAt date to filter by
      * @return list of teams with specified creation date
      */
     List<Team> getByCreatedAt(Date createdAt);
