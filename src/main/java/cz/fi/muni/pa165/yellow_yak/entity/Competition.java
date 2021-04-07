@@ -102,7 +102,7 @@ public class Competition {
 
         Competition that = (Competition) o;
 
-        return id.equals(that.getId());
+        return getName() != null ? getName().equals(that.getName()) : that.getName() == null;
     }
 
     @Override

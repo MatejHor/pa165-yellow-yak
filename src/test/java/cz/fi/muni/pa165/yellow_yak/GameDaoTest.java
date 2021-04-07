@@ -99,7 +99,7 @@ public class GameDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findAllCompetition() {
+    public void findAllGames() {
         List<Game> gameList = gameDao.findAll();
 
         Assert.assertNotNull(gameList);
