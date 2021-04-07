@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.yellow_yak.persistance;
 
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * @author Lukas Mikula
  */
-@Service
+@Repository
 @Transactional
 public class CompetitionDaoImpl implements CompetitionDao {
     @PersistenceContext
