@@ -97,6 +97,7 @@ public class Competition {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+        if (o == null) return false;
         if (!(o instanceof Competition)) return false;
 
         Competition that = (Competition) o;
@@ -106,6 +107,8 @@ public class Competition {
 
     @Override
     public int hashCode() {
-        return getName() != null ? getName().hashCode() : 0;
+        int result = 1;
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        return result;
     }
 }
