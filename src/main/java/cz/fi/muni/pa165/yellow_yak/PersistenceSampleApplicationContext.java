@@ -1,7 +1,6 @@
 package cz.fi.muni.pa165.yellow_yak;
 
-import cz.fi.muni.pa165.yellow_yak.persistance.CompetitionDao;
-import cz.fi.muni.pa165.yellow_yak.persistance.GameDao;
+import cz.fi.muni.pa165.yellow_yak.persistance.*;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -23,7 +22,14 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
-@ComponentScan(basePackageClasses = {GameDao.class, CompetitionDao.class}, basePackages = "cz.fi.muni.pa165")
+@ComponentScan(basePackageClasses = {
+        CompetitionDao.class,
+        CompetitorDao.class,
+        GameDao.class,
+        MemberDao.class,
+        ScoreDao.class,
+        TeamDao.class,
+}, basePackages = "cz.fi.muni.pa165")
 public class PersistenceSampleApplicationContext {
 
     @Bean

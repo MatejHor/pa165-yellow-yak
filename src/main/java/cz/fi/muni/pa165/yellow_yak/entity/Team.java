@@ -12,13 +12,8 @@ import java.util.Date;
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "team_id")
+    @Column(name = "id")
     private Long id;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "id", name = "game_id", nullable = false)
-    private Game game;
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
@@ -32,14 +27,6 @@ public class Team {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
     }
 
     public String getName() {

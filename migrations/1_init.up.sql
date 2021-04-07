@@ -9,11 +9,10 @@ CREATE TABLE game (
     id INT PRIMARY KEY,
     name VARCHAR(80) UNIQUE NOT NULL,
     created_at TIME NOT NULL
-)
+);
 
 CREATE TABLE team (
     id INT PRIMARY KEY,
-    game_id INT NOT NULL REFERENCES game (id),
     name VARCHAR(80) UNIQUE NOT NULL,
     created_at TIME NOT NULL
 );
@@ -38,11 +37,11 @@ CREATE TABLE competitor (
     competition_id INT NOT NULL REFERENCES competition (id),
     team_id INT NOT NULL REFERENCES team (id),
     created_at TIME NOT NULL
-)
+);
 
 CREATE TABLE score (
     id INT PRIMARY KEY,
     competitor_id INT NOT NULL REFERENCES competitor (id),
     index INT NOT NULL,
     created_at TIME NOT NULL
-)
+);

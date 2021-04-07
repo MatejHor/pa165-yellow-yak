@@ -57,11 +57,4 @@ public class TeamDaoImpl implements TeamDao {
                 .setParameter("createdAt", createdAt)
                 .getResultList();
     }
-
-    @Override
-    public List<Team> getByGame(Game game) {
-        return em.createQuery("select team from Competition team where game = :game", Team.class)
-                .setParameter("game", game)
-                .getResultList();
-    }
 }

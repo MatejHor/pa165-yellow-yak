@@ -23,6 +23,4 @@ public interface TeamDao {
     List<Team> getByName(String name);
 
     List<Team> getByCreatedAt(Date createdAt);
-
-    List<Team> getByGame(Game game);
 }
