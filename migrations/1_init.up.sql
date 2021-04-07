@@ -29,9 +29,8 @@ CREATE TABLE competition (
     name VARCHAR(80) UNIQUE NOT NULL,
     prices VARCHAR(255),
     start_at TIME NOT NULL,
-    created_at TIME NOT NULL,
     finish_at TIME,
-
+    created_at TIME NOT NULL
 );
 
 CREATE TABLE competitor (
