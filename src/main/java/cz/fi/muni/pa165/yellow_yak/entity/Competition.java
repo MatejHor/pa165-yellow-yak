@@ -28,7 +28,6 @@ public class Competition {
     @NotNull
     private Date start_at;
 
-    @NotNull
     private Date finish_at;
 
     @NotNull
