@@ -61,12 +61,4 @@ public interface TeamDao {
      * @return list of teams with specified creation date
      */
     List<Team> getByCreatedAt(Date createdAt);
-
-    /**
-     * Lists teams by a game
-     *
-     * @param game team's game to filter by
-     * @return list of teams with specified game
-     */
-    List<Team> getByGame(Game game);
 }

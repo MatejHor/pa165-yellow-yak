@@ -2,7 +2,7 @@ package cz.fi.muni.pa165.yellow_yak.persistance;
 
 import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import cz.fi.muni.pa165.yellow_yak.entity.Team;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author Matej Knazik
  */
-@Service
+@Repository
 @Transactional
 public class TeamDaoImpl implements TeamDao {
     @PersistenceContext
