@@ -4,6 +4,8 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -15,23 +17,21 @@ public class Competition {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "game_id", nullable = false)
     private Game game;
 
-    @NotNull
+    @Column(nullable = false, unique = true)
     private String name;
 
     private String prices;
 
-    @NotNull
+    @Column(nullable = false)
     private Date start_at;
 
-    @NotNull
     private Date finish_at;
 
-    @NotNull
+    @Column(nullable = false)
     @CreatedDate
     private Date created_at;
 
@@ -52,14 +52,6 @@ public class Competition {
 
     public void setGame(Game game) {
         this.game = game;
-    }
-
-    public Date getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
     }
 
     public String getName() {
@@ -94,28 +86,26 @@ public class Competition {
         this.finish_at = finish_at;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
+    public Date getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (!(obj instanceof Competition))
-            return false;
-        Competition other = (Competition) obj;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.getName()))
-            return false;
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Competition)) return false;
+
+        Competition that = (Competition) o;
+
+        return getName() != null ? getName().equals(that.getName()) : that.getName() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return getName() != null ? getName().hashCode() : 0;
     }
 }
