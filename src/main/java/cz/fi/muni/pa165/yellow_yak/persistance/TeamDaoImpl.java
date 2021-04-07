@@ -1,8 +1,7 @@
 package cz.fi.muni.pa165.yellow_yak.persistance;
 
-import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import cz.fi.muni.pa165.yellow_yak.entity.Team;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,7 +12,7 @@ import java.util.List;
 /**
  * @author Matej Knazik
  */
-@Service
+@Repository
 @Transactional
 public class TeamDaoImpl implements TeamDao {
     @PersistenceContext
@@ -46,14 +45,14 @@ public class TeamDaoImpl implements TeamDao {
 
     @Override
     public List<Team> getByName(String name) {
-        return em.createQuery("select team from Competition team where name = :name", Team.class)
+        return em.createQuery("select team from Team team where name = :name", Team.class)
                 .setParameter("name", name)
                 .getResultList();
     }
 
     @Override
     public List<Team> getByCreatedAt(Date createdAt) {
-        return em.createQuery("select team from Competition team where created_at = :createdAt", Team.class)
+        return em.createQuery("select team from Team team where createdAt = :createdAt", Team.class)
                 .setParameter("createdAt", createdAt)
                 .getResultList();
     }
