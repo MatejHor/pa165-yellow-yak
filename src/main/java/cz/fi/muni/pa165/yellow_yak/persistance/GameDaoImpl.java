@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author Matej Horniak
  */
-@Service
+@Repository
 @Transactional
 public class GameDaoImpl implements GameDao{
     @PersistenceContext
