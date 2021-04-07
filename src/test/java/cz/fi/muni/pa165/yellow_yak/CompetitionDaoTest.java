@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -56,6 +57,13 @@ public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
         competition = competitionTest;
     }
 
+    @AfterMethod
+    private void remove() {
+        if (competitionDao.findById(competition.getId()) != null) {
+            competitionDao.remove(competition);
+        }
+    }
+
     @Test(expectedExceptions = PersistenceException.class)
     public void createCompetition() {
         competitionDao.create(competition);
@@ -77,6 +85,7 @@ public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
 
         Assert.assertNotNull(result);
         Assert.assertEquals(competition, result);
+        Assert.assertNull(competitionDao.findById(123124L));
     }
 
     @Test
