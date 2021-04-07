@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -56,6 +57,9 @@ public class CompetitorDaoTest extends AbstractTestNGSpringContextTests {
         teamTest.setCreated_at(new Date());
 
         Competitor competitorTest = new Competitor();
+        competitorTest.setCompetition(competitionTest);
+        competitorTest.setTeam(teamTest);
+        competitorTest.setCreatedAt(new Date());
 
         em.getTransaction().begin();
         em.persist(gameTest);
@@ -71,9 +75,19 @@ public class CompetitorDaoTest extends AbstractTestNGSpringContextTests {
         competitor = competitorTest;
     }
 
-    @Test(expectedExceptions = PersistenceException.class)
+    @AfterMethod
+    private void remove() {
+        competitorDao.remove(competitor);
+    }
+
+    @Test
     public void createCompetitor() {
-        competitorDao.create(competitor);
+        Competitor competitorTest = new Competitor();
+        competitorTest.setCompetition(competition);
+        competitorTest.setTeam(team);
+        competitorTest.setCreatedAt(new Date());
+
+        competitorDao.create(competitorTest);
     }
 
     @Test
@@ -99,8 +113,12 @@ public class CompetitorDaoTest extends AbstractTestNGSpringContextTests {
         teamTest.setName("TeamUpdated");
         teamTest.setCreated_at(new Date());
 
+        em.getTransaction().begin();
         em.persist(teamTest);
+        em.getTransaction().commit();
+        em.close();
 
+        competitor.setTeam(teamTest);
         competitorDao.update(competitor);
 
         Competitor result = competitorDao.findById(competitor.getId());
@@ -111,10 +129,16 @@ public class CompetitorDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void removeCompetitor() {
-        competitorDao.remove(competitor);
+        Competitor competitorTest = new Competitor();
+        competitorTest.setCompetition(competition);
+        competitorTest.setTeam(team);
+        competitorTest.setCreatedAt(new Date());
 
-        Competitor result = competitorDao.findById(competitor.getId());
-        Assert.assertNull(result);
+        competitorDao.create(competitorTest);
+        Assert.assertNotNull(competitorDao.findById(competitorTest.getId()));
+
+        competitorDao.remove(competitorTest);
+        Assert.assertNull(competitorDao.findById(competitorTest.getId()));
     }
 
     @Test

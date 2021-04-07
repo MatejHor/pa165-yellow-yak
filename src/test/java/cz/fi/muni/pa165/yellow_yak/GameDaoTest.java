@@ -100,10 +100,10 @@ public class GameDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findAllCompetition() {
-        List<Game> competitionList = gameDao.findAll();
+        List<Game> gameList = gameDao.findAll();
 
-        Assert.assertNotNull(competitionList);
-        Assert.assertTrue(competitionList.size() >= 1);
+        Assert.assertNotNull(gameList);
+        Assert.assertTrue(gameList.size() >= 1);
     }
 
     @Test

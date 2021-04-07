@@ -9,6 +9,7 @@ import java.util.Date;
 /**
  * @author oreqizer
  */
+@Entity
 public class Score {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +18,7 @@ public class Score {
     @NotNull
     @OneToOne
     @JoinColumn(name = "competitor_id", nullable = false)
-    private Competition competition;
+    private Competitor competitor;
 
     @NotNull
     private int index;
@@ -33,12 +34,12 @@ public class Score {
         return id;
     }
 
-    public Competition getCompetition() {
-        return competition;
+    public Competitor getCompetitor() {
+        return competitor;
     }
 
-    public void setCompetition(Competition competition) {
-        this.competition = competition;
+    public void setCompetitor(Competitor competitor) {
+        this.competitor = competitor;
     }
 
     public int getIndex() {
@@ -53,23 +54,24 @@ public class Score {
         return createdAt;
     }
 
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Score)) return false;
 
-        Score score = (Score) o;
+        Score that = (Score) o;
 
-        if (index != score.getIndex()) return false;
-        if (!id.equals(score.getId())) return false;
-        if (!competition.equals(score.getCompetition())) return false;
-        return createdAt.equals(score.getCreatedAt());
+        return id.equals(that.getId());
     }
 
     @Override
     public int hashCode() {
         int result = getId().hashCode();
-        result = 31 * result + getCompetition().hashCode();
+        result = 31 * result + getCompetitor().hashCode();
         result = 31 * result + getIndex();
         result = 31 * result + getCreatedAt().hashCode();
         return result;

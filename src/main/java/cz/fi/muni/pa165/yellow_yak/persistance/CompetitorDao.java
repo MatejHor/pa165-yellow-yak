@@ -3,7 +3,9 @@ package cz.fi.muni.pa165.yellow_yak.persistance;
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Competitor;
 import cz.fi.muni.pa165.yellow_yak.entity.Team;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**

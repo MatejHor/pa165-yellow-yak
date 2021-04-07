@@ -9,6 +9,7 @@ import java.util.Date;
 /**
  * @author Boris Petrenko
  */
+@Entity
 public class Competitor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,6 +56,10 @@ public class Competitor {
         return createdAt;
     }
 
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,10 +67,7 @@ public class Competitor {
 
         Competitor that = (Competitor) o;
 
-        if (!id.equals(that.getId())) return false;
-        if (!competition.equals(that.getCompetition())) return false;
-        if (!team.equals(that.getTeam())) return false;
-        return createdAt.equals(that.getCreatedAt());
+        return id.equals(that.getId());
     }
 
     @Override

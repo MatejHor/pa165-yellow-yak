@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -26,6 +27,7 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
     @PersistenceUnit
     private EntityManagerFactory emf;
 
+    private Competitor competitor;
     private Score score;
 
     @Autowired
@@ -50,11 +52,15 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
         teamTest.setName("Team" + new Random().nextInt());
         teamTest.setCreated_at(new Date());
 
-        Score scoreTest = new Score();
-
         Competitor competitorTest = new Competitor();
         competitorTest.setCompetition(competitionTest);
         competitorTest.setTeam(teamTest);
+        competitorTest.setCreatedAt(new Date());
+
+        Score scoreTest = new Score();
+        scoreTest.setIndex(420);
+        scoreTest.setCompetitor(competitorTest);
+        scoreTest.setCreatedAt(new Date());
 
         em.getTransaction().begin();
         em.persist(gameTest);
@@ -64,15 +70,24 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
         em.getTransaction().commit();
         em.close();
 
-        score.setIndex(420);
         scoreDao.create(scoreTest);
-
         score = scoreTest;
+        competitor = competitorTest;
     }
 
-    @Test(expectedExceptions = PersistenceException.class)
+    @AfterMethod
+    private void remove() {
+        scoreDao.remove(score);
+    }
+
+    @Test
     public void createScore() {
-        scoreDao.create(score);
+        Score scoreTest = new Score();
+        scoreTest.setIndex(1337);
+        scoreTest.setCompetitor(competitor);
+        scoreTest.setCreatedAt(new Date());
+
+        scoreDao.create(scoreTest);
     }
 
     @Test
@@ -104,9 +119,15 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void removeScore() {
-        scoreDao.remove(score);
+        Score scoreTest = new Score();
+        scoreTest.setIndex(1337);
+        scoreTest.setCompetitor(competitor);
+        scoreTest.setCreatedAt(new Date());
 
-        Score result = scoreDao.findById(score.getId());
-        Assert.assertNull(result);
+        scoreDao.create(scoreTest);
+        Assert.assertNotNull(scoreDao.findById(scoreTest.getId()));
+
+        scoreDao.remove(scoreTest);
+        Assert.assertNull(scoreDao.findById(scoreTest.getId()));
     }
 }

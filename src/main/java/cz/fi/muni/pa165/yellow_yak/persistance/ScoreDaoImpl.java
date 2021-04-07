@@ -9,6 +9,9 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * @author oreqizer
+ */
 @Service
 @Transactional
 public class ScoreDaoImpl implements ScoreDao {
@@ -32,7 +35,7 @@ public class ScoreDaoImpl implements ScoreDao {
 
     @Override
     public void remove(Score s) {
-        em.remove(s);
+        em.remove(this.findById(s.getId()));
     }
 
     @Override

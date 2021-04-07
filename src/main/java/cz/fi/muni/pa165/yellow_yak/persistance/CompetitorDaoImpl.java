@@ -11,6 +11,9 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * @author oreqizer
+ */
 @Service
 @Transactional
 public class CompetitorDaoImpl implements CompetitorDao {
@@ -34,7 +37,7 @@ public class CompetitorDaoImpl implements CompetitorDao {
 
     @Override
     public void remove(Competitor c) {
-        em.remove(c);
+        em.remove(this.findById(c.getId()));
     }
 
     @Override

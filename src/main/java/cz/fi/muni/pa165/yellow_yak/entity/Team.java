@@ -54,15 +54,12 @@ public class Team {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (!(obj instanceof Game))
-            return false;
-        Team other = (Team) obj;
-        return other.getId() == id;
-    }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Team)) return false;
 
+        Team that = (Team) o;
+
+        return id.equals(that.getId());
+    }
 }
