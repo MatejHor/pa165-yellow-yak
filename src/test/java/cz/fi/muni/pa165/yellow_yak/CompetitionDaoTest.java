@@ -4,6 +4,7 @@ import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import cz.fi.muni.pa165.yellow_yak.persistance.CompetitionDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
@@ -15,7 +16,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceUnit;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
@@ -23,11 +25,13 @@ import java.util.Random;
  * @author Matej Horniak
  */
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
 
     @PersistenceUnit
     private EntityManagerFactory emf;
     private Competition competition;
+    private Game game;
 
     @Autowired
     private CompetitionDao competitionDao;
@@ -38,14 +42,14 @@ public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
 
         Game gameTest = new Game();
         gameTest.setName("GameTest" + new Random().nextInt());
-        gameTest.setCreated_at(new Date());
+        gameTest.setCreatedAt(LocalDateTime.now());
 
         Competition competitionTest = new Competition();
         competitionTest.setName("Test" + new Random().nextInt());
         competitionTest.setPrices("Price1, Price2");
-        competitionTest.setCreated_at(new Date());
-        competitionTest.setFinish_at(new Date());
-        competitionTest.setStart_at(new Date());
+        competitionTest.setCreatedAt(LocalDateTime.now());
+        competitionTest.setFinishedAt(LocalDateTime.now());
+        competitionTest.setStartedAt(LocalDateTime.now());
         competitionTest.setGame(gameTest);
 
         em.getTransaction().begin();
@@ -55,6 +59,7 @@ public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
 
         competitionDao.create(competitionTest);
         competition = competitionTest;
+        game = gameTest;
     }
 
     @AfterMethod
@@ -65,8 +70,23 @@ public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test(expectedExceptions = PersistenceException.class)
-    public void createCompetition() {
+    public void createCompetitionPrimaryKeyException() {
         competitionDao.create(competition);
+        competition.setPrices("NewPrice");
+        competitionDao.create(competition);
+    }
+
+    @Test
+    public void createCompetition() {
+        Competition competitionTest = new Competition();
+        competitionTest.setName("TestCreate");
+        competitionTest.setPrices("Price");
+        competitionTest.setCreatedAt(LocalDateTime.now());
+        competitionTest.setFinishedAt(LocalDateTime.now());
+        competitionTest.setStartedAt(LocalDateTime.now());
+        competitionTest.setGame(game);
+
+        competitionDao.create(competitionTest);
     }
 
     @Test
@@ -85,6 +105,10 @@ public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
 
         Assert.assertNotNull(result);
         Assert.assertEquals(competition, result);
+    }
+
+    @Test
+    public void findCompetitionNotExistId() {
         Assert.assertNull(competitionDao.findById(123124L));
     }
 
@@ -92,7 +116,7 @@ public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
     public void findAllCompetition() {
         List<Competition> competitionList = competitionDao.findAll();
         Assert.assertNotNull(competitionList);
-        Assert.assertTrue(competitionList.size() >= 1);
+        Assert.assertEquals(competitionList.size(), 1);
     }
 
     @Test

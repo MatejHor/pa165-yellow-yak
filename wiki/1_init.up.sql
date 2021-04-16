@@ -17,8 +17,8 @@ CREATE TABLE team (
     created_at TIME NOT NULL
 );
 
-CREATE TABLE team_player (
-    player_id INT NOT NULL REFERENCES player (id),
+CREATE TABLE member (
+    user_id INT NOT NULL REFERENCES player (id),
     team_id INT NOT NULL REFERENCES team (id)
 );
 
@@ -32,16 +32,12 @@ CREATE TABLE competition (
     created_at TIME NOT NULL
 );
 
-CREATE TABLE competitor (
-    id INT PRIMARY KEY,
-    competition_id INT NOT NULL REFERENCES competition (id),
-    team_id INT NOT NULL REFERENCES team (id),
-    created_at TIME NOT NULL
-);
-
 CREATE TABLE score (
     id INT PRIMARY KEY,
-    competitor_id INT NOT NULL REFERENCES competitor (id),
-    index INT NOT NULL,
+    user_id INT NOT NULL REFERENCES player (id),
+    competition_id INT NOT NULL REFERENCES competition (id),
+    placement INT,
+    result VARCHAR(255),
+    stats VARCHAR(255),
     created_at TIME NOT NULL
 );

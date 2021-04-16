@@ -1,8 +1,6 @@
 package cz.fi.muni.pa165.yellow_yak.persistance;
 
-import cz.fi.muni.pa165.yellow_yak.entity.Competitor;
 import cz.fi.muni.pa165.yellow_yak.entity.Score;
-import cz.fi.muni.pa165.yellow_yak.entity.Team;
 
 import java.util.List;
 
@@ -40,11 +38,4 @@ public interface ScoreDao {
      * @param s score to update
      */
     void update(Score s);
-
-    /**
-     * Lists scores by competition
-     * @param competitor competitor to find scores by
-     * @return list of scores
-     */
-    Score getByCompetitor(Competitor competitor);
 }

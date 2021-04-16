@@ -1,6 +1,5 @@
 package cz.fi.muni.pa165.yellow_yak.persistance;
 
-import cz.fi.muni.pa165.yellow_yak.entity.Competitor;
 import cz.fi.muni.pa165.yellow_yak.entity.Score;
 import org.springframework.stereotype.Service;
 
@@ -41,12 +40,5 @@ public class ScoreDaoImpl implements ScoreDao {
     @Override
     public void update(Score s) {
         em.merge(s);
-    }
-
-    @Override
-    public Score getByCompetitor(Competitor competitor) {
-        return em.createQuery("select s from Score s where s.competitor = :competitor", Score.class)
-                .setParameter("competitor", competitor)
-                .getSingleResult();
     }
 }

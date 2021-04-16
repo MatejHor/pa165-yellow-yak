@@ -1,20 +1,20 @@
 package cz.fi.muni.pa165.yellow_yak;
 
-import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import cz.fi.muni.pa165.yellow_yak.persistance.GameDao;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceUnit;
+import javax.validation.ConstraintViolationException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +22,7 @@ import java.util.List;
  * @author Lukas Mikula
  */
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class GameDaoTest extends AbstractTestNGSpringContextTests {
 
     @PersistenceUnit
@@ -34,7 +35,7 @@ public class GameDaoTest extends AbstractTestNGSpringContextTests {
     private void init() {
         Game gameTest = new Game();
         gameTest.setName("TestGame");
-        gameTest.setCreated_at(new Date());
+        gameTest.setCreatedAt(LocalDateTime.now());
 
         gameDao.create(gameTest);
         game = gameTest;
@@ -49,18 +50,18 @@ public class GameDaoTest extends AbstractTestNGSpringContextTests {
     public void createGame() {
         Game gameTest = new Game();
         gameTest.setName("NewGame");
-        gameTest.setCreated_at(new Date());
+        gameTest.setCreatedAt(LocalDateTime.now());
 
         gameDao.create(gameTest);
 
         Assert.assertEquals(gameDao.findById(gameTest.getId()).getName(),"NewGame");
     }
 
-    @Test(expectedExceptions = PersistenceException.class)
+    @Test(expectedExceptions = ConstraintViolationException.class)
     public void createGameNullName() {
         Game gameTest = new Game();
         gameTest.setName(null);
-        gameTest.setCreated_at(new Date());
+        gameTest.setCreatedAt(LocalDateTime.now());
 
         gameDao.create(gameTest);
     }
@@ -69,7 +70,7 @@ public class GameDaoTest extends AbstractTestNGSpringContextTests {
     public void createGameDuplicateName() {
         Game gameTest = new Game();
         gameTest.setName("TestGame");
-        gameTest.setCreated_at(new Date());
+        gameTest.setCreatedAt(LocalDateTime.now());
 
         gameDao.create(gameTest);
     }
@@ -126,7 +127,7 @@ public class GameDaoTest extends AbstractTestNGSpringContextTests {
     public void removeGame() {
         Game gameTest  = new Game();
         gameTest.setName("GameForRemove");
-        gameTest.setCreated_at(new Date());
+        gameTest.setCreatedAt(LocalDateTime.now());
 
         gameDao.create(gameTest);
 
