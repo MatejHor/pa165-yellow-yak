@@ -11,40 +11,40 @@ public interface PlayerDao {
 
 
     /**
-     * Create new pser
+     * Create new player
      * @param p player to create
      */
     void create(Player p);
 
     /**
-     * Return all player in db
-     * @return List of psers
+     * Return all players in the db
+     * @return List of player
      */
     List<Player> findAll();
 
     /**
      * Return player with specific id
      * @param id specific id
-     * @return Pser
+     * @return player
      */
     Player findById(Long id);
 
     /**
-     * Remove pser
+     * Remove player
      * @param p player to remove
      */
     void remove(Player p);
 
     /**
-     * Ppdate pser
-     * @param p player to ppdate
+     * Update player
+     * @param p player to player
      */
     void update(Player p);
 
     /**
      * Return all player with specific username in db
      * @param username specific player username
-     * @return List of psers
+     * @return List of players
      */
-    Player findByUsername(String username) ;
+    List<Player> findByUsername(String username) ;
 }

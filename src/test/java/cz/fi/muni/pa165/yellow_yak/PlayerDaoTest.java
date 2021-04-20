@@ -12,8 +12,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import javax.persistence.PersistenceException;
-import javax.persistence.PersistenceUnit;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Matej Knazik
@@ -21,11 +22,11 @@ import java.time.LocalDateTime;
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
-    @PersistenceUnit
-    private Player testPlayer;
 
     @Autowired
     private PlayerDao playerDao;
+
+    private Player testPlayer;
 
     @BeforeMethod
     private void beforeEach() {
@@ -54,6 +55,7 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
         testPlayer2.setEmail("patchwerk@gmail.com");
         playerDao.create(testPlayer2);
         Assert.assertEquals(playerDao.findAll().size(), 2);
+        Assert.assertEquals(playerDao.findById(testPlayer2.getId()), testPlayer2);
     }
 
     @Test(expectedExceptions = PersistenceException.class)
@@ -84,4 +86,59 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(pAfter.getEmail(),emailAfter);
         Assert.assertEquals(testPlayer, pAfter);
     }
+
+    @Test
+    public void removePlayerTest() {
+        Assert.assertEquals(playerDao.findAll().size(), 1);
+        playerDao.remove(testPlayer);
+        Assert.assertEquals(playerDao.findAll().size(), 0);
+    }
+
+    @Test
+    public void findAllPlayersTest() {
+        Assert.assertEquals(playerDao.findAll().size(), 1);
+        Assert.assertEquals(playerDao.findAll().get(0), testPlayer);
+        Player testPlayer2 = new Player();
+        testPlayer2.setUsername("ReadyPlayerTwo");
+        testPlayer2.setCreatedAt(LocalDateTime.now());
+        testPlayer2.setEmail("patchwerk@gmail.com");
+        playerDao.create(testPlayer2);
+        Assert.assertEquals(playerDao.findAll().size(), 2);
+        List<Player> expectedPlayers = Arrays.asList(testPlayer, testPlayer2);
+        Assert.assertEquals(playerDao.findAll(), expectedPlayers);
+        playerDao.remove(testPlayer);
+        playerDao.remove(testPlayer2);
+        Assert.assertEquals(playerDao.findAll().size(), 0);
+    }
+
+    @Test
+    public void findPlayerByIdTest() {
+        Player receivedPlayer = playerDao.findById(testPlayer.getId());
+        Assert.assertEquals(receivedPlayer, testPlayer);
+        playerDao.remove(testPlayer);
+        receivedPlayer = playerDao.findById(testPlayer.getId());
+        Assert.assertNull(receivedPlayer);
+    }
+
+    @Test
+    public void findPlayerByUsernameTest() {
+        List<Player> receivedPlayers = playerDao.findByUsername(testPlayer.getUsername());
+        List<Player> expectedPlayers = Arrays.asList(testPlayer);
+        Assert.assertEquals(receivedPlayers, expectedPlayers);
+
+        Player testPlayer2 = new Player();
+        testPlayer2.setUsername(testPlayer.getUsername());
+        testPlayer2.setCreatedAt(LocalDateTime.now());
+        testPlayer2.setEmail("patchwerk@gmail.com");
+        playerDao.create(testPlayer2);
+        expectedPlayers = Arrays.asList(testPlayer, testPlayer2);
+        receivedPlayers = playerDao.findByUsername(testPlayer.getUsername());
+        Assert.assertEquals(receivedPlayers, expectedPlayers);
+
+        playerDao.remove(testPlayer);
+        playerDao.remove(testPlayer2);
+        receivedPlayers = playerDao.findByUsername(testPlayer.getUsername());
+        Assert.assertEquals(receivedPlayers.size(), 0);
+    }
+
 }

@@ -44,9 +44,9 @@ public class PlayerDaoImpl implements PlayerDao {
     }
 
     @Override
-    public Player findByUsername(String username) {
+    public List<Player>  findByUsername(String username) {
         return em.createQuery("select p from Player p where p.username LIKE :userName", Player.class)
                 .setParameter("userName", username)
-                .getSingleResult();
+                .getResultList();
     }
 }
