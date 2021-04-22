@@ -24,11 +24,11 @@ import javax.sql.DataSource;
 @EnableJpaRepositories
 @ComponentScan(basePackageClasses = {
         CompetitionDao.class,
-        CompetitorDao.class,
         GameDao.class,
         MemberDao.class,
         ScoreDao.class,
         TeamDao.class,
+        PlayerDao.class
 }, basePackages = "cz.fi.muni.pa165")
 public class PersistenceSampleApplicationContext {
 

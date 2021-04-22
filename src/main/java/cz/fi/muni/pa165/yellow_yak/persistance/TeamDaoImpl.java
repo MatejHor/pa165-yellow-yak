@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -51,7 +51,7 @@ public class TeamDaoImpl implements TeamDao {
     }
 
     @Override
-    public List<Team> getByCreatedAt(Date createdAt) {
+    public List<Team> getByCreatedAt(LocalDateTime createdAt) {
         return em.createQuery("select team from Team team where createdAt = :createdAt", Team.class)
                 .setParameter("createdAt", createdAt)
                 .getResultList();

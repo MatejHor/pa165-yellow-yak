@@ -1,79 +1,62 @@
 package cz.fi.muni.pa165.yellow_yak.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * @author oreqizer
  */
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@Table(
+        name = "score"
+)
 public class Score {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @OneToOne
-    @JoinColumn(name = "competitor_id", nullable = false)
-    private Competitor competitor;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Player player;
 
     @NotNull
-    private int index;
+    @ManyToOne
+    @JoinColumn(name = "competition_id")
+    private Competition competition;
 
-    @NotNull
+    private int placement;
+
+    private String result;
+
+    private String stats;
+
     @CreatedDate
-    private Date createdAt;
-
-    public Score() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Competitor getCompetitor() {
-        return competitor;
-    }
-
-    public void setCompetitor(Competitor competitor) {
-        this.competitor = competitor;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
+    private LocalDateTime createdAt;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Score)) return false;
-
-        Score that = (Score) o;
-
-        return id.equals(that.getId());
+        Score score = (Score) o;
+        return Objects.equals(getPlacement(), score.getPlacement()) &&
+                Objects.equals(getResult(), score.getResult()) &&
+                Objects.equals(getStats(), score.getStats()) &&
+                Objects.equals(getCreatedAt(), score.getCreatedAt());
     }
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + getCompetitor().hashCode();
-        result = 31 * result + getIndex();
-        result = 31 * result + getCreatedAt().hashCode();
-        return result;
+        return Objects.hash(getPlacement(), getResult(), getStats(), getCreatedAt());
     }
 }

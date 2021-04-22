@@ -1,9 +1,8 @@
 package cz.fi.muni.pa165.yellow_yak.persistance;
 
-import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import cz.fi.muni.pa165.yellow_yak.entity.Team;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -61,5 +60,5 @@ public interface TeamDao {
      * @param createdAt date to filter by
      * @return list of teams with specified creation date
      */
-    List<Team> getByCreatedAt(Date createdAt);
+    List<Team> getByCreatedAt(LocalDateTime createdAt);
 }
