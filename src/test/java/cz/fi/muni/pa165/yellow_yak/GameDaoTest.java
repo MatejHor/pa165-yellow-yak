@@ -138,4 +138,9 @@ public class GameDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertNull(gameDao.findById(gameTest.getId()));
     }
 
+    @Test(expectedExceptions = NullPointerException.class)
+    public void removeGameTestNull() {
+        gameDao.remove(null);
+    }
+
 }

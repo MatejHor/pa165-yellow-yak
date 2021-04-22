@@ -132,4 +132,9 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
         scoreDao.remove(scoreTest);
         Assert.assertNull(scoreDao.findById(scoreTest.getId()));
     }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void removeScoreTestNull() {
+        scoreDao.remove(null);
+    }
 }

@@ -145,4 +145,9 @@ public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertNotNull(resultList);
         Assert.assertEquals(resultList.size(), 0);
     }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void removeCompetitionTestNull() {
+        competitionDao.remove(null);
+    }
 }

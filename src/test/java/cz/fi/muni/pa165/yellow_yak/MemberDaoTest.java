@@ -138,5 +138,10 @@ public class MemberDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertNotNull(member);
         Assert.assertEquals(testMember, member);
     }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void removeMemberTestNull() {
+        memberDao.remove(null);
+    }
     
 }

@@ -94,6 +94,11 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertNull(removedTestTeam);
     }
 
+    @Test(expectedExceptions = NullPointerException.class)
+    public void removeTeamTestNull() {
+        teamDao.remove(null);
+    }
+
     @Test
     public void getAllTeamsTest() {
         List<Team> teamList = teamDao.getAll();
