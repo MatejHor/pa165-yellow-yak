@@ -2,19 +2,19 @@ CREATE TABLE player (
     id INT PRIMARY KEY,
     username VARCHAR(80) UNIQUE NOT NULL,
     email VARCHAR(80) UNIQUE NOT NULL,
-    createdAt TIME NOT NULL
+    created_at TIME NOT NULL
 );
 
 CREATE TABLE game (
     id INT PRIMARY KEY,
     name VARCHAR(80) UNIQUE NOT NULL,
-    createdAt TIME NOT NULL
+    created_at TIME NOT NULL
 );
 
 CREATE TABLE team (
     id INT PRIMARY KEY,
     name VARCHAR(80) UNIQUE NOT NULL,
-    createdAt TIME NOT NULL
+    created_at TIME NOT NULL
 );
 
 CREATE TABLE member (
@@ -27,9 +27,9 @@ CREATE TABLE competition (
     game_id INT NOT NULL REFERENCES game (id),
     name VARCHAR(80) UNIQUE NOT NULL,
     prices VARCHAR(255),
-    startedAt TIME NOT NULL,
-    finishedAt TIME,
-    createdAt TIME NOT NULL
+    started_at TIME NOT NULL,
+    finished_at TIME,
+    created_at TIME NOT NULL
 );
 
 CREATE TABLE score (
@@ -39,5 +39,5 @@ CREATE TABLE score (
     placement INT,
     result VARCHAR(255),
     stats VARCHAR(255),
-    createdAt TIME NOT NULL
+    created_at TIME NOT NULL
 );
