@@ -53,4 +53,18 @@ public interface CompetitionDao {
      * @return List of all Competitions which have same name as we provided
      */
     List<Competition> findByName(String name) ;
+
+    /**
+     * Finds all Competitions by game Id
+     *
+     * @param gameId Id of the Game, we want to find
+     * @return List of all Competitions which have same name as we provided
+     */
+    List<Competition> findByGame(Long gameId) ;
+
+    /**
+     * Finds specific Competition in the DB which is oldest
+     * @return found Competition
+     */
+    Competition findOldest();
 }
