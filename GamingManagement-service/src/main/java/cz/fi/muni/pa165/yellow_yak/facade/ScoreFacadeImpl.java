@@ -1,6 +1,5 @@
 package cz.fi.muni.pa165.yellow_yak.facade;
 
-import cz.fi.muni.pa165.yellow_yak.dto.GameDTO;
 import cz.fi.muni.pa165.yellow_yak.dto.PlayerDTO;
 import cz.fi.muni.pa165.yellow_yak.dto.ScoreDTO;
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
@@ -16,6 +15,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author matho
+ */
 @Service
 @Transactional
 public class ScoreFacadeImpl implements ScoreFacade {
@@ -52,9 +54,12 @@ public class ScoreFacadeImpl implements ScoreFacade {
     @Override
     public List<ScoreDTO> getPlayerScore(Long playerId, Long gameId, LocalDateTime oldest) {
         List<Competition> competitions = competitionService.findByGame(gameId);
+        log.info("Get competition by gameId(gameId=" + gameId +
+                ", competition size=" + competitions.size() + ")" );
         List<Score> scores = new ArrayList<>();
         if (oldest == null) {
             oldest = competitionService.findOldestCompetition();
+            log.info("Date was not provide, find oldest Competition(date=" + oldest + ")");
         }
 
         for (Competition competition: competitions) {
@@ -64,6 +69,8 @@ public class ScoreFacadeImpl implements ScoreFacade {
                     oldest
             ));
         }
+        log.info("Find all scores with PlayerId(playerId=" + playerId +
+                ", scores size=" + scores.size() + ")");
         return beanMappingService.mapTo(scores, ScoreDTO.class);
     }
 }

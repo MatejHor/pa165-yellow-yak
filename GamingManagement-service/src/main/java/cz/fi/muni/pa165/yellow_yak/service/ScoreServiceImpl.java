@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * @author matho
+ */
 @Service
 public class ScoreServiceImpl implements ScoreService{
     @Autowired

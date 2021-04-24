@@ -100,11 +100,61 @@ public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    public void findByGameCompetitionNullId() {
+        List<Competition> competitionList = competitionDao.findByGame(null);
+
+        Assert.assertNotNull(competitionList);
+        Assert.assertEquals(competitionList.size(), 0);
+    }
+
+    @Test
+    public void findByGameCompetitionNotExistsId() {
+        List<Competition> competitionList = competitionDao.findByGame(2L);
+
+        Assert.assertNotNull(competitionList);
+        Assert.assertEquals(competitionList.size(), 0);
+    }
+
+
+    @Test
+    public void findByGameCompetition() {
+        List<Competition> competitionList = competitionDao.findByGame(game.getId());
+
+        Assert.assertNotNull(competitionList);
+        Assert.assertEquals(competitionList.size(), 1);
+        Competition result = competitionList.get(0);
+        Assert.assertEquals(competition, result);
+    }
+
+    @Test
     public void findCompetition() {
         Competition result = competitionDao.findById(competition.getId());
 
         Assert.assertNotNull(result);
         Assert.assertEquals(competition, result);
+    }
+
+    @Test
+    public void findOldestCompetition() {
+        Competition competitionTest = new Competition();
+        competitionTest.setName("TestCreate");
+        competitionTest.setPrices("Price");
+        competitionTest.setCreatedAt(LocalDateTime.now().minusDays( 1 ));
+        competitionTest.setFinishedAt(LocalDateTime.now());
+        competitionTest.setStartedAt(LocalDateTime.now());
+        competitionTest.setGame(game);
+        competitionDao.create(competitionTest);
+
+        Competition result = competitionDao.findOldest();
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(competitionTest, result);
+    }
+
+    @Test(expectedExceptions = IndexOutOfBoundsException.class)
+    public void findOldestCompetitionNullCompetitions() {
+        competitionDao.remove(competition);
+        Competition result = competitionDao.findOldest();
     }
 
     @Test

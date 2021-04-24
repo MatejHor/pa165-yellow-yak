@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * @author matho
+ */
 @Service
 public class CompetitionServiceImpl implements CompetitionService{
     @Autowired
@@ -20,6 +23,6 @@ public class CompetitionServiceImpl implements CompetitionService{
 
     @Override
     public LocalDateTime findOldestCompetition() {
-        return competitionDao.findOldest().getCreatedAt();
+        return (competitionDao.findAll().isEmpty()) ? null : competitionDao.findOldest().getCreatedAt();
     }
 }

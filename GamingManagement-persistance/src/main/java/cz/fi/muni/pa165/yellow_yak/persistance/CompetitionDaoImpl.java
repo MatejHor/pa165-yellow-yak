@@ -44,7 +44,7 @@ public class CompetitionDaoImpl implements CompetitionDao {
 
     @Override
     public List<Competition> findByName(String name) {
-        return em.createQuery("select c from Competition c where name = :name", Competition.class)
+        return em.createQuery("select c from Competition c where c.name = :name", Competition.class)
                 .setParameter("name", name)
                 .getResultList();
 
@@ -52,7 +52,7 @@ public class CompetitionDaoImpl implements CompetitionDao {
 
     @Override
     public List<Competition> findByGame(Long gameId) {
-        return em.createQuery("select c from Competition c join c.game as g where g = :gameId",
+        return em.createQuery("select c from Competition c join c.game as g where g.id = :gameId",
                 Competition.class)
                 .setParameter("gameId", gameId)
                 .getResultList();
@@ -62,6 +62,6 @@ public class CompetitionDaoImpl implements CompetitionDao {
     @Override
     public Competition findOldest() {
         return em.createQuery("select c from Competition c order by c.createdAt",
-                Competition.class).getSingleResult();
+                Competition.class).getResultList().get(0);
     }
 }

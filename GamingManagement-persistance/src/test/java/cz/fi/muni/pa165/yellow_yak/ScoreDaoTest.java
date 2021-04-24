@@ -137,4 +137,61 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
     public void removeScoreTestNull() {
         scoreDao.remove(null);
     }
+
+    @Test
+    public void findByPlayerAndCompetitionAndDateScoreTest() {
+        List<Score> result = scoreDao.findByPlayerAndCompetitionAndDate(
+                player.getId(),
+                competition.getId(),
+                score.getCreatedAt());
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.size(), 1);
+        Score resultScore = result.get(0);
+        Assert.assertEquals(resultScore, score);
+    }
+
+    @Test
+    public void findByPlayerAndCompetitionAndDateScoreTestNotPlayer() {
+        List<Score> result = scoreDao.findByPlayerAndCompetitionAndDate(
+                null,
+                competition.getId(),
+                score.getCreatedAt());
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.size(), 0);
+    }
+
+    @Test
+    public void findByPlayerAndCompetitionAndDateScoreTestNotCompetition() {
+        List<Score> result = scoreDao.findByPlayerAndCompetitionAndDate(
+                player.getId(),
+                null,
+                score.getCreatedAt());
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.size(), 0);
+    }
+
+    @Test
+    public void findByPlayerAndCompetitionAndDateScoreTestNotCreatedAt() {
+        List<Score> result = scoreDao.findByPlayerAndCompetitionAndDate(
+                player.getId(),
+                competition.getId(),
+                null);
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.size(), 0);
+    }
+
+    @Test
+    public void findByPlayerAndCompetitionAndDateScoreTestEveryParamNull() {
+        List<Score> result = scoreDao.findByPlayerAndCompetitionAndDate(
+                null,
+                null,
+                null);
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.size(), 0);
+    }
 }
