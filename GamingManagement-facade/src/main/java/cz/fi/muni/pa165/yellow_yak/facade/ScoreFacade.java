@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.yellow_yak.facade;
 
+import cz.fi.muni.pa165.yellow_yak.dto.GameDTO;
 import cz.fi.muni.pa165.yellow_yak.dto.PlayerDTO;
 import cz.fi.muni.pa165.yellow_yak.dto.ScoreDTO;
 
