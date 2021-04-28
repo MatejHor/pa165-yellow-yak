@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.yellow_yak.persistance;
 
+import cz.fi.muni.pa165.yellow_yak.entity.Player;
 import cz.fi.muni.pa165.yellow_yak.entity.Team;
 import org.springframework.stereotype.Repository;
 
@@ -45,13 +46,15 @@ public class TeamDaoImpl implements TeamDao {
     }
 
     @Override
-    public void addPlayer(Long teamId, Long playerId) {
-
+    public void addPlayer(Team team, Player player) {
+        team.getPlayers().add(player);
+        player.getTeams().add(team);
     }
 
     @Override
-    public void removePlayer(Long teamId, Long playerId) {
-
+    public void removePlayer(Team team, Player player) {
+        team.getPlayers().remove(player);
+        player.getTeams().add(team);
     }
 
     @Override

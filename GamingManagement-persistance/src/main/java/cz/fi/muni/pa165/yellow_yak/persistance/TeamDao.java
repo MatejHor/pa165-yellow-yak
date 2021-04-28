@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.yellow_yak.persistance;
 
+import cz.fi.muni.pa165.yellow_yak.entity.Player;
 import cz.fi.muni.pa165.yellow_yak.entity.Team;
 
 import java.time.LocalDateTime;
@@ -48,17 +49,17 @@ public interface TeamDao {
 
     /**
      * Adds a player to the team
-     * @param teamId team id
-     * @param playerId player id
+     * @param team team
+     * @param player player
      */
-    public void addPlayer(Long teamId, Long playerId);
+    public void addPlayer(Team team, Player player);
 
     /**
      * Removes a player from the team
-     * @param teamId team id
-     * @param playerId player id
+     * @param team team
+     * @param player player
      */
-    public void removePlayer(Long teamId, Long playerId);
+    public void removePlayer(Team team, Player player);
 
     /**
      * Lists teams by a name

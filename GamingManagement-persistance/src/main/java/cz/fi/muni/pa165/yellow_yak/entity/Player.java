@@ -38,6 +38,7 @@ public class Player {
 
     // TODO check if this works
     // https://www.baeldung.com/jpa-many-to-many
+    // https://vladmihalcea.com/the-best-way-to-use-the-manytomany-annotation-with-jpa-and-hibernate/
     @ManyToMany(mappedBy = "players")
     private Set<Team> teams;
 
