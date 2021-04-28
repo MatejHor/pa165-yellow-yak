@@ -49,7 +49,7 @@ public class ScoreFacadeImpl implements ScoreFacade {
     @Override
     public List<GameDTO> getAllGame() {
         log.info("Get all Game");
-        return beanMappingService.mapTo(gameService.findAll(), GameDTO.class);
+        return beanMappingService.mapTo(gameService.listAll(), GameDTO.class);
     }
 
     @Override

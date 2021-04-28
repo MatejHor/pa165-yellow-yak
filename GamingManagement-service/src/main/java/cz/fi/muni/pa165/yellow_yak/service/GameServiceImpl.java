@@ -16,12 +16,12 @@ public class GameServiceImpl implements GameService{
     private GameDao gameDao;
 
     @Override
-    public List<Game> findAll() {
+    public List<Game> listAll() {
         return gameDao.findAll();
     }
 
     @Override
-    public Game find(Long gameId) {
+    public Game findById(Long gameId) {
         return gameDao.findById(gameId);
     }
 

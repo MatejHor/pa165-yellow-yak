@@ -82,6 +82,14 @@ public class CompetitionServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(competitionList.size(), 0);
     }
 
+    // TODO:
+    // - create
+    // - createNull
+    // - remove
+    // - removeNull
+    // - listByGame
+    // - listByGameNull
+
     @Test
     public void findByGameTestNotExistId() {
         List<Competition> competitionList = competitionService.listByGame(2L);

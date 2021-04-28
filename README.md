@@ -81,11 +81,15 @@ Team:
 - [x] DTOs
 - [x] Facade interfaces
 - [ ] Services by facade interfaces
-  - [ ] Competition, Player @oreqizer
+  - [x] Competition, Player @oreqizer
   - [ ] Game, Team @mknazik
-- [ ] DAOs by services (as needed)
-- [ ] DAO tests (as needed)
 - [ ] Service tests
+  - [ ] Game, Team @oreqizer
+  - [ ] Competition, Player @mknazik
+- [ ] DAOs by services
+  - [x] Competition, Player @oreqizer
+  - [ ] Game, Team @mknazik
+- [ ] DAO tests
   - [ ] Game, Team @oreqizer
   - [ ] Competition, Player @mknazik
 - [ ] Facade implementation

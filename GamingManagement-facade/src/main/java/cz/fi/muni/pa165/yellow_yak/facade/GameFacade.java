@@ -1,6 +1,5 @@
 package cz.fi.muni.pa165.yellow_yak.facade;
 
-import cz.fi.muni.pa165.yellow_yak.dto.CompetitionDTO;
 import cz.fi.muni.pa165.yellow_yak.dto.GameDTO;
 
 import java.util.List;
@@ -15,7 +14,7 @@ public interface GameFacade {
      * @param name game name
      * @return the created game
      */
-    public CompetitionDTO create(String name);
+    public GameDTO create(String name);
 
     /**
      * Removes the game

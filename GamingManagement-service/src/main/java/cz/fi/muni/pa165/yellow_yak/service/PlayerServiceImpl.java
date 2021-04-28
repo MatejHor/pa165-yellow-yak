@@ -34,7 +34,7 @@ public class PlayerServiceImpl implements PlayerService{
     }
 
     @Override
-    public List<Player> findByUsername(String username) {
+    public List<Player> listByUsername(String username) {
         return playerDao.findByUsername(username);
     }
 
