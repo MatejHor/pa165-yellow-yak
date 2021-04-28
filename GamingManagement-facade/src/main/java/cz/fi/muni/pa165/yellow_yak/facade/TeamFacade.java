@@ -44,11 +44,11 @@ public interface TeamFacade {
     public TeamDTO findById(Long id);
 
     /**
-     * Finds a team by name
+     * Lists teams by name
      * @param name the name to find
-     * @return the team
+     * @return the team list
      */
-    public TeamDTO findByName(String name);
+    public List<TeamDTO> listByName(String name);
 
     /**
      * Finds teams by competition

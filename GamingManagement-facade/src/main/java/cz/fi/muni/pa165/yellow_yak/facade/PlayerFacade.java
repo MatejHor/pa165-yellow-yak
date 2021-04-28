@@ -31,11 +31,11 @@ public interface PlayerFacade {
     public PlayerDTO findById(Long id);
 
     /**
-     * Finds a player by name
-     * @param name the name to find
-     * @return the player
+     * Lists players by username
+     * @param username the username to find
+     * @return the player list
      */
-    public PlayerDTO findByName(String name);
+    public List<PlayerDTO> listByUsername(String username);
 
     /**
      * Finds players by team

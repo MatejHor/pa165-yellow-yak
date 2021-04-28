@@ -31,11 +31,11 @@ public interface GameFacade {
     public GameDTO findById(Long id);
 
     /**
-     * Finds a game by name
+     * Lists games by name
      * @param name the name to find
-     * @return the game
+     * @return the game list
      */
-    public GameDTO findByName(String name);
+    public List<GameDTO> listByName(String name);
 
     /**
      * Returns all games
