@@ -24,6 +24,13 @@ public interface GameFacade {
     public void remove(GameDTO g);
 
     /**
+     * Finds a game by id
+     * @param id the ID to find
+     * @return the game
+     */
+    public GameDTO findById(Long id);
+
+    /**
      * Finds a game by name
      * @param name the name to find
      * @return the game
@@ -31,9 +38,9 @@ public interface GameFacade {
     public GameDTO findByName(String name);
 
     /**
-     * Returns all games for this game
+     * Returns all games
      * @return list of games
      */
-    public List<GameDTO> findAll();
+    public List<GameDTO> listAll();
 
 }

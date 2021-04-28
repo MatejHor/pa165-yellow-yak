@@ -32,9 +32,16 @@ public interface TeamFacade {
 
     /**
      * Removes the team
-     * @param c team to remove
+     * @param id id to remove
      */
-    public void remove(TeamDTO c);
+    public void remove(Long id);
+
+    /**
+     * Finds a team by id
+     * @param id the ID to find
+     * @return the team
+     */
+    public TeamDTO findById(Long id);
 
     /**
      * Finds a team by name

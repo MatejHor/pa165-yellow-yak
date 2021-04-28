@@ -1,9 +1,7 @@
 package cz.fi.muni.pa165.yellow_yak.facade;
 
 import cz.fi.muni.pa165.yellow_yak.dto.PlayerDTO;
-import cz.fi.muni.pa165.yellow_yak.dto.TeamDTO;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -21,9 +19,16 @@ public interface PlayerFacade {
 
     /**
      * Removes the player
-     * @param p player to remove
+     * @param id id to remove
      */
-    public void remove(PlayerDTO p);
+    public void remove(Long id);
+
+    /**
+     * Finds a player by id
+     * @param id the ID to find
+     * @return the player
+     */
+    public PlayerDTO findById(Long id);
 
     /**
      * Finds a player by name
@@ -31,13 +36,6 @@ public interface PlayerFacade {
      * @return the player
      */
     public PlayerDTO findByName(String name);
-
-    /**
-     * Finds a player by email
-     * @param email the email to find
-     * @return the player
-     */
-    public PlayerDTO findByEmail(String email);
 
     /**
      * Finds players by team

@@ -20,16 +20,16 @@ public interface CompetitionFacade {
 
     /**
      * Removes the competition
-     * @param c competition to remove
+     * @param id id to remove
      */
-    public void remove(CompetitionDTO c);
+    public void remove(Long id);
 
     /**
-     * Finds a competition by name
-     * @param name the name to find
+     * Finds a competition by id
+     * @param id the ID to find
      * @return the competition
      */
-    public CompetitionDTO findByName(String name);
+    public CompetitionDTO findById(Long id);
 
     /**
      * Returns all competitions for this game
