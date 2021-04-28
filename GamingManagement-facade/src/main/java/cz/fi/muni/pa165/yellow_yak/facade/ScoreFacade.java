@@ -11,6 +11,8 @@ import java.util.List;
  * @author matho
  */
 public interface ScoreFacade {
+    // TODO add mutations and comments
+
     public List<PlayerDTO> getAllPlayer();
     public List<GameDTO> getAllGame();
     public List<ScoreDTO> getPlayerScore(Long playerId, Long gameId, LocalDateTime oldest);
