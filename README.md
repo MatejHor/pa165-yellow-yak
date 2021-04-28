@@ -80,17 +80,18 @@ Team:
 
 - [x] DTOs
 - [x] Facade interfaces
+- [ ] Score @matejhorniak ...?
 - [ ] Services by facade interfaces
   - [x] Competition, Player @oreqizer
   - [ ] Game, Team @mknazik
 - [ ] Service tests
-  - [ ] Game, Team @oreqizer
+  - [x] Game, Team @oreqizer
   - [ ] Competition, Player @mknazik
 - [ ] DAOs by services
   - [x] Competition, Player @oreqizer
   - [ ] Game, Team @mknazik
 - [ ] DAO tests
-  - [ ] Game, Team @oreqizer
+  - [x] Game, Team @oreqizer
   - [ ] Competition, Player @mknazik
 - [ ] Facade implementation
   - [ ] Competition, Player @oreqizer
