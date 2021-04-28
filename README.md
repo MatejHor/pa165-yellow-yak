@@ -58,6 +58,7 @@ Team:
 * `GET /teams/:id/players` -> `TeamFacade.listByPlayer`
 * `POST /teams/:id/players` -> `TeamFacade.addPlayer`
 * `DELETE /teams/:id/players/:id` -> `TeamFacade.removePlayer`
+* `GET /teams?name=` -> `TeamFacade.listByName`
 * `GET /teams?competition=` -> `TeamFacade.listByCompetition`
 
 ## TODO
