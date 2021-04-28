@@ -18,6 +18,7 @@ import org.testng.annotations.Test;
 import java.util.Collections;
 import java.util.List;
 
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 /**
@@ -41,41 +42,84 @@ public class GameServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @BeforeMethod
-    public void createGame() {
-        Game gameTest = new Game();
-        gameTest.setName("TestGame");
-
-        game = gameTest;
-
-        when(gameDao.findById(1L)).thenReturn(gameTest);
-        when(gameDao.findById(null)).thenReturn(null);
-        when(gameDao.findById(2L)).thenReturn(null);
-        when(gameDao.findAll()).thenReturn(Collections.singletonList(gameTest));
+    public void setup() {
+        game = new Game();
+        game.setName("TestGame");
     }
 
     @Test
-    public void findExisting() {
+    public void create() {
+        String name = "Battlefield 6";
+        Game game = gameService.create(name);
+
+        Game gameWant = new Game();
+        gameWant.setName(name);
+        Assert.assertEquals(game, gameWant);
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void createNull() {
+        doThrow(NullPointerException.class).when(gameDao).create(null);
+
+        gameService.create(null);
+    }
+
+    @Test
+    public void remove() {
+        doThrow(NullPointerException.class).when(gameDao).remove(null);
+
+        gameService.remove(game.getId());
+
+        Assert.assertNull(gameDao.findById(game.getId()));
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void removeNull() {
+        doThrow(NullPointerException.class).when(gameDao).remove(null);
+
+        gameService.remove(null);
+    }
+
+    @Test
+    public void findByIdExisting() {
+        when(gameDao.findById(1L)).thenReturn(game);
+
         Game gameTest = gameService.findById(1L);
 
         Assert.assertEquals(gameTest, game);
     }
 
     @Test
-    public void findNonExisting() {
+    public void findByIdNonExisting() {
+        when(gameDao.findById(2L)).thenReturn(null);
+
         Game gameTest = gameService.findById(2L);
 
         Assert.assertNull(gameTest);
     }
 
-    @Test
-    public void findNull() {
-        Game gameTest = gameService.findById(null);
+    @Test(expectedExceptions = NullPointerException.class)
+    public void findByIdNull() {
+        when(gameDao.findById(null)).thenThrow(NullPointerException.class);
 
-        Assert.assertNull(gameTest);
+        gameService.findById(null);
     }
 
     @Test
-    public void findAll() {
+    public void listByName() {
+        when(gameDao.findByName("Game")).thenReturn(Collections.singletonList(game));
+
+        List<Game> list = gameService.listByName("Game");
+
+        Assert.assertNotNull(list);
+        Assert.assertEquals(list.size(), 1);
+        Assert.assertEquals(list.get(0), game);
+    }
+
+    @Test
+    public void listAll() {
+        when(gameDao.findAll()).thenReturn(Collections.singletonList(game));
+
         List<Game> gameTestList = gameService.listAll();
 
         Assert.assertNotNull(gameTestList);

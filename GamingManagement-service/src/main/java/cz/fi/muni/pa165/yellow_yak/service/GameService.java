@@ -18,9 +18,9 @@ public interface GameService {
 
     /**
      * Removes the game
-     * @param g game to remove
+     * @param id id to remove
      */
-    public void remove(Game g);
+    public void remove(Long id);
 
     /**
      * Finds a game by id

@@ -62,6 +62,7 @@ public class MemberDaoTest extends AbstractTestNGSpringContextTests {
         em.close();
     }
 
+    @Test
     public void createMemberTest() {
         EntityManager em = emf.createEntityManager();
 

@@ -45,5 +45,5 @@ public interface GameDao {
      * @param name specific game name
      * @return List of games
      */
-    Game findByName(String name) ;
+    List<Game> findByName(String name) ;
 }

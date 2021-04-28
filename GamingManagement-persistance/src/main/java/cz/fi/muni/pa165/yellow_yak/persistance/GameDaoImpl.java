@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -44,9 +45,13 @@ public class GameDaoImpl implements GameDao{
     }
 
     @Override
-    public Game findByName(String name) {
-        return em.createQuery("select g from Game g where g.name LIKE :gameName", Game.class)
-                .setParameter("gameName", name)
-                .getSingleResult();
+    public List<Game> findByName(String name) {
+        try {
+            return em.createQuery("select g from Game g where g.name LIKE :gameName", Game.class)
+                    .setParameter("gameName", name)
+                    .getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

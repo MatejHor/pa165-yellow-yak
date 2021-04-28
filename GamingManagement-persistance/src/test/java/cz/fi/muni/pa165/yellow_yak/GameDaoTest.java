@@ -13,6 +13,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceUnit;
 import javax.validation.ConstraintViolationException;
+import javax.validation.constraints.Null;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -77,10 +78,23 @@ public class GameDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findByNameGame() {
-        Game gameTest = gameDao.findByName(game.getName());
+        List<Game> list = gameDao.findByName(game.getName());
 
-        Assert.assertNotNull(gameTest);
-        Assert.assertEquals(gameTest.getName(), game.getName());
+        Assert.assertNotNull(list);
+        Assert.assertEquals(list.size(), 1);
+        Assert.assertEquals(list.get(0), game);
+    }
+
+    @Test
+    public void findByNameGameNone() {
+        List<Game> list = gameDao.findByName("");
+
+        Assert.assertNull(list);
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void findByNameGameNull() {
+        gameDao.findByName(null);
     }
 
     @Test
