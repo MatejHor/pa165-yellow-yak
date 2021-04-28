@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -27,6 +28,11 @@ public class Team {
 
     @NotNull
     private String name;
+
+    // TODO check if this works
+    // https://www.baeldung.com/jpa-many-to-many
+    @ManyToMany
+    List<Player> players;
 
     private LocalDateTime createdAt;
 

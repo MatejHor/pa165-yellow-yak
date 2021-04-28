@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -33,6 +34,11 @@ public class Player {
     @NotNull
     @Email
     private String email;
+
+    // TODO check if this works
+    // https://www.baeldung.com/jpa-many-to-many
+    @ManyToMany
+    private List<Team> teams;
 
     private LocalDateTime createdAt;
 
