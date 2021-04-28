@@ -54,7 +54,7 @@ public class TeamDaoImpl implements TeamDao {
     @Override
     public void removePlayer(Team team, Player player) {
         team.getPlayers().remove(player);
-        player.getTeams().add(team);
+        player.getTeams().remove(team);
     }
 
     @Override
