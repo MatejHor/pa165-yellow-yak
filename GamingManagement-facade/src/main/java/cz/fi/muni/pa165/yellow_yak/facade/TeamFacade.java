@@ -17,6 +17,19 @@ public interface TeamFacade {
     public TeamDTO create(String name);
 
     /**
+     * Removes the team
+     * @param id id to remove
+     */
+    public void remove(Long id);
+
+    /**
+     * Finds a team by id
+     * @param id the ID to find
+     * @return the team
+     */
+    public TeamDTO findById(Long id);
+
+    /**
      * Adds a player to the team
      * @param teamId team id
      * @param playerId player id
@@ -29,19 +42,6 @@ public interface TeamFacade {
      * @param playerId player id
      */
     public void removePlayer(Long teamId, Long playerId);
-
-    /**
-     * Removes the team
-     * @param id id to remove
-     */
-    public void remove(Long id);
-
-    /**
-     * Finds a team by id
-     * @param id the ID to find
-     * @return the team
-     */
-    public TeamDTO findById(Long id);
 
     /**
      * Lists teams by name

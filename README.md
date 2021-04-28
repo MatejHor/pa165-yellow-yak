@@ -25,38 +25,40 @@ be seen by the users with the best teams according to different games and statis
 ## API
 
 Competition:
-* `POST /competition` -> `CompetitionFacade.create`
-* `DELETE /competition/:id` -> `CompetitionFacade.remove`
-* `GET /competition/:id` -> `CompetitionFacade.findById`
-* `GET /competition?game=` -> `CompetitionFacade.listByGame`
+* `GET /competitions/:id` -> `CompetitionFacade.findById`
+* `POST /competitions` -> `CompetitionFacade.create`
+* `DELETE /competitions/:id` -> `CompetitionFacade.remove`
+* `GET /competitions?game=` -> `CompetitionFacade.listByGame`
 
 Game:
-* `POST /game` -> `GameFacade.create`
-* `DELETE /game/:id` -> `GameFacade.remove`
-* `GET /game/:id` -> `GameFacade.findById`
-* `GET /game?name=` -> `GameFacade.listByName`
-* `GET /game` -> `GameFacade.listAll`
+* `GET /games/:id` -> `GameFacade.findById`
+* `POST /games` -> `GameFacade.create`
+* `DELETE /games/:id` -> `GameFacade.remove`
+* `GET /games?name=` -> `GameFacade.listByName`
+* `GET /games` -> `GameFacade.listAll`
 
 Player:
-* `POST /player` -> `PlayerFacade.create`
-* `DELETE /player/:id` -> `PlayerFacade.remove`
-* `GET /player/:id` -> `PlayerFacade.findById`
-* `GET /player?username=` -> `PlayerFacade.listByUsername`
-* `GET /player?team=` -> `PlayerFacade.listByTeam`
+* `GET /players/:id` -> `PlayerFacade.findById`
+* `POST /players` -> `PlayerFacade.create`
+* `DELETE /players/:id` -> `PlayerFacade.remove`
+* `GET /players?username=` -> `PlayerFacade.listByUsername`
+* `GET /players?team=` -> `PlayerFacade.listByTeam`
 
 Score:
+* `GET /score/:id` -> `ScoreFacade.findById`
 * `POST /score` -> `ScoreFacade.create`
 * `DELETE /score/:id` -> `ScoreFacade.remove`
-* `GET /score/:id` -> `ScoreFacade.findById`
 * `GET /score?game=&player=` -> `ScoreFacade.listByPlayerGame`
 * `GET /score?competition=` -> `ScoreFacade.listByCompetition`
   
 Team:
-* `POST /team` -> `TeamFacade.create`
-* `DELETE /team/:id` -> `TeamFacade.remove`
-* `GET /team/:id` -> `TeamFacade.findById`
-* `GET /team?competition=` -> `TeamFacade.listByCompetition`
-* `GET /team?player=` -> `TeamFacade.listByPlayer`
+* `GET /teams/:id` -> `TeamFacade.findById`
+* `POST /teams` -> `TeamFacade.create`
+* `DELETE /teams/:id` -> `TeamFacade.remove`
+* `GET /teams/:id/players` -> `TeamFacade.listByPlayer`
+* `POST /teams/:id/players` -> `TeamFacade.addPlayer`
+* `DELETE /teams/:id/players/:id` -> `TeamFacade.removePlayer`
+* `GET /teams?competition=` -> `TeamFacade.listByCompetition`
 
 ## TODO
 
