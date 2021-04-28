@@ -22,6 +22,42 @@ be seen by the users with the best teams according to different games and statis
 
 ![Alt text](wiki/UseCaseDiagram.PNG "UseCase diagram")
 
+## API
+
+Competition:
+* `POST /competition` -> `CompetitionFacade.create`
+* `DELETE /competition/:id` -> `CompetitionFacade.remove`
+* `GET /competition/:id` -> `CompetitionFacade.findById`
+* `GET /competition?game=` -> `CompetitionFacade.listByGame`
+
+Game:
+* `POST /game` -> `GameFacade.create`
+* `DELETE /game/:id` -> `GameFacade.remove`
+* `GET /game/:id` -> `GameFacade.findById`
+* `GET /game?name=` -> `GameFacade.listByName`
+* `GET /game` -> `GameFacade.listAll`
+
+Player:
+* `POST /player` -> `PlayerFacade.create`
+* `DELETE /player/:id` -> `PlayerFacade.remove`
+* `GET /player/:id` -> `PlayerFacade.findById`
+* `GET /player?username=` -> `PlayerFacade.listByUsername`
+* `GET /player?team=` -> `PlayerFacade.listByTeam`
+
+Score:
+* `POST /score` -> `ScoreFacade.create`
+* `DELETE /score/:id` -> `ScoreFacade.remove`
+* `GET /score/:id` -> `ScoreFacade.findById`
+* `GET /score?game=&player=` -> `ScoreFacade.listByPlayerGame`
+* `GET /score?competition=` -> `ScoreFacade.listByCompetition`
+  
+Team:
+* `POST /team` -> `TeamFacade.create`
+* `DELETE /team/:id` -> `TeamFacade.remove`
+* `GET /team/:id` -> `TeamFacade.findById`
+* `GET /team?competition=` -> `TeamFacade.listByCompetition`
+* `GET /team?player=` -> `TeamFacade.listByPlayer`
+
 ## TODO
 
 ```java
