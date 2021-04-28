@@ -16,8 +16,14 @@ public class GameServiceImpl implements GameService{
     private GameDao gameDao;
 
     @Override
-    public List<Game> listAll() {
-        return gameDao.findAll();
+    public Game create(String name) {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public void remove(Long id) {
+        // TODO
     }
 
     @Override
@@ -25,5 +31,15 @@ public class GameServiceImpl implements GameService{
         return gameDao.findById(gameId);
     }
 
+    @Override
+    public List<Game> listByName(String name) {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public List<Game> listAll() {
+        return gameDao.findAll();
+    }
 
 }
