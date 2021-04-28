@@ -24,11 +24,11 @@ public interface CompetitionService {
     public void remove(Long competitionId);
 
     /**
-     * Finds a competition by name
-     * @param name the name to find
+     * Finds a competition by id
+     * @param id the id to find
      * @return the competition
      */
-    public Competition findByName(String name);
+    public Competition findById(Long id);
 
     /**
      * Returns all competitions for this game

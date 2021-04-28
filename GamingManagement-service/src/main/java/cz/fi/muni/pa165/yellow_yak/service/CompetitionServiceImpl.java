@@ -38,8 +38,8 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public Competition findByName(String name) {
-        competitionDao.remove(competitionDao.findById(competitionId));
+    public Competition findById(Long id) {
+        return competitionDao.findById(id);
     }
 
     @Override

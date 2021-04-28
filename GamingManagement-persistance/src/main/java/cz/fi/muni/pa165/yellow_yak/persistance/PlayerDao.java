@@ -46,5 +46,13 @@ public interface PlayerDao {
      * @param username specific player username
      * @return List of players
      */
-    List<Player> findByUsername(String username) ;
+    List<Player> findByUsername(String username);
+
+    /**
+     * List players by team
+     * @param teamId team ID
+     * @return players
+     */
+    List<Player> listByTeam(Long teamId);
+
 }
