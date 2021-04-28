@@ -123,18 +123,4 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(teamList.get(0), testTeam);
     }
 
-    @Test
-    public void getTeamByCreatedAtTest() {
-        Team newTeam = new Team();
-        newTeam.setCreatedAt(testTeam.getCreatedAt());
-        newTeam.setName("Test Team3");
-        teamDao.create(newTeam);
-
-        List<Team> teamList = teamDao.getByCreatedAt(testTeam.getCreatedAt());
-        Assert.assertNotNull(teamList);
-        Assert.assertEquals(teamList.size(), 2);
-        Assert.assertEquals(teamList, List.of(testTeam,newTeam));
-    }
-
-
 }

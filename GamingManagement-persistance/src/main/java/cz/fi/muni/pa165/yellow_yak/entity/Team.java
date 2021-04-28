@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Matej Knazik
@@ -31,8 +32,16 @@ public class Team {
 
     // TODO check if this works
     // https://www.baeldung.com/jpa-many-to-many
-    @ManyToMany
-    List<Player> players;
+    // https://vladmihalcea.com/the-best-way-to-use-the-manytomany-annotation-with-jpa-and-hibernate/
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "team_player",
+            joinColumns = @JoinColumn(name = "team_id"),
+            inverseJoinColumns = @JoinColumn(name = "player_id")
+    )
+    Set<Player> players;
 
     private LocalDateTime createdAt;
 

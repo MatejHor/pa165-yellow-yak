@@ -4,6 +4,7 @@ import cz.fi.muni.pa165.yellow_yak.entity.Team;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -44,16 +45,46 @@ public class TeamDaoImpl implements TeamDao {
     }
 
     @Override
-    public List<Team> getByName(String name) {
-        return em.createQuery("select team from Team team where name = :name", Team.class)
-                .setParameter("name", name)
-                .getResultList();
+    public void addPlayer(Long teamId, Long playerId) {
+
     }
 
     @Override
-    public List<Team> getByCreatedAt(LocalDateTime createdAt) {
-        return em.createQuery("select team from Team team where createdAt = :createdAt", Team.class)
-                .setParameter("createdAt", createdAt)
-                .getResultList();
+    public void removePlayer(Long teamId, Long playerId) {
+
     }
+
+    @Override
+    public List<Team> getByName(String name) {
+        try {
+            return em.createQuery("select team from Team team where name = :name", Team.class)
+                    .setParameter("name", name)
+                    .getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Team> getByCompetition(Long competitionId) {
+        try {
+            return em.createQuery("select t from Competition c join Team t where c.id = :competitionId", Team.class)
+                    .setParameter("competitionId", competitionId)
+                    .getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Team> getByPlayer(Long playerId) {
+        try {
+            return em.createQuery("select t from Player p join Team t where p.id = :playerId", Team.class)
+                    .setParameter("playerId", playerId)
+                    .getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
 }

@@ -47,6 +47,20 @@ public interface TeamDao {
     Team getById(Long id);
 
     /**
+     * Adds a player to the team
+     * @param teamId team id
+     * @param playerId player id
+     */
+    public void addPlayer(Long teamId, Long playerId);
+
+    /**
+     * Removes a player from the team
+     * @param teamId team id
+     * @param playerId player id
+     */
+    public void removePlayer(Long teamId, Long playerId);
+
+    /**
      * Lists teams by a name
      *
      * @param name team's name to filter by
@@ -55,10 +69,17 @@ public interface TeamDao {
     List<Team> getByName(String name);
 
     /**
-     * Lists teams by a date of their creation
-     *
-     * @param createdAt date to filter by
-     * @return list of teams with specified creation date
+     * Finds teams by competition
+     * @param competitionId the competition's ID
+     * @return the teams found
      */
-    List<Team> getByCreatedAt(LocalDateTime createdAt);
+    public List<Team> getByCompetition(Long competitionId);
+
+    /**
+     * Finds teams by player
+     * @param playerId the player's ID
+     * @return the teams found
+     */
+    public List<Team> getByPlayer(Long playerId);
+
 }

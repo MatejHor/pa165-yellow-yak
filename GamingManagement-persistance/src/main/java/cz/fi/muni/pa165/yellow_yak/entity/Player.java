@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Matej Horniak
@@ -37,8 +38,8 @@ public class Player {
 
     // TODO check if this works
     // https://www.baeldung.com/jpa-many-to-many
-    @ManyToMany
-    private List<Team> teams;
+    @ManyToMany(mappedBy = "players")
+    private Set<Team> teams;
 
     private LocalDateTime createdAt;
 
