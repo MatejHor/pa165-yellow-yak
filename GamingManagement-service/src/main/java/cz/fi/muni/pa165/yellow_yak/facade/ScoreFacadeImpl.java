@@ -54,14 +54,10 @@ public class ScoreFacadeImpl implements ScoreFacade {
 
     @Override
     public List<ScoreDTO> getPlayerScore(Long playerId, Long gameId, LocalDateTime oldest) {
-        List<Competition> competitions = competitionService.findByGame(gameId);
+        List<Competition> competitions = competitionService.listByGame(gameId);
         log.info("Get competition by gameId(gameId=" + gameId +
                 ", competition size=" + competitions.size() + ")" );
         List<Score> scores = new ArrayList<>();
-        if (oldest == null) {
-            oldest = competitionService.findOldestCompetition();
-            log.info("Date was not provide, find oldest Competition(date=" + oldest + ")");
-        }
 
         for (Competition competition: competitions) {
             scores.addAll(scoreService.findByPlayerAndCompetitionAndDate(

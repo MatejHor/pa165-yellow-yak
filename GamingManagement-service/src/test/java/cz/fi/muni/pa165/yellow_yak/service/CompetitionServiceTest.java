@@ -66,7 +66,7 @@ public class CompetitionServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findByGameTest() {
-        List<Competition> competitionList = competitionService.findByGame(1L);
+        List<Competition> competitionList = competitionService.listByGame(1L);
 
         Assert.assertNotNull(competitionList);
         Assert.assertEquals(competitionList.size(), 1);
@@ -76,7 +76,7 @@ public class CompetitionServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findByGameTestNullId() {
-        List<Competition> competitionList = competitionService.findByGame(null);
+        List<Competition> competitionList = competitionService.listByGame(null);
 
         Assert.assertNotNull(competitionList);
         Assert.assertEquals(competitionList.size(), 0);
@@ -84,26 +84,10 @@ public class CompetitionServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findByGameTestNotExistId() {
-        List<Competition> competitionList = competitionService.findByGame(2L);
+        List<Competition> competitionList = competitionService.listByGame(2L);
 
         Assert.assertNotNull(competitionList);
         Assert.assertEquals(competitionList.size(), 0);
     }
 
-    @Test
-    public void findOldestTest() {
-        when(competitionDao.findAll()).thenReturn(Collections.singletonList(competition));
-        LocalDateTime oldestCompetition = competitionService.findOldestCompetition();
-
-        Assert.assertNotNull(oldestCompetition);
-        Assert.assertEquals(oldestCompetition, competition.getCreatedAt());
-    }
-
-    @Test
-    public void findOldestTestNullCompetitions() {
-        when(competitionDao.findAll()).thenReturn(Collections.emptyList());
-        LocalDateTime oldestCompetition = competitionService.findOldestCompetition();
-
-        Assert.assertNull(oldestCompetition);
-    }
 }

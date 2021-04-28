@@ -34,9 +34,8 @@ public interface CompetitionFacade {
     /**
      * Returns all competitions for this game
      * @param gameId the game to filter by
-     * @param since since when to display competitions
      * @return list of competitions
      */
-    public List<CompetitionDTO> listByGame(Long gameId, LocalDateTime since);
+    public List<CompetitionDTO> listByGame(Long gameId);
 
 }
