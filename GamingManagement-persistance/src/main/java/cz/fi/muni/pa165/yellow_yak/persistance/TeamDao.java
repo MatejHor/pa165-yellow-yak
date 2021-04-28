@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.yellow_yak.persistance;
 
+import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Player;
 import cz.fi.muni.pa165.yellow_yak.entity.Team;
 
@@ -71,16 +72,16 @@ public interface TeamDao {
 
     /**
      * Finds teams by competition
-     * @param competitionId the competition's ID
+     * @param competition the competition
      * @return the teams found
      */
-    public List<Team> getByCompetition(Long competitionId);
+    public List<Team> getByCompetition(Competition competition);
 
     /**
      * Finds teams by player
-     * @param playerId the player's ID
+     * @param player the player
      * @return the teams found
      */
-    public List<Team> getByPlayer(Long playerId);
+    public List<Team> getByPlayer(Player player);
 
 }

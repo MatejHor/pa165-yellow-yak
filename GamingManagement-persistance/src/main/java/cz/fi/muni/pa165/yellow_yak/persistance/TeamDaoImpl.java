@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.yellow_yak.persistance;
 
+import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Player;
 import cz.fi.muni.pa165.yellow_yak.entity.Team;
 import org.springframework.stereotype.Repository;
@@ -69,25 +70,29 @@ public class TeamDaoImpl implements TeamDao {
     }
 
     @Override
-    public List<Team> getByCompetition(Long competitionId) {
-        try {
-            return em.createQuery("select t from Competition c join Team t where c.id = :competitionId", Team.class)
-                    .setParameter("competitionId", competitionId)
-                    .getResultList();
-        } catch (NoResultException e) {
-            return null;
-        }
+    public List<Team> getByCompetition(Competition competition) {
+//        try {
+//            // TODO maybe join through scores? ask for help
+//            return em.createQuery("select t from Competition c join Score join Player join Team t where c.id = :competition", Team.class)
+//                    .setParameter("competition", competition)
+//                    .getResultList();
+//        } catch (NoResultException e) {
+//            return null;
+//        }
+        return null;
     }
 
     @Override
-    public List<Team> getByPlayer(Long playerId) {
-        try {
-            return em.createQuery("select t from Player p join Team t where p.id = :playerId", Team.class)
-                    .setParameter("playerId", playerId)
-                    .getResultList();
-        } catch (NoResultException e) {
-            return null;
-        }
+    public List<Team> getByPlayer(Player player) {
+//        try {
+//            // TODO this is many-to-many, check if query works, ask for help
+//            return em.createQuery("select t from Player p join Team t where p.id = :player", Team.class)
+//                    .setParameter("player", player)
+//                    .getResultList();
+//        } catch (NoResultException e) {
+//            return null;
+//        }
+        return null;
     }
 
 }

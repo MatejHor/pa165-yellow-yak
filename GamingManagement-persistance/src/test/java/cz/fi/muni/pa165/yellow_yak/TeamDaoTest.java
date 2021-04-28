@@ -1,6 +1,6 @@
 package cz.fi.muni.pa165.yellow_yak;
 
-import cz.fi.muni.pa165.yellow_yak.entity.Team;
+import cz.fi.muni.pa165.yellow_yak.entity.*;
 import cz.fi.muni.pa165.yellow_yak.persistance.TeamDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -15,10 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceUnit;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -30,7 +27,7 @@ import java.util.Random;
 public class TeamDaoTest extends AbstractTestNGSpringContextTests {
 
     @PersistenceUnit
-    private EntityManagerFactory entityManagerFactory;
+    private EntityManagerFactory emf;
     private Team testTeam;
 
     @Autowired
@@ -38,8 +35,6 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     private void beforeEach() {
-        EntityManager em = entityManagerFactory.createEntityManager();
-
         Team testTeam1 = new Team();
         testTeam1.setCreatedAt(LocalDateTime.now());
         testTeam1.setName("Test Team" + new Random().nextInt());
@@ -108,14 +103,53 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void getTeamByIdTest() {
+    public void getByIdTest() {
         Team desiredTeam = teamDao.getById(testTeam.getId());
         Assert.assertNotNull(desiredTeam);
         Assert.assertEquals(testTeam, desiredTeam);
     }
 
+    @Test(expectedExceptions = NullPointerException.class)
+    public void getByIdNullTest() {
+        teamDao.getById(null);
+    }
+
     @Test
-    public void getTeamByNameTest() {
+    public void addPlayerTest() {
+        Player player = new Player();
+        player.setUsername("Playah");
+        player.setEmail("lol@kek.bur");
+
+        teamDao.addPlayer(testTeam, player);
+
+        Assert.assertEquals(testTeam.getPlayers().size(), 1);
+        Assert.assertTrue(testTeam.getPlayers().contains(player));
+        Assert.assertEquals(player.getTeams().size(), 1);
+        Assert.assertTrue(player.getTeams().contains(testTeam));
+    }
+
+    @Test
+    public void removePlayerTest() {
+        Player player = new Player();
+        player.setUsername("Playah");
+        player.setEmail("lol@kek.bur");
+
+        testTeam.getPlayers().add(player);
+        player.getTeams().add(testTeam);
+
+        Assert.assertEquals(testTeam.getPlayers().size(), 1);
+        Assert.assertTrue(testTeam.getPlayers().contains(player));
+        Assert.assertEquals(player.getTeams().size(), 1);
+        Assert.assertTrue(player.getTeams().contains(testTeam));
+
+        teamDao.removePlayer(testTeam, player);
+
+        Assert.assertEquals(testTeam.getPlayers().size(), 0);
+        Assert.assertEquals(player.getTeams().size(), 0);
+    }
+
+    @Test
+    public void getByNameTest() {
         List<Team> teamList = teamDao.getByName(testTeam.getName());
         Assert.assertNotNull(teamList);
         Assert.assertEquals(teamList.size(), 1);
@@ -123,6 +157,76 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(teamList.get(0), testTeam);
     }
 
-    // TODO tests
+    @Test
+    public void getByCompetitionTest() {
+        EntityManager em = emf.createEntityManager();
+
+        Game game = new Game();
+        game.setName("Game");
+        game.setCreatedAt(LocalDateTime.now());
+
+        Competition competition = new Competition();
+        competition.setGame(game);
+        competition.setName("Competition");
+        competition.setStartedAt(LocalDateTime.now());
+        competition.setCreatedAt(LocalDateTime.now());
+
+        Player player = new Player();
+        player.setUsername("Playah");
+        player.setEmail("lol@kek.bur");
+
+        testTeam.getPlayers().add(player);
+        player.getTeams().add(testTeam);
+
+        Score score = new Score();
+        score.setCompetition(competition);
+        score.setPlayer(player);
+        score.setCreatedAt(LocalDateTime.now());
+
+        em.getTransaction().begin();
+        em.persist(game);
+        em.persist(competition);
+        em.persist(player);
+        em.persist(score);
+        em.getTransaction().commit();
+
+        List<Team> res = teamDao.getByCompetition(competition);
+
+        Assert.assertNotNull(res);
+        Assert.assertEquals(res.size(), 1);
+        Assert.assertEquals(res.get(0), testTeam);
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void getByCompetitionNullTest() {
+        teamDao.getByCompetition(null);
+    }
+
+    @Test
+    public void getByPlayerTest() {
+        EntityManager em = emf.createEntityManager();
+
+        Player player = new Player();
+        player.setUsername("Playah");
+        player.setEmail("lol@kek.bur");
+
+        testTeam.getPlayers().add(player);
+        player.getTeams().add(testTeam);
+
+        em.getTransaction().begin();
+        em.persist(player);
+        em.getTransaction().commit();
+
+        List<Team> res = teamDao.getByPlayer(player);
+
+        Assert.assertNotNull(res);
+        Assert.assertEquals(res.size(), 1);
+        Assert.assertEquals(res.get(0), testTeam);
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void getByPlayerNullTest() {
+        teamDao.getByPlayer(null);
+    }
 
 }
