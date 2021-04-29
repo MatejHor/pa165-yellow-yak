@@ -9,9 +9,32 @@ import java.util.List;
  * @author matho
  */
 public interface CompetitionService {
+
     /**
-     * Find Game by specific id
-     * @param gameId if of player
+     * Creates a new competition
+     * @param gameId ID of the game
+     * @param name competition name
+     * @return the created competition
+     */
+    public Competition create(Long gameId, String name);
+
+    /**
+     * Removes the competition
+     * @param competitionId competition ID to remove
+     */
+    public void remove(Long competitionId);
+
+    /**
+     * Finds a competition by id
+     * @param id the id to find
+     * @return the competition
+     */
+    public Competition findById(Long id);
+
+    /**
+     * Returns all competitions for this game
+     * @param gameId the game to filter by
+     * @return list of competitions
      */
     public List<Competition> findByGame(Long gameId);
 

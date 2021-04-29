@@ -5,7 +5,7 @@ import cz.fi.muni.pa165.yellow_yak.entity.Player;
 import java.util.List;
 
 /**
- * @author Matej Horniak
+ * @author Matej Horniak, oreqizer
  */
 public interface PlayerDao {
 
@@ -46,5 +46,13 @@ public interface PlayerDao {
      * @param username specific player username
      * @return List of players
      */
-    List<Player> findByUsername(String username) ;
+    List<Player> findByUsername(String username);
+
+    /**
+     * List players by team
+     * @param teamId team ID
+     * @return players
+     */
+    List<Player> findByTeam(Long teamId);
+
 }

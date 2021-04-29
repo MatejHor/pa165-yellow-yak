@@ -56,21 +56,21 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findExisting() {
-        Player playerTest = playerService.find(1L);
+        Player playerTest = playerService.findById(1L);
 
         Assert.assertEquals(playerTest, player);
     }
 
     @Test
     public void findNonExisting() {
-        Player playerTest = playerService.find(2L);
+        Player playerTest = playerService.findById(2L);
 
         Assert.assertNull(playerTest);
     }
 
     @Test
     public void findNull() {
-        Player playerTest = playerService.find(null);
+        Player playerTest = playerService.findById(null);
 
         Assert.assertNull(playerTest);
     }
