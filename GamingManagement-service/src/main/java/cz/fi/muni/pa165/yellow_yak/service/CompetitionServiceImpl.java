@@ -6,11 +6,12 @@ import cz.fi.muni.pa165.yellow_yak.persistance.GameDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * @author matho
+ * @author matho, oreqizer
  */
 @Service
 public class CompetitionServiceImpl implements CompetitionService {
@@ -22,7 +23,7 @@ public class CompetitionServiceImpl implements CompetitionService {
     private GameDao gameDao;
 
     @Override
-    public Competition create(Long gameId, String name) {
+    public Competition create(@NotNull Long gameId, @NotNull String name) {
         Competition competition = new Competition();
         competition.setGame(gameDao.findById(gameId));
         competition.setName(name);
@@ -33,22 +34,23 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public void remove(Long competitionId) {
+    public void remove(@NotNull Long competitionId) {
         competitionDao.remove(competitionDao.findById(competitionId));
     }
 
     @Override
-    public Competition findById(Long id) {
+    public Competition findById(@NotNull Long id) {
         return competitionDao.findById(id);
     }
 
     @Override
-    public List<Competition> findByGame(Long gameId) {
-        return competitionDao.findByGame(gameId);
+    public List<Competition> findByGame(@NotNull Long gameId) {
+        return competitionDao.findByGame(gameDao.findById(gameId));
     }
 
     @Override
     public LocalDateTime findOldestCompetition() {
         return (competitionDao.findAll().isEmpty()) ? null : competitionDao.findOldest().getCreatedAt();
     }
+
 }

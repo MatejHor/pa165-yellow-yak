@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.yellow_yak.persistance;
 
 import cz.fi.muni.pa165.yellow_yak.entity.Player;
+import cz.fi.muni.pa165.yellow_yak.entity.Team;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -51,10 +52,10 @@ public class PlayerDaoImpl implements PlayerDao {
     }
 
     @Override
-    public List<Player> findByTeam(Long teamId) {
-        return em.createQuery("select p from Team t join Player p where t.id = :teamId",
+    public List<Player> findByTeam(Team team) {
+        return em.createQuery("select p from Player p join Member m on m.player = p where m.team = :team",
                 Player.class)
-                .setParameter("teamId", teamId)
+                .setParameter("team", team)
                 .getResultList();
     }
 

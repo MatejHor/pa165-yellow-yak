@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.yellow_yak.persistance;
 
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
+import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -51,10 +52,10 @@ public class CompetitionDaoImpl implements CompetitionDao {
     }
 
     @Override
-    public List<Competition> findByGame(Long gameId) {
-        return em.createQuery("select c from Competition c join c.game as g where g.id = :gameId",
+    public List<Competition> findByGame(Game game) {
+        return em.createQuery("select c from Competition c join c.game as g where g = :game",
                 Competition.class)
-                .setParameter("gameId", gameId)
+                .setParameter("game", game)
                 .getResultList();
 
     }

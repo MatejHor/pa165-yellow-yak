@@ -45,13 +45,13 @@ public class PlayerFacadeImpl implements PlayerFacade {
     }
 
     @Override
-    public List<PlayerDTO> listByUsername(String username) {
+    public List<PlayerDTO> findByUsername(String username) {
         log.info("listing player by username, username = {}", username);
         return beanMappingService.mapTo(playerService.findByUsername(username), PlayerDTO.class);
     }
 
     @Override
-    public List<PlayerDTO> listByTeam(Long teamId) {
+    public List<PlayerDTO> findByTeam(Long teamId) {
         log.info("listing player by team, teamId = {}", teamId);
         return beanMappingService.mapTo(playerService.findByTeam(teamId), PlayerDTO.class);
     }
