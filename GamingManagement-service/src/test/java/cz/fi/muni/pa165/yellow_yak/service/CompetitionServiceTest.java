@@ -4,6 +4,7 @@ import cz.fi.muni.pa165.yellow_yak.config.ServiceConfiguration;
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import cz.fi.muni.pa165.yellow_yak.persistance.CompetitionDao;
+import cz.fi.muni.pa165.yellow_yak.persistance.GameDao;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -31,6 +32,8 @@ public class CompetitionServiceTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private CompetitionDao competitionDao;
+    @Mock
+    private GameDao gameDao;
 
     @Autowired
     @InjectMocks
@@ -44,7 +47,7 @@ public class CompetitionServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @BeforeMethod
-    public void createCompetitions() {
+    public void setup() {
         Game game = new Game();
         game.setName("TestGame");
 
@@ -89,9 +92,14 @@ public class CompetitionServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findByGameTest() {
-        when(competitionDao.findByGame(1L)).thenReturn(Collections.singletonList(competition));
+        Game game = new Game();
+        game.setId(1337L);
+        game.setName("Battlefield 6");
 
-        List<Competition> competitionList = competitionService.findByGame(1L);
+        when(gameDao.findById(game.getId())).thenReturn(game);
+        when(competitionDao.findByGame(game)).thenReturn(Collections.singletonList(competition));
+
+        List<Competition> competitionList = competitionService.findByGame(game.getId());
 
         Assert.assertNotNull(competitionList);
         Assert.assertEquals(competitionList.size(), 1);
@@ -104,16 +112,6 @@ public class CompetitionServiceTest extends AbstractTestNGSpringContextTests {
         when(competitionDao.findByGame(null)).thenReturn(Collections.emptyList());
 
         List<Competition> competitionList = competitionService.findByGame(null);
-
-        Assert.assertNotNull(competitionList);
-        Assert.assertEquals(competitionList.size(), 0);
-    }
-
-    @Test
-    public void findByGameTestNotExistId() {
-        when(competitionDao.findByGame(2L)).thenReturn(Collections.emptyList());
-
-        List<Competition> competitionList = competitionService.findByGame(2L);
 
         Assert.assertNotNull(competitionList);
         Assert.assertEquals(competitionList.size(), 0);
