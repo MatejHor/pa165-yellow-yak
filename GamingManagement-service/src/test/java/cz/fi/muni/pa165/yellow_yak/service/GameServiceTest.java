@@ -51,6 +51,32 @@ public class GameServiceTest extends AbstractTestNGSpringContextTests {
         when(gameDao.findById(null)).thenReturn(null);
         when(gameDao.findById(2L)).thenReturn(null);
         when(gameDao.findAll()).thenReturn(Collections.singletonList(gameTest));
+        when(gameDao.findByName("TestGame")).thenReturn(Collections.singletonList(gameTest));
+        when(gameDao.findByName("GameName")).thenReturn(null);
+        when(gameDao.findByName(null)).thenReturn(null);
+    }
+
+    @Test
+    public void createTest() {
+        Game gameTest = gameService.create("TestGame");
+
+        Assert.assertNotNull(gameTest);
+        Assert.assertEquals(gameTest.getName(), "TestGame");
+    }
+
+    @Test
+    public void createTestNullName() {
+        Game gameTest = gameService.create(null);
+
+        Assert.assertNull(gameTest);
+    }
+
+    @Test
+    public void removeTest() {
+        gameService.remove(2L);
+
+        Game gameTest = gameService.find(2L);
+        Assert.assertNull(gameTest);
     }
 
     @Test
@@ -82,5 +108,29 @@ public class GameServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(gameTestList.size(), 1);
         Game gameTest = gameTestList.get(0);
         Assert.assertEquals(gameTest, game);
+    }
+
+    @Test
+    public void findByName() {
+        List<Game> gameTestList = gameService.findByName("TestGame");
+
+        Assert.assertNotNull(gameTestList);
+        Assert.assertEquals(gameTestList.size(), 1);
+        Game gameTest = gameTestList.get(0);
+        Assert.assertEquals(gameTest, game);
+    }
+
+    @Test
+    public void findByNonExistingName() {
+        List<Game> gameTestList = gameService.findByName("GameName");
+
+        Assert.assertNull(gameTestList);
+    }
+
+    @Test
+    public void findByNullName() {
+        List<Game> gameTestList = gameService.findByName(null);
+
+        Assert.assertNull(gameTestList);
     }
 }

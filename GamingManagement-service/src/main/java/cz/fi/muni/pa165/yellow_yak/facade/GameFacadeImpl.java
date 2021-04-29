@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import java.util.List;
 
+/**
+ * @author Lukas Mikula
+ */
 public class GameFacadeImpl implements GameFacade{
     final static Logger log = LoggerFactory.getLogger(ScoreFacadeImpl.class);
 
@@ -20,22 +23,26 @@ public class GameFacadeImpl implements GameFacade{
 
     @Override
     public GameDTO create(String name) {
-        return null;
+        log.info("creating game, name = {}", name);
+        return beanMappingService.mapTo(gameService.create(name), GameDTO.class);
     }
 
     @Override
     public void remove(Long id) {
-
+        log.info("removing game, id = {}", id);
+        gameService.remove(id);
     }
 
     @Override
     public GameDTO findById(Long id) {
-        return null;
+        log.info("finding game by ID, id = {}", id);
+        return beanMappingService.mapTo(gameService.find(id), GameDTO.class);
     }
 
     @Override
     public List<GameDTO> findByName(String name) {
-        return null;
+        log.info("listing game by name, name = {}", name);
+        return beanMappingService.mapTo(gameService.findByName(name), GameDTO.class);
     }
 
     @Override

@@ -5,6 +5,7 @@ import cz.fi.muni.pa165.yellow_yak.persistance.GameDao;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -16,8 +17,22 @@ public class GameServiceImpl implements GameService{
     private GameDao gameDao;
 
     @Override
-    public List<Game> findAll() {
-        return gameDao.findAll();
+    public Game create(String name) {
+        if (name == null) return null;
+
+        Game game = new Game();
+        game.setName(name);
+        game.setCreatedAt(LocalDateTime.now());
+
+        gameDao.create(game);
+        return game;
+    }
+
+    @Override
+    public void remove(Long id) {
+        if (id == null) return;
+
+        gameDao.remove(gameDao.findById(id));
     }
 
     @Override
@@ -25,5 +40,15 @@ public class GameServiceImpl implements GameService{
         return gameDao.findById(gameId);
     }
 
+    @Override
+    public List<Game> findAll() {
+        return gameDao.findAll();
+    }
 
+    @Override
+    public List<Game> findByName(String name) {
+        if (name == null) return null;
+
+        return gameDao.findByName(name);
+    }
 }
