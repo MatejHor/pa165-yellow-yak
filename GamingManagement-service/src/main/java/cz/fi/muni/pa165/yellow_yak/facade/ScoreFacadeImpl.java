@@ -43,7 +43,7 @@ public class ScoreFacadeImpl implements ScoreFacade {
     @Override
     public List<PlayerDTO> getAllPlayer() {
         log.info("Get all Player");
-        return beanMappingService.mapTo(playerService.findAll(), PlayerDTO.class);
+        return beanMappingService.mapTo(playerService.listAll(), PlayerDTO.class);
     }
 
     @Override
@@ -70,4 +70,35 @@ public class ScoreFacadeImpl implements ScoreFacade {
                 ", scores size=" + scores.size() + ")");
         return beanMappingService.mapTo(scores, ScoreDTO.class);
     }
+
+    @Override
+    public ScoreDTO create(Long competitionId, Long playerId) {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public void remove(Long id) {
+        // TODO
+
+    }
+
+    @Override
+    public ScoreDTO findById(Long id) {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public List<ScoreDTO> listByPlayerGame(Long playerId, Long gameId) {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public List<ScoreDTO> listByCompetition(Long competitionId) {
+        // TODO
+        return null;
+    }
+
 }
