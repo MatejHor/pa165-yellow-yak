@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.yellow_yak.persistance;
 
 import cz.fi.muni.pa165.yellow_yak.entity.Player;
+import cz.fi.muni.pa165.yellow_yak.entity.Team;
 
 import java.util.List;
 
@@ -50,9 +51,9 @@ public interface PlayerDao {
 
     /**
      * List players by team
-     * @param teamId team ID
+     * @param team team
      * @return players
      */
-    List<Player> findByTeam(Long teamId);
+    List<Player> findByTeam(Team team);
 
 }

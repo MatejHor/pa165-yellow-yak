@@ -1,6 +1,8 @@
 package cz.fi.muni.pa165.yellow_yak;
 
+import cz.fi.muni.pa165.yellow_yak.entity.Member;
 import cz.fi.muni.pa165.yellow_yak.entity.Player;
+import cz.fi.muni.pa165.yellow_yak.entity.Team;
 import cz.fi.muni.pa165.yellow_yak.persistance.PlayerDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -11,9 +13,13 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
+import javax.persistence.PersistenceUnit;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,6 +28,9 @@ import java.util.List;
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
+
+    @PersistenceUnit
+    private EntityManagerFactory emf;
 
     @Autowired
     private PlayerDao playerDao;
@@ -144,6 +153,37 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = NullPointerException.class)
     public void removePlayerTestNull() {
         playerDao.remove(null);
+    }
+
+    @Test
+    public void findPlayerByTeamTest() {
+        EntityManager em = emf.createEntityManager();
+
+        Team team = new Team();
+        team.setName("kekegas");
+        team.setCreatedAt(LocalDateTime.now());
+
+        Member member = new Member();
+        member.setPlayer(testPlayer);
+        member.setTeam(team);
+        member.setCreatedAt(LocalDateTime.now());
+
+        em.getTransaction().begin();
+        em.persist(team);
+        em.persist(member);
+        em.getTransaction().commit();
+
+        List<Player> res = playerDao.findByTeam(team);
+
+        Assert.assertNotNull(res);
+        Assert.assertEquals(res.size(), 1);
+        Assert.assertEquals(res.get(0), testPlayer);
+
+        em.getTransaction().begin();
+        em.remove(member);
+        em.remove(team);
+        em.getTransaction().commit();
+        em.close();
     }
 
 }

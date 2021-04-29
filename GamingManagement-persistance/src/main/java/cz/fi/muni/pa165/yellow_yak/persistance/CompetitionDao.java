@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.yellow_yak.persistance;
 
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
+import cz.fi.muni.pa165.yellow_yak.entity.Game;
 
 import java.util.List;
 
@@ -57,10 +58,10 @@ public interface CompetitionDao {
     /**
      * Finds all Competitions by game Id
      *
-     * @param gameId Id of the Game, we want to find
+     * @param game Id of the Game, we want to find
      * @return List of all Competitions which have same name as we provided
      */
-    List<Competition> findByGame(Long gameId) ;
+    List<Competition> findByGame(Game game) ;
 
     /**
      * Finds specific Competition in the DB which is oldest

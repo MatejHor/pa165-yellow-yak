@@ -2,14 +2,8 @@ package cz.fi.muni.pa165.yellow_yak.config;
 
 
 import cz.fi.muni.pa165.yellow_yak.PersistenceSampleApplicationContext;
-import cz.fi.muni.pa165.yellow_yak.dto.CompetitionDTO;
-import cz.fi.muni.pa165.yellow_yak.dto.GameDTO;
-import cz.fi.muni.pa165.yellow_yak.dto.PlayerDTO;
-import cz.fi.muni.pa165.yellow_yak.dto.ScoreDTO;
-import cz.fi.muni.pa165.yellow_yak.entity.Competition;
-import cz.fi.muni.pa165.yellow_yak.entity.Game;
-import cz.fi.muni.pa165.yellow_yak.entity.Player;
-import cz.fi.muni.pa165.yellow_yak.entity.Score;
+import cz.fi.muni.pa165.yellow_yak.dto.*;
+import cz.fi.muni.pa165.yellow_yak.entity.*;
 import cz.fi.muni.pa165.yellow_yak.facade.ScoreFacadeImpl;
 import cz.fi.muni.pa165.yellow_yak.service.CompetitionService;
 import cz.fi.muni.pa165.yellow_yak.service.GameService;
@@ -55,6 +49,7 @@ public class ServiceConfiguration {
             mapping(Competition.class, CompetitionDTO.class);
             mapping(Game.class, GameDTO.class);
             mapping(Player.class, PlayerDTO.class);
+            mapping(Team.class, TeamDTO.class);
         }
     }
 

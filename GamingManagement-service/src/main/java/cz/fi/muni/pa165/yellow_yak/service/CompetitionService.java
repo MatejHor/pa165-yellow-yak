@@ -2,11 +2,12 @@ package cz.fi.muni.pa165.yellow_yak.service;
 
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * @author matho
+ * @author matho, oreqizer
  */
 public interface CompetitionService {
 
@@ -16,27 +17,27 @@ public interface CompetitionService {
      * @param name competition name
      * @return the created competition
      */
-    public Competition create(Long gameId, String name);
+    public Competition create(@NotNull Long gameId, @NotNull String name);
 
     /**
      * Removes the competition
      * @param competitionId competition ID to remove
      */
-    public void remove(Long competitionId);
+    public void remove(@NotNull Long competitionId);
 
     /**
      * Finds a competition by id
      * @param id the id to find
      * @return the competition
      */
-    public Competition findById(Long id);
+    public Competition findById(@NotNull Long id);
 
     /**
      * Returns all competitions for this game
      * @param gameId the game to filter by
      * @return list of competitions
      */
-    public List<Competition> findByGame(Long gameId);
+    public List<Competition> findByGame(@NotNull Long gameId);
 
     /**
      * Find Competition which have oldest createdAt date

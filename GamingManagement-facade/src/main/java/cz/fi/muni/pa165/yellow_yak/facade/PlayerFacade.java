@@ -35,14 +35,14 @@ public interface PlayerFacade {
      * @param username the username to find
      * @return the player list
      */
-    public List<PlayerDTO> findByUsername(String username);
+    public List<PlayerDTO> listByUsername(String username);
 
     /**
      * Finds players by team
      * @param teamId the team's ID
      * @return the players found
      */
-    public List<PlayerDTO> findByTeam(Long teamId);
+    public List<PlayerDTO> listByTeam(Long teamId);
 
     /**
      * Finds players

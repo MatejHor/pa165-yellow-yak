@@ -108,17 +108,8 @@ public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findByGameCompetitionNotExistsId() {
-        List<Competition> competitionList = competitionDao.findByGame(2L);
-
-        Assert.assertNotNull(competitionList);
-        Assert.assertEquals(competitionList.size(), 0);
-    }
-
-
-    @Test
     public void findByGameCompetition() {
-        List<Competition> competitionList = competitionDao.findByGame(game.getId());
+        List<Competition> competitionList = competitionDao.findByGame(game);
 
         Assert.assertNotNull(competitionList);
         Assert.assertEquals(competitionList.size(), 1);
