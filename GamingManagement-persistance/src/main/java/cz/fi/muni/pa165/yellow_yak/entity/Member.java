@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -22,7 +22,7 @@ public class Member {
     private Long id;
 
     @NotNull
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     @NotNull
     @ManyToOne

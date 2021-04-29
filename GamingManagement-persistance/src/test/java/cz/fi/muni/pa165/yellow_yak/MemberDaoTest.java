@@ -15,7 +15,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceUnit;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -52,7 +51,7 @@ public class MemberDaoTest extends AbstractTestNGSpringContextTests {
         testMember = new Member();
         testMember.setPlayer(testPlayer);
         testMember.setTeam(testTeam);
-        testMember.setCreatedAt(LocalDate.now());
+        testMember.setCreatedAt(LocalDateTime.now());
 
         em.getTransaction().begin();
         em.persist(testPlayer);
@@ -62,6 +61,7 @@ public class MemberDaoTest extends AbstractTestNGSpringContextTests {
         em.close();
     }
 
+    @Test
     public void createMemberTest() {
         EntityManager em = emf.createEntityManager();
 
@@ -78,7 +78,7 @@ public class MemberDaoTest extends AbstractTestNGSpringContextTests {
         Member member = new Member();
         member.setPlayer(player);
         member.setTeam(testTeam);
-        member.setCreatedAt(LocalDate.now());
+        member.setCreatedAt(LocalDateTime.now());
 
         member.setPlayer(player);
         memberDao.create(member);

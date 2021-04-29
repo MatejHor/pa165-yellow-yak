@@ -2,6 +2,7 @@ package cz.fi.muni.pa165.yellow_yak.service;
 
 import cz.fi.muni.pa165.yellow_yak.entity.Player;
 import cz.fi.muni.pa165.yellow_yak.persistance.PlayerDao;
+import cz.fi.muni.pa165.yellow_yak.persistance.TeamDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,12 @@ import java.util.List;
  */
 @Service
 public class PlayerServiceImpl implements PlayerService {
+
     @Autowired
     private PlayerDao playerDao;
+
+    @Autowired
+    private TeamDao teamDao;
 
     @Override
     public Player create(String name, String email) {
@@ -40,7 +45,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public List<Player> findByTeam(@NotNull Long teamId) {
-        return playerDao.findByTeam(teamId);
+        return playerDao.findByTeam(teamDao.getById(teamId));
     }
 
     @Override

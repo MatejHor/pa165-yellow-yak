@@ -4,7 +4,9 @@ import cz.fi.muni.pa165.yellow_yak.config.ServiceConfiguration;
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import cz.fi.muni.pa165.yellow_yak.entity.Player;
+import cz.fi.muni.pa165.yellow_yak.entity.Team;
 import cz.fi.muni.pa165.yellow_yak.persistance.PlayerDao;
+import cz.fi.muni.pa165.yellow_yak.persistance.TeamDao;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -32,6 +34,8 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private PlayerDao playerDao;
+    @Mock
+    private TeamDao teamDao;
 
     @Autowired
     @InjectMocks
@@ -117,11 +121,14 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findByTeam() {
-        Long teamId = 1337L;
+        Team team = new Team();
+        team.setId(1337L);
+        team.setName("kekegas");
 
-        when(playerDao.findByTeam(teamId)).thenReturn(Collections.singletonList(player));
+        when(teamDao.getById(team.getId())).thenReturn(team);
+        when(playerDao.findByTeam(team)).thenReturn(Collections.singletonList(player));
 
-        List<Player> playerTestList = playerService.findByTeam(teamId);
+        List<Player> playerTestList = playerService.findByTeam(team.getId());
 
         Assert.assertNotNull(playerTestList);
         Assert.assertEquals(playerTestList.size(), 1);
