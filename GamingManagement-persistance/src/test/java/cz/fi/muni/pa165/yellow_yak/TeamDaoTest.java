@@ -113,7 +113,7 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void getTeamByNameTest() {
-        List<Team> teamList = teamDao.findById(testTeam.getName());
+        List<Team> teamList = teamDao.findByName(testTeam.getName());
         Assert.assertNotNull(teamList);
         Assert.assertEquals(teamList.size(), 1);
 

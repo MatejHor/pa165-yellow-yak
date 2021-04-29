@@ -1,5 +1,7 @@
 package cz.fi.muni.pa165.yellow_yak.service;
 
+import cz.fi.muni.pa165.yellow_yak.dto.GameDTO;
+import cz.fi.muni.pa165.yellow_yak.dto.TeamDTO;
 import cz.fi.muni.pa165.yellow_yak.entity.Team;
 
 import javax.validation.constraints.NotNull;
@@ -33,7 +35,13 @@ public interface TeamService {
     /**
      * Returns all teams with specified name
      * @param name the team name to filter by
-     * @return list of found names or null in case there is no such a team
+     * @return list of found teams
      */
     public List<Team> findByName(@NotNull String name);
+
+    /**
+     * Returns all team
+     * @return list of teams
+     */
+    public List<Team> findAll();
 }

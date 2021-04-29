@@ -5,6 +5,8 @@ import cz.fi.muni.pa165.yellow_yak.service.BeanMappingService;
 import cz.fi.muni.pa165.yellow_yak.service.TeamService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.List;
 /**
  * @author Matej Knazik
  */
+@Service
+@Transactional
 public class TeamFacadeImpl implements TeamFacade {
 
     final static Logger log = LoggerFactory.getLogger(TeamFacadeImpl.class);
@@ -29,37 +33,20 @@ public class TeamFacadeImpl implements TeamFacade {
     }
 
     @Override
-    public void remove(Long id) {
-
+    public void remove(Long teamId) {
+        log.info("removing team, id = {}", teamId);
+        teamService.remove(teamId);
     }
 
     @Override
-    public TeamDTO findById(Long id) {
-        return null;
+    public TeamDTO findById(Long teamId) {
+        log.info("finding team by ID, id = {}", teamId);
+        return beanMappingService.mapTo(teamService.findById(teamId), TeamDTO.class);
     }
 
     @Override
-    public void addPlayer(Long teamId, Long playerId) {
-
-    }
-
-    @Override
-    public void removePlayer(Long teamId, Long playerId) {
-
-    }
-
-    @Override
-    public List<TeamDTO> listByName(String name) {
-        return null;
-    }
-
-    @Override
-    public List<TeamDTO> listByCompetition(Long competitionId) {
-        return null;
-    }
-
-    @Override
-    public List<TeamDTO> listByPlayer(Long playerId) {
-        return null;
+    public List<TeamDTO> findByName(String name) {
+        log.info("finding teams by name, name = {}", name);
+        return beanMappingService.mapTo(teamService.findByName(name), TeamDTO.class);
     }
 }
