@@ -51,7 +51,7 @@ public class ScoreDaoImpl implements ScoreDao {
         return em.createQuery(
                 "select s from Score s" +
                         " join s.player as p join s.competition as c " +
-                        "where p.id = :playerId and c.id = :competitionId and (:createdAt is null or s.createdAt = :createdAt)",
+                        "where p.id = :playerId and c.id = :competitionId and s.createdAt = :createdAt",
                 Score.class)
                 .setParameter("playerId", playerId)
                 .setParameter("competitionId", competitionId)

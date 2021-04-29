@@ -90,4 +90,20 @@ public class CompetitionServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(competitionList.size(), 0);
     }
 
+    @Test
+    public void findOldestTest() {
+        when(competitionDao.findAll()).thenReturn(Collections.singletonList(competition));
+        LocalDateTime oldestCompetition = competitionService.findOldestCompetition();
+
+        Assert.assertNotNull(oldestCompetition);
+        Assert.assertEquals(oldestCompetition, competition.getCreatedAt());
+    }
+
+    @Test
+    public void findOldestTestNullCompetitions() {
+        when(competitionDao.findAll()).thenReturn(Collections.emptyList());
+        LocalDateTime oldestCompetition = competitionService.findOldestCompetition();
+
+        Assert.assertNull(oldestCompetition);
+    }
 }

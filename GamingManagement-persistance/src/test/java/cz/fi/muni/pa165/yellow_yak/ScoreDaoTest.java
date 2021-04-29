@@ -181,7 +181,7 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
                 null);
 
         Assert.assertNotNull(result);
-        Assert.assertEquals(result.size(), 1);
+        Assert.assertEquals(result.size(), 0);
     }
 
     @Test
@@ -194,5 +194,4 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertNotNull(result);
         Assert.assertEquals(result.size(), 0);
     }
-
 }

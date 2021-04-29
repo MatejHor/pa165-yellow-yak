@@ -47,4 +47,8 @@ public class CompetitionServiceImpl implements CompetitionService {
         return competitionDao.findByGame(gameId);
     }
 
+    @Override
+    public LocalDateTime findOldestCompetition() {
+        return (competitionDao.findAll().isEmpty()) ? null : competitionDao.findOldest().getCreatedAt();
+    }
 }
