@@ -1,11 +1,14 @@
 package cz.fi.muni.pa165.yellow_yak.service;
 
 import cz.fi.muni.pa165.yellow_yak.config.ServiceConfiguration;
+import cz.fi.muni.pa165.yellow_yak.entity.Competition;
+import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import cz.fi.muni.pa165.yellow_yak.entity.Player;
 import cz.fi.muni.pa165.yellow_yak.persistance.PlayerDao;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,6 +18,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,46 +46,96 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void createPlayer() {
-        Player playerTest = new Player();
-        playerTest.setUsername("TestPlayerName");
-        playerTest.setEmail("TestPlayerEmail");
-
-        player = playerTest;
-
-        when(playerDao.findById(1L)).thenReturn(playerTest);
-        when(playerDao.findById(null)).thenReturn(null);
-        when(playerDao.findById(2L)).thenReturn(null);
-        when(playerDao.findAll()).thenReturn(Collections.singletonList(playerTest));
+        player = new Player();
+        player.setUsername("blazeit_michael");
+        player.setEmail("kek@lol.bur");
     }
 
     @Test
-    public void findExisting() {
+    public void createCompetition() {
+        Player p = new Player();
+        p.setUsername("xxx_BILLY_xxx");
+        p.setEmail("lol@kek.bur");
+        p.setCreatedAt(LocalDateTime.now());
+
+        Player res = playerService.create(p.getUsername(), p.getEmail());
+
+        Assert.assertEquals(res, p);
+    }
+
+    @Test
+    public void removeCompetition() {
+        playerService.remove(player.getId());
+    }
+
+    @Test
+    public void findByIdCompetition() {
+        Mockito.doReturn(player).when(playerDao).findById(player.getId());
+
+        Player res = playerService.findById(player.getId());
+
+        Assert.assertEquals(player, res);
+    }
+
+    @Test
+    public void findByIdExisting() {
+        when(playerDao.findById(1L)).thenReturn(player);
+
         Player playerTest = playerService.findById(1L);
 
         Assert.assertEquals(playerTest, player);
     }
 
     @Test
-    public void findNonExisting() {
+    public void findByIdNonExisting() {
+        when(playerDao.findById(2L)).thenReturn(null);
+
         Player playerTest = playerService.findById(2L);
 
         Assert.assertNull(playerTest);
     }
 
     @Test
-    public void findNull() {
+    public void findByIdNull() {
+        when(playerDao.findById(null)).thenReturn(null);
+
         Player playerTest = playerService.findById(null);
 
         Assert.assertNull(playerTest);
     }
 
     @Test
+    public void findByUsername() {
+        when(playerDao.findByUsername(player.getUsername())).thenReturn(Collections.singletonList(player));
+
+        List<Player> playerTestList = playerService.findByUsername(player.getUsername());
+
+        Assert.assertNotNull(playerTestList);
+        Assert.assertEquals(playerTestList.size(), 1);
+        Assert.assertEquals(playerTestList.get(0), player);
+    }
+
+    @Test
+    public void findByTeam() {
+        Long teamId = 1337L;
+
+        when(playerDao.findByTeam(teamId)).thenReturn(Collections.singletonList(player));
+
+        List<Player> playerTestList = playerService.findByTeam(teamId);
+
+        Assert.assertNotNull(playerTestList);
+        Assert.assertEquals(playerTestList.size(), 1);
+        Assert.assertEquals(playerTestList.get(0), player);
+    }
+
+    @Test
     public void findAll() {
+        when(playerDao.findAll()).thenReturn(Collections.singletonList(player));
+
         List<Player> playerTestList = playerService.findAll();
 
         Assert.assertNotNull(playerTestList);
         Assert.assertEquals(playerTestList.size(), 1);
-        Player playerTest = playerTestList.get(0);
-        Assert.assertEquals(playerTest, player);
+        Assert.assertEquals(playerTestList.get(0), player);
     }
 }
