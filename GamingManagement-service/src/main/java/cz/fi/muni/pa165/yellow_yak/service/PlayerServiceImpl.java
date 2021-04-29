@@ -45,6 +45,8 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public Player findById(Long id) {
+        if (id == null)
+            return null;
         return playerDao.findById(id);
     }
 

@@ -34,12 +34,12 @@ public interface GameFacade {
      * @param name the name to find
      * @return the game list
      */
-    public List<GameDTO> listByName(String name);
+    public List<GameDTO> findByName(String name);
 
     /**
      * Returns all games
      * @return list of games
      */
-    public List<GameDTO> listAll();
+    public List<GameDTO> findAll();
 
 }

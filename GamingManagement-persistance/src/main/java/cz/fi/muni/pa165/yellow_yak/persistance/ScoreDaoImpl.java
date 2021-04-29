@@ -1,6 +1,8 @@
 package cz.fi.muni.pa165.yellow_yak.persistance;
 
+import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Score;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -10,9 +12,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * @author oreqizer
+ * @author oreqizer, Matej Horniak
  */
-@Service
+@Repository
 @Transactional
 public class ScoreDaoImpl implements ScoreDao {
     @PersistenceContext
@@ -46,16 +48,39 @@ public class ScoreDaoImpl implements ScoreDao {
 
     @Override
     public List<Score> findByPlayerAndCompetitionAndDate(Long playerId,
-                                                         Long competitionId,
+                                                         List<Competition> competitions,
                                                          LocalDateTime createdAt) {
         return em.createQuery(
                 "select s from Score s" +
                         " join s.player as p join s.competition as c " +
-                        "where p.id = :playerId and c.id = :competitionId and s.createdAt = :createdAt",
+                        "where p.id = :playerId and c in :competitions and s.createdAt = :createdAt",
                 Score.class)
                 .setParameter("playerId", playerId)
-                .setParameter("competitionId", competitionId)
+                .setParameter("competitions", competitions)
                 .setParameter("createdAt", createdAt)
+                .getResultList();
+    }
+
+    @Override
+    public List<Score> findByPlayerAndGame(Long playerId, Long gameId) {
+        return em.createQuery(
+                "select s from Score s " +
+                        "join s.competition as c " +
+                        "join c.game as g " +
+                        "join s.player as p " +
+                        "where g.id = :gameId and p.id = :playerId", Score.class)
+                .setParameter("playerId", playerId)
+                .setParameter("gameId", gameId)
+                .getResultList();
+    }
+
+    @Override
+    public List<Score> findByCompetition(Long competitionId) {
+        return em.createQuery(
+                "select s from Score s " +
+                        "join s.competition as c " +
+                        "where c.id = :competitionId", Score.class)
+                .setParameter("competitionId", competitionId)
                 .getResultList();
     }
 

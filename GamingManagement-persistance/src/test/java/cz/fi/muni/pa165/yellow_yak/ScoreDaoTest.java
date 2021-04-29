@@ -16,11 +16,12 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 /**
- * @author oreqizer
+ * @author oreqizer, Matej Horniak
  */
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -32,6 +33,7 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
     private Score score;
     private Competition competition;
     private Player player;
+    private Game game;
 
     @Autowired
     private ScoreDao scoreDao;
@@ -73,6 +75,7 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
         competition = competitionTest;
         player = playerTest;
         score = scoreTest;
+        game = gameTest;
     }
 
     @AfterMethod
@@ -140,9 +143,11 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findByPlayerAndCompetitionAndDateScoreTest() {
+        List<Competition> competitions = new ArrayList<>();
+        competitions.add(competition);
         List<Score> result = scoreDao.findByPlayerAndCompetitionAndDate(
                 player.getId(),
-                competition.getId(),
+                competitions,
                 score.getCreatedAt());
 
         Assert.assertNotNull(result);
@@ -153,9 +158,11 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findByPlayerAndCompetitionAndDateScoreTestNotPlayer() {
+        List<Competition> competitions = new ArrayList<>();
+        competitions.add(competition);
         List<Score> result = scoreDao.findByPlayerAndCompetitionAndDate(
                 null,
-                competition.getId(),
+                competitions,
                 score.getCreatedAt());
 
         Assert.assertNotNull(result);
@@ -175,9 +182,11 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findByPlayerAndCompetitionAndDateScoreTestNotCreatedAt() {
+        List<Competition> competitions = new ArrayList<>();
+        competitions.add(competition);
         List<Score> result = scoreDao.findByPlayerAndCompetitionAndDate(
                 player.getId(),
-                competition.getId(),
+                competitions,
                 null);
 
         Assert.assertNotNull(result);
@@ -189,6 +198,68 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
         List<Score> result = scoreDao.findByPlayerAndCompetitionAndDate(
                 null,
                 null,
+                null);
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.size(), 0);
+    }
+
+    @Test
+    public void findByPlayerAndGameTest() {
+        List<Score> result = scoreDao.findByPlayerAndGame(
+                player.getId(),
+                game.getId());
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.size(), 1);
+        Score resultScore = result.get(0);
+        Assert.assertEquals(resultScore, score);
+    }
+
+    @Test
+    public void findByPlayerAndGameTestNotPlayer() {
+        List<Score> result = scoreDao.findByPlayerAndGame(
+               null,
+                game.getId());
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.size(), 0);
+    }
+
+    @Test
+    public void findByPlayerAndGameTestNotGame() {
+        List<Score> result = scoreDao.findByPlayerAndGame(
+                player.getId(),
+                null);
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.size(), 0);
+    }
+
+    @Test
+    public void findByPlayerAndGameTestNotParam() {
+        List<Score> result = scoreDao.findByPlayerAndGame(
+                null,
+               null);
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.size(), 0);
+    }
+
+    @Test
+    public void findByCompetitionTest() {
+        List<Score> result = scoreDao.findByCompetition(
+                competition.getId());
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.size(), 1);
+        Score resultScore = result.get(0);
+        Assert.assertEquals(resultScore, score);
+    }
+
+    @Test
+    public void findByCompetitionTestNotCompetition() {
+        List<Score> result = scoreDao.findByCompetition(
                 null);
 
         Assert.assertNotNull(result);

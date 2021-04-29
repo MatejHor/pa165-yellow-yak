@@ -39,6 +39,8 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public Competition findById(Long id) {
+        if (id == null)
+            return null;
         return competitionDao.findById(id);
     }
 

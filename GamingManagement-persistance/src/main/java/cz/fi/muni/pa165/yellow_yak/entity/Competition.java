@@ -26,6 +26,7 @@ public class Competition {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @SuppressWarnings("JpaDataSourceORMInspection")
     @NotNull
     @ManyToOne
     @JoinColumn(name = "game_id")

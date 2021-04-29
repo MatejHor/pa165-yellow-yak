@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -44,7 +45,8 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     }
 
     @Override
-    public List<CompetitionDTO> findByGame(Long gameId) {
+    // TODO D1LL1G4F
+    public List<CompetitionDTO> findByGame(Long gameId, LocalDateTime since) {
         log.info("listing competition by game ID, gameId = {}", gameId);
         return beanMappingService.mapTo(competitionService.findByGame(gameId), CompetitionDTO.class);
     }

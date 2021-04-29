@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.yellow_yak.facade;
 
 import cz.fi.muni.pa165.yellow_yak.dto.PlayerDTO;
+import cz.fi.muni.pa165.yellow_yak.entity.Score;
 import cz.fi.muni.pa165.yellow_yak.service.BeanMappingService;
 import cz.fi.muni.pa165.yellow_yak.service.PlayerService;
 import org.slf4j.Logger;
@@ -45,15 +46,20 @@ public class PlayerFacadeImpl implements PlayerFacade {
     }
 
     @Override
-    public List<PlayerDTO> listByUsername(String username) {
+    public List<PlayerDTO> findByUsername(String username) {
         log.info("listing player by username, username = {}", username);
         return beanMappingService.mapTo(playerService.findByUsername(username), PlayerDTO.class);
     }
 
     @Override
-    public List<PlayerDTO> listByTeam(Long teamId) {
+    public List<PlayerDTO> findByTeam(Long teamId) {
         log.info("listing player by team, teamId = {}", teamId);
         return beanMappingService.mapTo(playerService.findByTeam(teamId), PlayerDTO.class);
     }
 
+    @Override
+    public List<PlayerDTO> findAll() {
+        log.info("Get all Player");
+        return beanMappingService.mapTo(playerService.findAll(), PlayerDTO.class);
+    }
 }

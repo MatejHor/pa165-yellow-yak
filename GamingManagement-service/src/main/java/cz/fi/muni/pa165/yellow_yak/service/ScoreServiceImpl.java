@@ -1,5 +1,7 @@
 package cz.fi.muni.pa165.yellow_yak.service;
 
+import cz.fi.muni.pa165.yellow_yak.entity.Competition;
+import cz.fi.muni.pa165.yellow_yak.entity.Player;
 import cz.fi.muni.pa165.yellow_yak.entity.Score;
 import cz.fi.muni.pa165.yellow_yak.persistance.ScoreDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,17 +11,62 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * @author matho
+ * @author Matej Horniak
  */
 @Service
-public class ScoreServiceImpl implements ScoreService{
+public class ScoreServiceImpl implements ScoreService {
     @Autowired
     private ScoreDao scoreDao;
 
+    @Autowired
+    private PlayerService playerService;
+
+    @Autowired
+    private CompetitionService competitionService;
+
+
     @Override
     public List<Score> findByPlayerAndCompetitionAndDate(Long playerId,
-                                                         Long competitionId,
+                                                         List<Competition> competitions,
                                                          LocalDateTime createdAt) {
-        return scoreDao.findByPlayerAndCompetitionAndDate(playerId, competitionId, createdAt);
+        return scoreDao.findByPlayerAndCompetitionAndDate(playerId, competitions, createdAt);
+    }
+
+    @Override
+    public Score create(Long competitionId, Long playerId) {
+        Player player = playerService.findById(playerId);
+        Competition competition = competitionService.findById(competitionId);
+        if (player != null && competition != null) {
+            Score score = new Score();
+            score.setPlayer(player);
+            score.setCompetition(competition);
+            scoreDao.create(score);
+            return score;
+        }
+        return null;
+    }
+
+    @Override
+    public void remove(Long id) {
+        if (id == null)
+            return;
+        scoreDao.remove(scoreDao.findById(id));
+    }
+
+    @Override
+    public Score findById(Long id) {
+        if (id == null)
+            return null;
+        return scoreDao.findById(id);
+    }
+
+    @Override
+    public List<Score> findByPlayerAndGame(Long playerId, Long gameId) {
+        return scoreDao.findByPlayerAndGame(playerId,gameId);
+    }
+
+    @Override
+    public List<Score> findByCompetition(Long competitionId) {
+        return scoreDao.findByCompetition(competitionId);
     }
 }

@@ -23,7 +23,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-
+/**
+ * @author Matej Horniak
+ */
 @Configuration
 @Import(PersistenceSampleApplicationContext.class)
 @ComponentScan(basePackageClasses={
@@ -31,9 +33,6 @@ import org.springframework.context.annotation.Import;
         PlayerService.class, ScoreService.class,
         ScoreFacadeImpl.class
 })
-/**
- * @author matho
- */
 public class ServiceConfiguration {
 
 
