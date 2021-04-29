@@ -2,7 +2,6 @@ package cz.fi.muni.pa165.yellow_yak.facade;
 
 import cz.fi.muni.pa165.yellow_yak.dto.CompetitionDTO;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -34,9 +33,8 @@ public interface CompetitionFacade {
     /**
      * Returns all competitions for this game
      * @param gameId the game to filter by
-     * @param since since when to display competitions
      * @return list of competitions
      */
-    public List<CompetitionDTO> listByGame(Long gameId, LocalDateTime since);
+    public List<CompetitionDTO> findByGame(Long gameId);
 
 }
