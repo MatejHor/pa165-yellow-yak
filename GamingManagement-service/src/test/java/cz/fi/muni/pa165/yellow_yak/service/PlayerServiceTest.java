@@ -1,8 +1,6 @@
 package cz.fi.muni.pa165.yellow_yak.service;
 
 import cz.fi.muni.pa165.yellow_yak.config.ServiceConfiguration;
-import cz.fi.muni.pa165.yellow_yak.entity.Competition;
-import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import cz.fi.muni.pa165.yellow_yak.entity.Player;
 import cz.fi.muni.pa165.yellow_yak.entity.Team;
 import cz.fi.muni.pa165.yellow_yak.persistance.PlayerDao;
@@ -74,9 +72,9 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findByIdCompetition() {
-        Mockito.doReturn(player).when(playerDao).findById(player.getId());
+        Mockito.doReturn(player).when(playerDao).findById(1L);
 
-        Player res = playerService.findById(player.getId());
+        Player res = playerService.findById(1L);
 
         Assert.assertEquals(player, res);
     }
@@ -125,7 +123,7 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
         team.setId(1337L);
         team.setName("kekegas");
 
-        when(teamDao.getById(team.getId())).thenReturn(team);
+        when(teamDao.findById(team.getId())).thenReturn(team);
         when(playerDao.findByTeam(team)).thenReturn(Collections.singletonList(player));
 
         List<Player> playerTestList = playerService.findByTeam(team.getId());

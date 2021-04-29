@@ -46,7 +46,7 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
 
     @Override
     // TODO D1LL1G4F
-    public List<CompetitionDTO> findByGame(Long gameId, LocalDateTime since) {
+    public List<CompetitionDTO> findByGame(Long gameId) {
         log.info("listing competition by game ID, gameId = {}", gameId);
         return beanMappingService.mapTo(competitionService.findByGame(gameId), CompetitionDTO.class);
     }

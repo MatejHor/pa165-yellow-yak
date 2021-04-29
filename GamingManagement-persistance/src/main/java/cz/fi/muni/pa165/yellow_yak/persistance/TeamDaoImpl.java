@@ -25,7 +25,7 @@ public class TeamDaoImpl implements TeamDao {
 
     @Override
     public void remove(Team team) {
-        em.remove(this.getById(team.getId()));
+        em.remove(this.findById(team.getId()));
     }
 
     @Override
@@ -39,19 +39,19 @@ public class TeamDaoImpl implements TeamDao {
     }
 
     @Override
-    public Team getById(Long id) {
+    public Team findById(Long id) {
         return em.find(Team.class, id);
     }
 
     @Override
-    public List<Team> getByName(String name) {
+    public List<Team> findById(String name) {
         return em.createQuery("select team from Team team where name = :name", Team.class)
                 .setParameter("name", name)
                 .getResultList();
     }
 
     @Override
-    public List<Team> getByCreatedAt(LocalDateTime createdAt) {
+    public List<Team> findByCreatedAt(LocalDateTime createdAt) {
         return em.createQuery("select team from Team team where createdAt = :createdAt", Team.class)
                 .setParameter("createdAt", createdAt)
                 .getResultList();

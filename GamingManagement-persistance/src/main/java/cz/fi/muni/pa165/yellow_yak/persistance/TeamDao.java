@@ -44,7 +44,7 @@ public interface TeamDao {
      * @param id team id of desired team
      * @return list of all teams from the database
      */
-    Team getById(Long id);
+    Team findById(Long id);
 
     /**
      * Lists teams by a name
@@ -52,7 +52,7 @@ public interface TeamDao {
      * @param name team's name to filter by
      * @return list of teams with specified name
      */
-    List<Team> getByName(String name);
+    List<Team> findById(String name);
 
     /**
      * Lists teams by a date of their creation
@@ -60,5 +60,5 @@ public interface TeamDao {
      * @param createdAt date to filter by
      * @return list of teams with specified creation date
      */
-    List<Team> getByCreatedAt(LocalDateTime createdAt);
+    List<Team> findByCreatedAt(LocalDateTime createdAt);
 }

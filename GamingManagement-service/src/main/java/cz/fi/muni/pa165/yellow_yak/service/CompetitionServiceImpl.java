@@ -46,7 +46,7 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public List<Competition> findByGame(Long gameId) {
-        return competitionDao.findByGame(gameId);
+        return competitionDao.findByGame(gameDao.findById(gameId));
     }
 
     @Override

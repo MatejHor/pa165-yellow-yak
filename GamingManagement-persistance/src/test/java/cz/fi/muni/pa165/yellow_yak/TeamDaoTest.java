@@ -15,10 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceUnit;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -69,11 +66,11 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
         String nameBefore = testTeam.getName();
         String nameAfter = "Awesome team";
 
-        Assert.assertEquals(teamDao.getById(testTeam.getId()).getName(), nameBefore);
+        Assert.assertEquals(teamDao.findById(testTeam.getId()).getName(), nameBefore);
         testTeam.setName(nameAfter);
         teamDao.update(testTeam);
 
-        Team changedTestTeam = teamDao.getById(testTeam.getId());
+        Team changedTestTeam = teamDao.findById(testTeam.getId());
         Assert.assertNotNull(changedTestTeam);
         Assert.assertEquals(changedTestTeam.getName(), nameAfter);
         Assert.assertEquals(testTeam, changedTestTeam);
@@ -90,7 +87,7 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
         teamDao.remove(team);
         Assert.assertEquals(teamsCountBefore - 1,teamDao.getAll().size());
 
-        Team removedTestTeam = teamDao.getById(team.getId());
+        Team removedTestTeam = teamDao.findById(team.getId());
         Assert.assertNull(removedTestTeam);
     }
 
@@ -109,14 +106,14 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void getTeamByIdTest() {
-        Team desiredTeam = teamDao.getById(testTeam.getId());
+        Team desiredTeam = teamDao.findById(testTeam.getId());
         Assert.assertNotNull(desiredTeam);
         Assert.assertEquals(testTeam, desiredTeam);
     }
 
     @Test
     public void getTeamByNameTest() {
-        List<Team> teamList = teamDao.getByName(testTeam.getName());
+        List<Team> teamList = teamDao.findById(testTeam.getName());
         Assert.assertNotNull(teamList);
         Assert.assertEquals(teamList.size(), 1);
 
@@ -130,7 +127,7 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
         newTeam.setName("Test Team3");
         teamDao.create(newTeam);
 
-        List<Team> teamList = teamDao.getByCreatedAt(testTeam.getCreatedAt());
+        List<Team> teamList = teamDao.findByCreatedAt(testTeam.getCreatedAt());
         Assert.assertNotNull(teamList);
         Assert.assertEquals(teamList.size(), 2);
         Assert.assertEquals(teamList, List.of(testTeam,newTeam));
