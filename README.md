@@ -28,29 +28,29 @@ Competition:
 * `GET /competitions/:id` -> `CompetitionFacade.findById`
 * `POST /competitions` -> `CompetitionFacade.create`
 * `DELETE /competitions/:id` -> `CompetitionFacade.remove`
-* `GET /competitions?game=` -> `CompetitionFacade.listByGame`
+* `GET /competitions?game=` -> `CompetitionFacade.findByGame`
 
 Game:
 * `GET /games/:id` -> `GameFacade.findById`
 * `POST /games` -> `GameFacade.create`
 * `DELETE /games/:id` -> `GameFacade.remove`
-* `GET /games?name=` -> `GameFacade.listByName`
-* `GET /games` -> `GameFacade.listAll`
+* `GET /games?name=` -> `GameFacade.findByName`
+* `GET /games` -> `GameFacade.findAll`
 
 Player:
 * `GET /players/:id` -> `PlayerFacade.findById`
 * `POST /players` -> `PlayerFacade.create`
 * `DELETE /players/:id` -> `PlayerFacade.remove`
-* `GET /players?username=` -> `PlayerFacade.listByUsername`
-* `GET /players?team=` -> `PlayerFacade.listByTeam`
+* `GET /players?username=` -> `PlayerFacade.findByUsername`
+* `GET /players?team=` -> `PlayerFacade.findByTeam`
 
 Score:
 * `GET /score/:id` -> `ScoreFacade.findById`
 * `POST /score` -> `ScoreFacade.create`
 * `POST /score/result` -> `ScoreFacade.setResult` business 1
 * `DELETE /score/:id` -> `ScoreFacade.remove`
-* `GET /score?game=&player=` -> `ScoreFacade.listByPlayerGame`
-* `GET /score?competition=` -> `ScoreFacade.listByCompetition` business 2
+* `GET /score?game=&player=` -> `ScoreFacade.findByPlayerGame`
+* `GET /score?competition=` -> `ScoreFacade.findByCompetition` business 2
   
 Team:
 * `GET /teams/:id` -> `TeamFacade.findById`
@@ -58,6 +58,6 @@ Team:
 * `DELETE /teams/:id` -> `TeamFacade.remove`
 * `POST /teams/:id/players` -> `TeamFacade.addPlayer`
 * `DELETE /teams/:id/players/:id` -> `TeamFacade.removePlayer`
-* `GET /teams?player=` -> `TeamFacade.listByPlayer`
-* `GET /teams?name=` -> `TeamFacade.listByName`
-* `GET /teams?competition=` -> `TeamFacade.listByCompetition`
+* `GET /teams?player=` -> `TeamFacade.findByPlayer`
+* `GET /teams?name=` -> `TeamFacade.findByName`
+* `GET /teams?competition=` -> `TeamFacade.findByCompetition`
