@@ -84,4 +84,16 @@ public class ScoreDaoImpl implements ScoreDao {
                 .getResultList();
     }
 
+    @Override
+    public List<Score> findCompetitionResults(Long competitionId) {
+        return em.createQuery(
+                "select s from Score s " +
+                        "join s.competition as c " +
+                        "where c.id = :competitionId " +
+                        "and s.result > 0 " +
+                        "and s.result is not null " +
+                        "order by s.result desc", Score.class)
+                .setParameter("competitionId", competitionId)
+                .getResultList();
+    }
 }

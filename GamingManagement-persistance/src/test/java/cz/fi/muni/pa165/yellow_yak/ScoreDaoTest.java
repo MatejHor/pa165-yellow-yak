@@ -59,7 +59,7 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
         playerTest.setCreatedAt(LocalDateTime.now());
 
         Score scoreTest = new Score();
-        scoreTest.setPlacement(420);
+        scoreTest.setResult(420);
         scoreTest.setCreatedAt(LocalDateTime.now());
         scoreTest.setCompetition(competitionTest);
         scoreTest.setPlayer(playerTest);
@@ -265,4 +265,59 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertNotNull(result);
         Assert.assertEquals(result.size(), 0);
     }
+
+    @Test
+    public void findCompetitionResultTest() {
+        EntityManager em = emf.createEntityManager();
+
+        Player player = new Player();
+        player.setUsername("Second");
+        player.setEmail("test@email.com");
+        player.setCreatedAt(LocalDateTime.now());
+
+        Score score2 = new Score();
+        score2.setResult(419);
+        score2.setCreatedAt(LocalDateTime.now());
+        score2.setCompetition(competition);
+        score2.setPlayer(player);
+
+        em.getTransaction().begin();
+        em.persist(player);
+        em.persist(score2);
+        em.getTransaction().commit();
+
+        List<Score> result = scoreDao.findCompetitionResults(competition.getId());
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.size(), 2);
+        Assert.assertEquals(result.get(0), score);
+        Assert.assertEquals(result.get(1), score2);
+    }
+
+    @Test
+    public void findCompetitionResultZeroTest() {
+        EntityManager em = emf.createEntityManager();
+
+        Player player = new Player();
+        player.setUsername("Second");
+        player.setEmail("test@email.com");
+        player.setCreatedAt(LocalDateTime.now());
+
+        Score score2 = new Score();
+        score2.setCreatedAt(LocalDateTime.now());
+        score2.setCompetition(competition);
+        score2.setPlayer(player);
+
+        em.getTransaction().begin();
+        em.persist(player);
+        em.persist(score2);
+        em.getTransaction().commit();
+
+        List<Score> result = scoreDao.findCompetitionResults(competition.getId());
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.size(), 1);
+        Assert.assertEquals(result.get(0), score);
+    }
+
 }
