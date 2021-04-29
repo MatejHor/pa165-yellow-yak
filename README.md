@@ -47,9 +47,10 @@ Player:
 Score:
 * `GET /score/:id` -> `ScoreFacade.findById`
 * `POST /score` -> `ScoreFacade.create`
+* `POST /score/result` -> `ScoreFacade.setResult` business 1
 * `DELETE /score/:id` -> `ScoreFacade.remove`
 * `GET /score?game=&player=` -> `ScoreFacade.listByPlayerGame`
-* `GET /score?competition=` -> `ScoreFacade.listByCompetition`
+* `GET /score?competition=` -> `ScoreFacade.listByCompetition` business 2
   
 Team:
 * `GET /teams/:id` -> `TeamFacade.findById`
@@ -60,37 +61,3 @@ Team:
 * `GET /teams?player=` -> `TeamFacade.listByPlayer`
 * `GET /teams?name=` -> `TeamFacade.listByName`
 * `GET /teams?competition=` -> `TeamFacade.listByCompetition`
-
-## TODO
-
-```java
-// TODO @Matej Knazik and @Boris Petrenko,
-//  Work divide by yourself.
-//  One can write half of the implementation and half of the test,
-//  and second, write another half.
-//  Or One can write all implementation and the second write tests.
-
-// Je potrebne spravit Create, Remove a Find implementacie vo Facade
-// a vsetky potrebne veci pre nich v servisoch,
-// taktiez spravit testy, pre service a facade,
-// pokial budete pridavat metodu do DAO, treba spravit test aj pre nu v DAO
-// v servisoch by ste mali uz osetrovat aj DAO metody,
-// pouzivajte Dozer pre mapovanie DTO objektov a Entity z Persistance
-```
-
-- [x] DTOs
-- [x] Facade interfaces
-- [ ] Services by facade interfaces
-  - [ ] Competition, Player @oreqizer
-  - [ ] Game, Team @mknazik
-- [ ] DAOs by services (as needed)
-- [ ] DAO tests (as needed)
-- [ ] Service tests
-  - [ ] Game, Team @oreqizer
-  - [ ] Competition, Player @mknazik
-- [ ] Facade implementation
-  - [ ] Competition, Player @oreqizer
-  - [ ] Game, Team @mknazik
-- [ ] Facade tests
-  - [ ] Game, Team @oreqizer
-  - [ ] Competition, Player @mknazik
