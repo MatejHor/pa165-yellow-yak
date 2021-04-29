@@ -58,9 +58,9 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void create() {
-//        Mockito.doReturn(player).when(playerService).create(player.getUsername(), player.getEmail());
-//
-//        Assert.assertEquals(playerFacade.create(player.getUsername(), player.getEmail()), playerDTO);
+        Mockito.doReturn(player).when(playerService).create(player.getUsername(), player.getEmail());
+
+        Assert.assertEquals(playerFacade.create(player.getUsername(), player.getEmail()), playerDTO);
     }
 
     @Test

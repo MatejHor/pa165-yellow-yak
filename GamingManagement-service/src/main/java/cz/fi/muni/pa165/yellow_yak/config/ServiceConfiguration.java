@@ -14,8 +14,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import java.util.Collections;
+
 /**
  * @author Matej Horniak
+ * @author Matej Knazik
  */
 @Configuration
 @Import(PersistenceSampleApplicationContext.class)
@@ -35,6 +38,7 @@ public class ServiceConfiguration {
     public Mapper dozer(){
         DozerBeanMapper dozer = new DozerBeanMapper();
         dozer.addMapping(new DozerCustomConfig());
+        dozer.setMappingFiles(Collections.singletonList("dozerJdk8Converters.xml"));
         return dozer;
     }
 
