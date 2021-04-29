@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 /**
@@ -293,4 +294,18 @@ public class ScoreServiceTest extends AbstractTestNGSpringContextTests {
 
         Assert.assertNull(scoreTest);
     }
+
+    @Test
+    public void setResult() {
+        doReturn(score).when(scoreDao).findById(score.getId());
+        doReturn(Collections.singletonList(score)).when(scoreDao).findCompetitionResults(score.getCompetition().getId());
+
+        int result = 420;
+        Score res = scoreService.setResult(score.getId(), result);
+
+        Assert.assertNotNull(res);
+        Assert.assertEquals(res.getResult(), result);
+        Assert.assertEquals(res.getPlacement(), 1);
+    }
+
 }

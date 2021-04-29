@@ -65,4 +65,11 @@ public interface ScoreDao {
      * @return the found score
      */
     List<Score> findByCompetition(Long competitionId);
+
+    /**
+     * Finds a score competition sorted by rating
+     * @param competitionId the competition's ID
+     * @return the found score sorted by rating
+     */
+    List<Score> findCompetitionResults(Long competitionId);
 }

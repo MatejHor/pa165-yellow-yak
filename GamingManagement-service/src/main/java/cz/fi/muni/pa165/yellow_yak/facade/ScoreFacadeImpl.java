@@ -48,12 +48,6 @@ public class ScoreFacadeImpl implements ScoreFacade {
     }
 
     @Override
-    // TODO oreqizer
-    public String createScore(Long competitionId, Long playerId) {
-        return null;
-    }
-
-    @Override
     public ScoreDTO create(Long competitionId, Long playerId) {
         log.info("create score, competitionId = {}, playerId = {}", competitionId, playerId);
         return beanMappingService.mapTo(scoreService.create(competitionId, playerId), ScoreDTO.class);
@@ -63,6 +57,12 @@ public class ScoreFacadeImpl implements ScoreFacade {
     public void remove(Long id) {
         log.info("removing score, id = {}", id);
         scoreService.remove(id);
+    }
+
+    @Override
+    public ScoreDTO setResult(Long id, int result) {
+        log.info("setting result, id = {}, result = {}", id, result);
+        return beanMappingService.mapTo(scoreService.setResult(id, result), ScoreDTO.class);
     }
 
     @Override

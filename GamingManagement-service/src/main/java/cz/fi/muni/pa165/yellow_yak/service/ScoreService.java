@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.yellow_yak.service;
 
+import cz.fi.muni.pa165.yellow_yak.dto.ScoreDTO;
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Score;
 import cz.fi.muni.pa165.yellow_yak.entity.Score;
@@ -41,6 +42,14 @@ public interface ScoreService {
      * @return the score
      */
     public Score findById(Long id);
+
+    /**
+     * Sets the score's result and recalculates rank
+     * @param id score ID
+     * @param result result
+     * @return updated score
+     */
+    public Score setResult(Long id, int result);
 
     /**
      * Lists scores by username

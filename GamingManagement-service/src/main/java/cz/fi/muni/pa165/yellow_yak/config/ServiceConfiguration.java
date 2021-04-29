@@ -4,11 +4,8 @@ package cz.fi.muni.pa165.yellow_yak.config;
 import cz.fi.muni.pa165.yellow_yak.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.yellow_yak.dto.*;
 import cz.fi.muni.pa165.yellow_yak.entity.*;
-import cz.fi.muni.pa165.yellow_yak.facade.ScoreFacadeImpl;
-import cz.fi.muni.pa165.yellow_yak.service.CompetitionService;
-import cz.fi.muni.pa165.yellow_yak.service.GameService;
-import cz.fi.muni.pa165.yellow_yak.service.PlayerService;
-import cz.fi.muni.pa165.yellow_yak.service.ScoreService;
+import cz.fi.muni.pa165.yellow_yak.facade.*;
+import cz.fi.muni.pa165.yellow_yak.service.*;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -23,9 +20,13 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import(PersistenceSampleApplicationContext.class)
 @ComponentScan(basePackageClasses={
-        CompetitionService.class, GameService.class,
-        PlayerService.class, ScoreService.class,
-        ScoreFacadeImpl.class
+        CompetitionService.class,
+        GameService.class,
+        PlayerService.class,
+        ScoreService.class,
+        ScoreFacadeImpl.class,
+        PlayerFacadeImpl.class,
+        CompetitionFacadeImpl.class
 })
 public class ServiceConfiguration {
 

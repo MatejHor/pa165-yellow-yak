@@ -21,9 +21,6 @@ public interface ScoreFacade {
      */
     public List<ScoreDTO> findByGamePlayerDate(@NotNull Long playerId, @NotNull Long gameId, LocalDateTime oldest);
 
-    // TODO oreqizer createScore
-    public String createScore(Long competitionId, Long playerId);
-
     /**
      * Creates a new score
      *
@@ -47,6 +44,14 @@ public interface ScoreFacade {
      * @return the score
      */
     public ScoreDTO findById(@NotNull Long id);
+
+    /**
+     * Sets the score's result and recalculates rank
+     * @param id score ID
+     * @param result result
+     * @return updated score
+     */
+    public ScoreDTO setResult(Long id, int result);
 
     /**
      * Lists score statistics for the player

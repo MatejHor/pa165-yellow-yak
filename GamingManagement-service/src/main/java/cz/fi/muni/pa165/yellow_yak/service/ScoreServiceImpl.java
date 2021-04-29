@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.yellow_yak.service;
 
+import cz.fi.muni.pa165.yellow_yak.dto.ScoreDTO;
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Player;
 import cz.fi.muni.pa165.yellow_yak.entity.Score;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * @author Matej Horniak
@@ -58,6 +60,23 @@ public class ScoreServiceImpl implements ScoreService {
         if (id == null)
             return null;
         return scoreDao.findById(id);
+    }
+
+    @Override
+    public Score setResult(Long id, int result) {
+        Score score = scoreDao.findById(id);
+        score.setResult(result);
+
+        scoreDao.update(score);
+
+        List<Score> results = scoreDao.findCompetitionResults(score.getCompetition().getId());
+        IntStream.range(0, results.size()).forEach(i -> {
+            Score s = results.get(0);
+            s.setPlacement(i + 1);
+            scoreDao.update(s);
+        });
+
+        return score;
     }
 
     @Override
