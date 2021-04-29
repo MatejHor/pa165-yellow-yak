@@ -58,10 +58,6 @@ public class ScoreFacadeImpl implements ScoreFacade {
         log.info("Get competition by gameId(gameId=" + gameId +
                 ", competition size=" + competitions.size() + ")" );
         List<Score> scores = new ArrayList<>();
-        if (oldest == null) {
-            oldest = competitionService.findOldestCompetition();
-            log.info("Date was not provide, find oldest Competition(date=" + oldest + ")");
-        }
 
         for (Competition competition: competitions) {
             scores.addAll(scoreService.findByPlayerAndCompetitionAndDate(
