@@ -74,4 +74,9 @@ public class ScoreFacadeImpl implements ScoreFacade {
                 ", scores size=" + scores.size() + ")");
         return beanMappingService.mapTo(scores, ScoreDTO.class);
     }
+
+    @Override
+    public String createScore(Long competitionId, Long playerId) {
+        return null;
+    }
 }

@@ -8,12 +8,16 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
+ * For 2 milestone
  * @author matho
  */
 public interface ScoreFacade {
     public List<PlayerDTO> getAllPlayer();
     public List<GameDTO> getAllGame();
     public List<ScoreDTO> getPlayerScore(Long playerId, Long gameId, LocalDateTime oldest);
+
+    // TODO oreqizer createScore
+    public String createScore(Long competitionId, Long playerId);
 
 //    // TODO these need implementing / reviewing
 //

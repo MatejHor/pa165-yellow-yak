@@ -6,7 +6,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * @author oreqizer
+ * For 2 milestone
+ * @author oreqizer, D1LL1G4F
  */
 public interface CompetitionFacade {
 
@@ -16,12 +17,14 @@ public interface CompetitionFacade {
      * @param name competition name
      * @return the created competition
      */
+    // TODO D1LL1G4F create
     public CompetitionDTO create(Long gameId, String name);
 
     /**
      * Removes the competition
      * @param id id to remove
      */
+    // TODO oreqizer remove
     public void remove(Long id);
 
     /**
@@ -29,6 +32,7 @@ public interface CompetitionFacade {
      * @param id the ID to find
      * @return the competition
      */
+    // TODO D1LL1G4F findById
     public CompetitionDTO findById(Long id);
 
     /**
@@ -37,6 +41,7 @@ public interface CompetitionFacade {
      * @param since since when to display competitions
      * @return list of competitions
      */
-    public List<CompetitionDTO> listByGame(Long gameId, LocalDateTime since);
+    // TODO D1LL1G4F findByGame
+    public List<CompetitionDTO> findByGame(Long gameId, LocalDateTime since);
 
 }
