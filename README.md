@@ -47,9 +47,10 @@ Player:
 Score:
 * `GET /score/:id` -> `ScoreFacade.findById`
 * `POST /score` -> `ScoreFacade.create`
+* `POST /score/result` -> `ScoreFacade.setResult` business 1
 * `DELETE /score/:id` -> `ScoreFacade.remove`
 * `GET /score?game=&player=` -> `ScoreFacade.listByPlayerGame`
-* `GET /score?competition=` -> `ScoreFacade.listByCompetition`
+* `GET /score?competition=` -> `ScoreFacade.listByCompetition` business 2
   
 Team:
 * `GET /teams/:id` -> `TeamFacade.findById`

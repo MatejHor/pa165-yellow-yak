@@ -37,9 +37,7 @@ public class Score {
 
     private int placement;
 
-    private String result;
-
-    private String stats;
+    private int result;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -51,12 +49,11 @@ public class Score {
         Score score = (Score) o;
         return Objects.equals(getPlacement(), score.getPlacement()) &&
                 Objects.equals(getResult(), score.getResult()) &&
-                Objects.equals(getStats(), score.getStats()) &&
                 Objects.equals(getCreatedAt(), score.getCreatedAt());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPlacement(), getResult(), getStats(), getCreatedAt());
+        return Objects.hash(getPlacement(), getResult(), getCreatedAt());
     }
 }
