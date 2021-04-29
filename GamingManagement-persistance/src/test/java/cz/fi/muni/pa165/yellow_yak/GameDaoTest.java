@@ -88,12 +88,16 @@ public class GameDaoTest extends AbstractTestNGSpringContextTests {
     public void findByNameGameNone() {
         List<Game> list = gameDao.findByName("");
 
-        Assert.assertNull(list);
+        Assert.assertNotNull(list);
+        Assert.assertEquals(list.size(), 0);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test
     public void findByNameGameNull() {
-        gameDao.findByName(null);
+        List<Game> list = gameDao.findByName(null);
+
+        Assert.assertNotNull(list);
+        Assert.assertEquals(list.size(), 0);
     }
 
     @Test
