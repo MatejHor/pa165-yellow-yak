@@ -63,9 +63,24 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
 //        Assert.assertEquals(playerFacade.create(player.getUsername(), player.getEmail()), playerDTO);
     }
 
+    @Test(expectedExceptions = NullPointerException.class)
+    public void createNullUsername() {
+        playerFacade.create(null, player.getEmail());
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void createNullEmail() {
+        playerFacade.create(player.getUsername(), null);
+    }
+
     @Test
     public void remove() {
 //        playerFacade.remove(1337L);
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void removeNull() {
+        playerFacade.remove(null);
     }
 
     @Test
@@ -75,6 +90,11 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
 //        Assert.assertEquals(playerFacade.findById(player.getId()), playerDTO);
     }
 
+    @Test(expectedExceptions = NullPointerException.class)
+    public void findByIdNull() {
+        playerFacade.findById(null);
+    }
+
     @Test
     public void findByUsername() {
 //        Mockito.doReturn(player).when(playerService).findByUsername(player.getUsername());
@@ -82,11 +102,21 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
 //        Assert.assertEquals(playerFacade.findByUsername(player.getUsername()), Collections.singletonList(playerDTO));
     }
 
+    @Test(expectedExceptions = NullPointerException.class)
+    public void findByUsernameNull() {
+        playerFacade.findByUsername(null);
+    }
+
     @Test
     public void findByTeam() {
 //        Mockito.doReturn(player).when(playerService).findByTeam(1337L);
 //
 //        Assert.assertEquals(playerFacade.findByTeam(1337L), Collections.singletonList(playerDTO));
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void findByTeamNull() {
+        playerFacade.findByTeam(null);
     }
 
     @Test
