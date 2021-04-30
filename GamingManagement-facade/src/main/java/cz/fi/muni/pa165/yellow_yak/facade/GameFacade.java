@@ -2,6 +2,7 @@ package cz.fi.muni.pa165.yellow_yak.facade;
 
 import cz.fi.muni.pa165.yellow_yak.dto.GameDTO;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -14,27 +15,27 @@ public interface GameFacade {
      * @param name game name
      * @return the created game
      */
-    public GameDTO create(String name);
+    public GameDTO create(@NotNull String name);
 
     /**
      * Removes the game
      * @param id game id to remove
      */
-    public void remove(Long id);
+    public void remove(@NotNull Long id);
 
     /**
      * Finds a game by id
      * @param id the ID to find
      * @return the game
      */
-    public GameDTO findById(Long id);
+    public GameDTO findById(@NotNull Long id);
 
     /**
      * Lists games by name
      * @param name the name to find
      * @return the game list
      */
-    public List<GameDTO> findByName(String name);
+    public List<GameDTO> findByName(@NotNull String name);
 
     /**
      * Returns all games
