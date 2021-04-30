@@ -73,9 +73,24 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
 //        Assert.assertEquals(competitionFacade.create(game.getId(), competition.getName()), competitionDTO);
     }
 
+    @Test(expectedExceptions = NullPointerException.class)
+    public void createNullGame() {
+        competitionFacade.create(null, competition.getName());
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void createNullName() {
+        competitionFacade.create(game.getId(), null);
+    }
+
     @Test
     public void remove() {
 //        competitionFacade.remove(1337L);
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void removeNull() {
+        competitionFacade.remove(null);
     }
 
     @Test
@@ -85,11 +100,21 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
 //        Assert.assertEquals(competitionFacade.findById(competition.getId()), competitionDTO);
     }
 
+    @Test(expectedExceptions = NullPointerException.class)
+    public void findByIdNull() {
+        competitionFacade.findById(null);
+    }
+
     @Test
     public void findByGame() {
 //        Mockito.doReturn(competition).when(competitionService).findByGame(1337L);
 //
 //        Assert.assertEquals(competitionFacade.findByGame(1337L), Collections.singletonList(competitionDTO));
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void findByGameNull() {
+        competitionFacade.findByGame(null);
     }
 
 }
