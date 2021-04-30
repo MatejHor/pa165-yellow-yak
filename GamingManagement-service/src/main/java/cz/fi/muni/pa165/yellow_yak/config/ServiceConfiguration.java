@@ -24,9 +24,12 @@ import org.springframework.context.annotation.Import;
         GameService.class,
         PlayerService.class,
         ScoreService.class,
-        ScoreFacadeImpl.class,
-        PlayerFacadeImpl.class,
-        CompetitionFacadeImpl.class
+        TeamService.class,
+        CompetitionFacade.class,
+        GameFacade.class,
+        PlayerFacade.class,
+        ScoreFacade.class,
+        TeamFacade.class,
 })
 public class ServiceConfiguration {
 
