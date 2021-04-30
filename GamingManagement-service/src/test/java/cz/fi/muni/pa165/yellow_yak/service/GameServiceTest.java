@@ -75,27 +75,27 @@ public class GameServiceTest extends AbstractTestNGSpringContextTests {
     public void removeTest() {
         gameService.remove(2L);
 
-        Game gameTest = gameService.find(2L);
+        Game gameTest = gameService.findById(2L);
         Assert.assertNull(gameTest);
     }
 
     @Test
     public void findExisting() {
-        Game gameTest = gameService.find(1L);
+        Game gameTest = gameService.findById(1L);
 
         Assert.assertEquals(gameTest, game);
     }
 
     @Test
     public void findNonExisting() {
-        Game gameTest = gameService.find(2L);
+        Game gameTest = gameService.findById(2L);
 
         Assert.assertNull(gameTest);
     }
 
     @Test
     public void findNull() {
-        Game gameTest = gameService.find(null);
+        Game gameTest = gameService.findById(null);
 
         Assert.assertNull(gameTest);
     }

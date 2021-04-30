@@ -49,7 +49,7 @@ public class GameFacadeImpl implements GameFacade{
             throw new NullPointerException("arguments cannot be null");
         }
         log.info("finding game by ID, id = {}", id);
-        return beanMappingService.mapTo(gameService.find(id), GameDTO.class);
+        return beanMappingService.mapTo(gameService.findById(id), GameDTO.class);
     }
 
     @Override

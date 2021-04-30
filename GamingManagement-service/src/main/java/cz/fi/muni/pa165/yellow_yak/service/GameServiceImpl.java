@@ -36,8 +36,8 @@ public class GameServiceImpl implements GameService{
     }
 
     @Override
-    public Game find(Long gameId) {
-        return gameDao.findById(gameId);
+    public Game findById(Long id) {
+        return gameDao.findById(id);
     }
 
     @Override
