@@ -5,6 +5,7 @@ import cz.fi.muni.pa165.yellow_yak.service.BeanMappingService;
 import cz.fi.muni.pa165.yellow_yak.service.TeamService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,12 @@ public class TeamFacadeImpl implements TeamFacade {
 
     @Inject
     private BeanMappingService beanMappingService;
+
+    @Autowired
+    public TeamFacadeImpl(BeanMappingService beanMappingService, TeamService teamService) {
+        this.beanMappingService = beanMappingService;
+        this.teamService = teamService;
+    }
 
     @Override
     public TeamDTO create(String name) {
