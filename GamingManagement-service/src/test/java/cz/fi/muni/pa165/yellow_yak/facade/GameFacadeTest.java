@@ -5,6 +5,7 @@ import cz.fi.muni.pa165.yellow_yak.dto.GameDTO;
 import cz.fi.muni.pa165.yellow_yak.dto.GameDTO;
 import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import cz.fi.muni.pa165.yellow_yak.entity.Game;
+import cz.fi.muni.pa165.yellow_yak.service.BeanMappingService;
 import cz.fi.muni.pa165.yellow_yak.service.GameService;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
@@ -22,13 +23,16 @@ import org.testng.annotations.Test;
 import java.util.Collections;
 
 /**
- * @author oreqizer
+ * @author oreqizer, Lukas Mikula
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class GameFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private GameService gameService;
+
+    @Mock
+    private BeanMappingService beanMappingService;
 
     @Autowired
     @InjectMocks
@@ -41,6 +45,7 @@ public class GameFacadeTest extends AbstractTestNGSpringContextTests {
     public void init() throws ServiceException {
         // TODO gameService not being mocked
         MockitoAnnotations.initMocks(this);
+        this.gameFacade = new GameFacadeImpl(beanMappingService, gameService);
     }
 
     @BeforeMethod
@@ -52,59 +57,62 @@ public class GameFacadeTest extends AbstractTestNGSpringContextTests {
         gameDTO = new GameDTO();
         gameDTO.setId(game.getId());
         gameDTO.setName(game.getName());
+
+        Mockito.doReturn(gameDTO).when(beanMappingService).mapTo(game, GameDTO.class);
+        Mockito.doReturn(Collections.singletonList(gameDTO)).when(beanMappingService).mapTo(Collections.singletonList(game), GameDTO.class);
     }
 
     @Test
     public void create() {
-//        Mockito.doReturn(game).when(gameService).create(game.getName());
-//
-//        Assert.assertEquals(gameFacade.create(game.getName()), gameDTO);
+        Mockito.doReturn(game).when(gameService).create(game.getName());
+
+        Assert.assertEquals(gameFacade.create(game.getName()), gameDTO);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void createNull() {
         gameFacade.create(null);
     }
 
     @Test
     public void remove() {
-//        gameFacade.remove(1337L);
+        gameFacade.remove(1337L);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void removeNull() {
         gameFacade.remove(null);
     }
 
     @Test
     public void findById() {
-//        Mockito.doReturn(game).when(gameService).find(game.getId());
-//
-//        Assert.assertEquals(gameFacade.findById(game.getId()), gameDTO);
+        Mockito.doReturn(game).when(gameService).findById(game.getId());
+
+        Assert.assertEquals(gameFacade.findById(game.getId()), gameDTO);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByIdNull() {
         gameFacade.findById(null);
     }
 
     @Test
     public void findByName() {
-//        Mockito.doReturn(game).when(gameService).findByName(game.getName());
-//
-//        Assert.assertEquals(gameFacade.findByName(game.getName()), Collections.singletonList(gameDTO));
+        Mockito.doReturn(Collections.singletonList(game)).when(gameService).findByName(game.getName());
+
+        Assert.assertEquals(gameFacade.findByName(game.getName()), Collections.singletonList(gameDTO));
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByNameNull() {
         gameFacade.findByName(null);
     }
 
     @Test
     public void findAll() {
-//        Mockito.doReturn(game).when(gameService).findAll();
-//
-//        Assert.assertEquals(gameFacade.findAll(), Collections.singletonList(gameDTO));
+        Mockito.doReturn(Collections.singletonList(game)).when(gameService).findAll();
+
+        Assert.assertEquals(gameFacade.findAll(), Collections.singletonList(gameDTO));
     }
 
 }
