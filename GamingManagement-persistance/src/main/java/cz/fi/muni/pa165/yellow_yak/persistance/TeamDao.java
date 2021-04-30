@@ -52,7 +52,7 @@ public interface TeamDao {
      * @param name team's name to filter by
      * @return list of teams with specified name
      */
-    List<Team> findById(String name);
+    List<Team> findByName(String name);
 
     /**
      * Lists teams by a date of their creation
