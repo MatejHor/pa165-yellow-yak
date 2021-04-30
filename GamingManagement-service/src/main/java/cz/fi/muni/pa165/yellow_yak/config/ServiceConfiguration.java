@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Import;
         GameFacade.class,
         PlayerFacade.class,
         ScoreFacade.class,
-        TeamFacade.class,
+        TeamFacade.class
 })
 public class ServiceConfiguration {
 

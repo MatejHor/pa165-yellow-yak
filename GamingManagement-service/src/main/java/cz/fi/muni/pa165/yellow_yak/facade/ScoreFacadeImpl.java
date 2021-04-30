@@ -8,6 +8,7 @@ import cz.fi.muni.pa165.yellow_yak.service.CompetitionService;
 import cz.fi.muni.pa165.yellow_yak.service.ScoreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +33,13 @@ public class ScoreFacadeImpl implements ScoreFacade {
 
     @Inject
     private BeanMappingService beanMappingService;
+
+    @Autowired
+    public ScoreFacadeImpl(BeanMappingService beanMappingService, CompetitionService competitionService, ScoreService scoreService) {
+        this.beanMappingService = beanMappingService;
+        this.competitionService = competitionService;
+        this.scoreService = scoreService;
+    }
 
     @Override
     public List<ScoreDTO> findByGamePlayerDate(Long playerId, Long gameId, LocalDateTime oldest) {

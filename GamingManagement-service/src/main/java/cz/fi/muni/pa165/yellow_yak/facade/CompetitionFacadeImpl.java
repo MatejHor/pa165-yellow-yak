@@ -21,16 +21,22 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
 
     final static Logger log = LoggerFactory.getLogger(ScoreFacadeImpl.class);
 
-    @Autowired
+    @Inject
     private BeanMappingService beanMappingService;
 
-    @Autowired
+    @Inject
     private CompetitionService competitionService;
+
+    @Autowired
+    public CompetitionFacadeImpl(BeanMappingService beanMappingService, CompetitionService competitionService) {
+        this.beanMappingService = beanMappingService;
+        this.competitionService = competitionService;
+    }
 
     @Override
     public CompetitionDTO create(Long gameId, String name) {
         if (gameId == null || name == null) {
-            throw new NullPointerException("arguments cannot be null");
+            throw new IllegalArgumentException("arguments cannot be null");
         }
         log.info("creating competition, gameId = {}, name = {}", gameId, name);
         return beanMappingService.mapTo(competitionService.create(gameId, name), CompetitionDTO.class);
@@ -39,7 +45,7 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     @Override
     public void remove(Long id) {
         if (id == null) {
-            throw new NullPointerException("arguments cannot be null");
+            throw new IllegalArgumentException("arguments cannot be null");
         }
         log.info("removing competition, id = {}", id);
         competitionService.remove(id);
@@ -48,7 +54,7 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     @Override
     public CompetitionDTO findById(Long id) {
         if (id == null) {
-            throw new NullPointerException("arguments cannot be null");
+            throw new IllegalArgumentException("arguments cannot be null");
         }
         log.info("finding competition by ID, id = {}", id);
         return beanMappingService.mapTo(competitionService.findById(id), CompetitionDTO.class);
@@ -58,7 +64,7 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     // TODO D1LL1G4F
     public List<CompetitionDTO> findByGame(Long gameId) {
         if (gameId == null) {
-            throw new NullPointerException("arguments cannot be null");
+            throw new IllegalArgumentException("arguments cannot be null");
         }
         log.info("listing competition by game ID, gameId = {}", gameId);
         return beanMappingService.mapTo(competitionService.findByGame(gameId), CompetitionDTO.class);

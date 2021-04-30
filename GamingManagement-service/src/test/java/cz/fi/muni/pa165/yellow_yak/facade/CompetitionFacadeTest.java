@@ -7,6 +7,7 @@ import cz.fi.muni.pa165.yellow_yak.dto.PlayerDTO;
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import cz.fi.muni.pa165.yellow_yak.entity.Player;
+import cz.fi.muni.pa165.yellow_yak.service.BeanMappingService;
 import cz.fi.muni.pa165.yellow_yak.service.CompetitionService;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
@@ -24,7 +25,7 @@ import org.testng.annotations.Test;
 import java.util.Collections;
 
 /**
- * @author oreqizer
+ * @author oreqizer, Lukas Mikula
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
@@ -32,8 +33,9 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
     @Mock
     private CompetitionService competitionService;
 
-    @Autowired
-    @InjectMocks
+    @Mock
+    private BeanMappingService beanMappingService;
+
     private CompetitionFacade competitionFacade;
 
     private Game game;
@@ -44,6 +46,7 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
     public void init() throws ServiceException {
         // TODO competitionService not being mocked
         MockitoAnnotations.initMocks(this);
+        this.competitionFacade = new CompetitionFacadeImpl(beanMappingService, competitionService);
     }
 
     @BeforeMethod
@@ -64,55 +67,58 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
         competitionDTO.setId(competition.getId());
         competitionDTO.setGame(gameDTO);
         competitionDTO.setName(competition.getName());
+
+        Mockito.doReturn(competitionDTO).when(beanMappingService).mapTo(competition, CompetitionDTO.class);
+        Mockito.doReturn(Collections.singletonList(competitionDTO)).when(beanMappingService).mapTo(Collections.singletonList(competition), CompetitionDTO.class);
     }
 
     @Test
     public void create() {
-//        Mockito.doReturn(competition).when(competitionService).create(game.getId(), competition.getName());
-//
-//        Assert.assertEquals(competitionFacade.create(game.getId(), competition.getName()), competitionDTO);
+        Mockito.doReturn(competition).when(competitionService).create(game.getId(), competition.getName());
+
+        Assert.assertEquals(competitionFacade.create(game.getId(), competition.getName()), competitionDTO);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void createNullGame() {
         competitionFacade.create(null, competition.getName());
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void createNullName() {
         competitionFacade.create(game.getId(), null);
     }
 
     @Test
     public void remove() {
-//        competitionFacade.remove(1337L);
+        competitionFacade.remove(1337L);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void removeNull() {
         competitionFacade.remove(null);
     }
 
     @Test
     public void findById() {
-//        Mockito.doReturn(competition).when(competitionService).findById(competition.getId());
-//
-//        Assert.assertEquals(competitionFacade.findById(competition.getId()), competitionDTO);
+        Mockito.doReturn(competition).when(competitionService).findById(competition.getId());
+
+        Assert.assertEquals(competitionFacade.findById(competition.getId()), competitionDTO);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByIdNull() {
         competitionFacade.findById(null);
     }
 
     @Test
     public void findByGame() {
-//        Mockito.doReturn(competition).when(competitionService).findByGame(1337L);
-//
-//        Assert.assertEquals(competitionFacade.findByGame(1337L), Collections.singletonList(competitionDTO));
+        Mockito.doReturn(Collections.singletonList(competition)).when(competitionService).findByGame(1337L);
+
+        Assert.assertEquals(competitionFacade.findByGame(1337L), Collections.singletonList(competitionDTO));
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByGameNull() {
         competitionFacade.findByGame(null);
     }
