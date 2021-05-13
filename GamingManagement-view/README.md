@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Docs
 
-- CSS [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/javascript/)
+- CSS [Bootstrap](https://react-bootstrap.github.io/getting-started/)
 - Routing [Wouter](https://github.com/molefrog/wouter)
 - Data [SWR](https://swr.vercel.app/)
 
