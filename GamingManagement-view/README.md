@@ -2,11 +2,20 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Docs
+## Development
+
+Docs to stuff:
 
 - CSS [Bootstrap](https://react-bootstrap.github.io/getting-started/)
 - Routing [Wouter](https://github.com/molefrog/wouter)
 - Data [SWR](https://swr.vercel.app/)
+
+CI:
+
+- `yarn ci` runs everything listed below
+- `yarn types`
+- `yarn lint`
+- `yarn prettier`
 
 ## Available Scripts
 
