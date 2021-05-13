@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Docs
+
+- CSS [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/javascript/)
+- Routing [Wouter](https://github.com/molefrog/wouter)
+- Data [SWR](https://swr.vercel.app/)
+
 ## Available Scripts
 
 In the project directory, you can run:
