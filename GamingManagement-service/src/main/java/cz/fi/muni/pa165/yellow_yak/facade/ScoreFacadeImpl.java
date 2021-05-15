@@ -25,14 +25,11 @@ public class ScoreFacadeImpl implements ScoreFacade {
 
     final static Logger log = LoggerFactory.getLogger(ScoreFacadeImpl.class);
 
-    @Inject
-    private ScoreService scoreService;
+    private final ScoreService scoreService;
 
-    @Inject
-    private CompetitionService competitionService;
+    private final CompetitionService competitionService;
 
-    @Inject
-    private BeanMappingService beanMappingService;
+    private final BeanMappingService beanMappingService;
 
     @Autowired
     public ScoreFacadeImpl(BeanMappingService beanMappingService, CompetitionService competitionService, ScoreService scoreService) {

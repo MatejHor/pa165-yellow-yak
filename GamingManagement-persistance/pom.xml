@@ -10,6 +10,7 @@
 
     <artifactId>GamingManagement-persistance</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <name>GamingManagement-persistance</name>
 

@@ -1,7 +1,10 @@
+# IDEA
 .idea/*
 .DS_Store
-.iml
-.ipr
+*.iml
+*.ipr
+GamingManagement.iml
+GamingManagement.ipr
 
 # MAVEN
 target/
@@ -14,6 +17,7 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
+lib
 
 # YARN
 node_modoules
