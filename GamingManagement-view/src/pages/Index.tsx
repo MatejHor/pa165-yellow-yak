@@ -1,11 +1,16 @@
 import React from "react";
 import * as Yup from "yup";
-import { Redirect, Route, Switch } from "wouter";
-import { Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
+import { Redirect, Route, Link, Switch } from "wouter";
+import { Button, Col, Container, Form, InputGroup, Nav, Navbar, Row } from "react-bootstrap";
 import { Formik } from "formik";
 
 import Player from "./Player";
 import { load, save } from "../services/storage";
+
+enum Routes {
+  INDEX = "/",
+  PLAYER = "/player",
+}
 
 type FormValues = {
   email: string;
@@ -99,11 +104,29 @@ const Index = () => {
   }
 
   return (
-    <Switch>
-      <Route path="/player">{() => <Player />}</Route>
+    <>
+      <Navbar variant="light" bg="light" expand="lg">
+        <Navbar.Brand href="#home">Gaming management</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Link href={Routes.PLAYER}>
+              <Nav.Link>Player</Nav.Link>
+            </Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
 
-      <Redirect to="/" />
-    </Switch>
+      <Container className="my-3">
+        <Row className="justify-content-md-center">
+          <Switch>
+            <Route path={Routes.PLAYER}>{() => <Player />}</Route>
+
+            <Redirect to={Routes.INDEX} />
+          </Switch>
+        </Row>
+      </Container>
+    </>
   );
 };
 
