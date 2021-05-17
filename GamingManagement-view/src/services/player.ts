@@ -1,7 +1,7 @@
-import fetch, { Method } from "./fetch";
-
-import Player from "../records/Player";
 import useSWR from "swr";
+
+import fetch, { Method } from "./fetch";
+import type Player from "../records/Player";
 
 // === QUERY ===
 
@@ -22,7 +22,7 @@ export function usePlayersByUsername(username: string) {
 
 // GET /players?team=
 export function usePlayersByTeam(teamId: string | null) {
-  return useSWR<Player[]>(teamId ?? `/players?team=${teamId}`, fetch);
+  return useSWR<Player[]>(teamId === null ? null : `/players?team=${teamId}`, fetch);
 }
 
 // === MUTATIONS ===

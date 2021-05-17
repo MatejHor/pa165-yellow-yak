@@ -1,7 +1,7 @@
 import * as React from "react";
-
-import PlayerType from "../../records/Player";
 import { Col, Row } from "react-bootstrap";
+
+import type PlayerType from "../../records/Player";
 
 type Props = {
   data: PlayerType;

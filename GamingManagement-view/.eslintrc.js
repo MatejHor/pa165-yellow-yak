@@ -5,6 +5,7 @@ module.exports = {
   rules: {
     eqeqeq: OFF,
     "no-eq-null": OFF,
+    "react/jsx-no-bind": OFF,
   },
   overrides: [
     {

@@ -4,9 +4,11 @@ This project was bootstrapped with [Create React Index](https://github.com/faceb
 
 ## Development
 
-Make an `.env` file based on `.env.example`.
+Have `yarn` and `node` >=14 installed. Make an `.env` file based on `.env.example`.
 
 Scripts:
+
+- `yarn` to install deps
 - `yarn start` for local development
 - `yarn build` for production build
 
@@ -19,10 +21,10 @@ CI:
 
 ## Structure
 
-* `/components` reusable components
-* `/pages` individual sections of the application, can contain private components
-* `/records` types describing data structures
-* `/services` services that operate with data or provide utility
+- `/components` reusable components
+- `/pages` individual sections of the application, can contain private components
+- `/records` types describing data structures
+- `/services` services that operate with data or provide utility
 
 Follow established conventions. Make `.css` file next to `.tsx` file if custom CSS
 is needed.

@@ -1,6 +1,7 @@
 import * as React from "react";
+import { Alert, Button, Form } from "react-bootstrap";
+
 import { deletePlayer, usePlayersByUsername } from "../../../../services/player";
-import {Alert, Button, Form, InputGroup} from "react-bootstrap";
 import Player from "../../../../components/Player";
 
 const UsernameAutocomplete = () => {
@@ -8,13 +9,16 @@ const UsernameAutocomplete = () => {
   const value = ref.current?.value ?? "";
   const { data, error, revalidate } = usePlayersByUsername(value);
 
-  const handleDelete = React.useCallback((id: number) => {
-    deletePlayer(id)
-      .then(() => {
-        return revalidate();
-      })
-      .catch(() => {});
-  }, [revalidate]);
+  const handleDelete = React.useCallback(
+    (id: number) => {
+      deletePlayer(id)
+        .then(() => {
+          return revalidate();
+        })
+        .catch(() => {});
+    },
+    [revalidate],
+  );
 
   return (
     <div className="my-3">
@@ -22,18 +26,14 @@ const UsernameAutocomplete = () => {
 
       <Form.Group controlId="username">
         <Form.Label>Username</Form.Label>
-        <Form.Control
-          ref={ref}
-          name="username"
-          type="username"
-          placeholder="Enter username"
-        />
+        <Form.Control ref={ref} name="username" type="username" placeholder="Enter username" />
       </Form.Group>
 
       {error != null && <Alert variant="danger">{error.message}</Alert>}
 
       {data?.map((player) => (
         <Player
+          key={player.id}
           data={player}
           renderActions={(id) => (
             <Button type="primary" onClick={() => handleDelete(id)}>

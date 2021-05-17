@@ -1,9 +1,11 @@
-import { Formik, FormikHelpers } from "formik";
+import type { FormikHelpers } from "formik";
+import { Formik } from "formik";
 import { Alert, Button, Form, InputGroup } from "react-bootstrap";
 import React from "react";
 import * as Yup from "yup";
 
-import { createPlayer, CreatePlayerInput } from "../../../../services/player";
+import type { CreatePlayerInput } from "../../../../services/player";
+import { createPlayer } from "../../../../services/player";
 import useState, { isSuccess } from "../../../../services/useState";
 
 const CreateForm = () => {
