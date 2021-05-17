@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React Index](https://github.com/faceb
 
 ## Development
 
-Have `yarn` and `node` >=14 installed. Make an `.env` file based on `.env.example`.
+Make an `.env` file based on `.env.example`.
 
 Scripts:
 

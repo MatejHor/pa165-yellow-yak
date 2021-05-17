@@ -138,5 +138,6 @@
         <module>GamingManagement-service</module>
         <module>GamingManagement-persistance</module>
         <module>GamingManagement-api</module>
+        <module>GamingManagement-view</module>
     </modules>
 </project>
