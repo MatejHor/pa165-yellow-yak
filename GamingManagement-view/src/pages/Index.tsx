@@ -1,11 +1,13 @@
 import React from "react";
 import * as Yup from "yup";
 import { Redirect, Route, Link, Switch } from "wouter";
-import { Button, Col, Container, Form, InputGroup, Nav, Navbar, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, InputGroup, Nav, Navbar, Row } from "react-bootstrap";
 import { Formik } from "formik";
 
 import Player from "./Players";
-import { load, save } from "../services/storage";
+import { save } from "../services/storage";
+import { login } from "../services/auth";
+import useState, { isSuccess } from "../services/useState";
 
 enum Routes {
   INDEX = "/",
@@ -18,7 +20,8 @@ type FormValues = {
 };
 
 const Index = () => {
-  const [authed, setAuthed] = React.useState(load() !== null);
+  const [state, setState] = useState();
+  const success = isSuccess(state);
 
   const validationSchema = React.useMemo(
     () =>
@@ -30,11 +33,17 @@ const Index = () => {
   );
 
   const handleSubmit = React.useCallback((values: FormValues) => {
-    save(btoa(`${values.email}:${values.password}`));
-    setAuthed(true);
+    login(values)
+      .then(({ token }) => {
+        save(token);
+        setState({ error: null });
+      })
+      .catch((error) => {
+        setState({ error });
+      });
   }, []);
 
-  if (!authed) {
+  if (!success) {
     return (
       <Container>
         <Row className="justify-content-md-center">
@@ -86,6 +95,8 @@ const Index = () => {
                       </Form.Control.Feedback>
                     </InputGroup>
                   </Form.Group>
+
+                  {state?.error != null && <Alert variant="danger">{state.error.message}</Alert>}
 
                   <Button
                     variant="primary"
