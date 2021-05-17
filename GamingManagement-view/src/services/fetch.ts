@@ -17,7 +17,7 @@ export default async function fetch<T>(path: string, init: RequestInit = {}): Pr
   const headers = init.headers ?? {};
   const token = load();
 
-  return window.fetch(process.env.API_URL + path, {
+  return window.fetch(process.env.REACT_APP_API_URL + path, {
     ...init,
     headers: {
       ...headers,

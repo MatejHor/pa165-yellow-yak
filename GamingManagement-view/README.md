@@ -4,11 +4,11 @@ This project was bootstrapped with [Create React Index](https://github.com/faceb
 
 ## Development
 
-Docs to stuff:
+Make an `.env` file based on `.env.example`.
 
-- CSS [Bootstrap](https://react-bootstrap.github.io/getting-started/)
-- Routing [Wouter](https://github.com/molefrog/wouter)
-- Data [SWR](https://swr.vercel.app/)
+Scripts:
+- `yarn start` for local development
+- `yarn build` for production build
 
 CI:
 
@@ -17,35 +17,22 @@ CI:
 - `yarn lint`
 - `yarn prettier`
 
-## Available Scripts
+## Structure
 
-In the project directory, you can run:
+* `/components` reusable components
+* `/pages` individual sections of the application, can contain private components
+* `/records` types describing data structures
+* `/services` services that operate with data or provide utility
 
-### `yarn start`
+Follow established conventions. Make `.css` file next to `.tsx` file if custom CSS
+is needed.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### API
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Use `useSWR` for `GET` requests, and the `fetch` service for other methods.
 
-### `yarn test`
+## Docs
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-## Learn More
-
-You can learn more in the [Create React Index documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- CSS [Bootstrap](https://react-bootstrap.github.io/getting-started/)
+- Routing [Wouter](https://github.com/molefrog/wouter)
+- Data [SWR](https://swr.vercel.app/)

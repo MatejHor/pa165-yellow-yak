@@ -4,12 +4,12 @@ import { Redirect, Route, Link, Switch } from "wouter";
 import { Button, Col, Container, Form, InputGroup, Nav, Navbar, Row } from "react-bootstrap";
 import { Formik } from "formik";
 
-import Player from "./Player";
+import Player from "./Players";
 import { load, save } from "../services/storage";
 
 enum Routes {
   INDEX = "/",
-  PLAYER = "/player",
+  PLAYERS = "/players",
 }
 
 type FormValues = {
@@ -106,11 +106,13 @@ const Index = () => {
   return (
     <>
       <Navbar variant="light" bg="light" expand="lg">
-        <Navbar.Brand href="#home">Gaming management</Navbar.Brand>
+        <Link href={Routes.INDEX}>
+          <Navbar.Brand>Gaming management</Navbar.Brand>
+        </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Link href={Routes.PLAYER}>
+            <Link href={Routes.PLAYERS}>
               <Nav.Link>Player</Nav.Link>
             </Link>
           </Nav>
@@ -120,7 +122,7 @@ const Index = () => {
       <Container className="my-3">
         <Row className="justify-content-md-center">
           <Switch>
-            <Route path={Routes.PLAYER}>{() => <Player />}</Route>
+            <Route path={Routes.PLAYERS}>{() => <Player />}</Route>
 
             <Redirect to={Routes.INDEX} />
           </Switch>

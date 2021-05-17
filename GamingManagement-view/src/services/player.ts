@@ -1,23 +1,34 @@
 import fetch, { Method } from "./fetch";
 
-type Player = {
-  id: number;
-  username: string;
-  email: string;
-};
+import Player from "../records/Player";
+import useSWR from "swr";
+
+// === QUERY ===
 
 // GET /players/:id
-export async function getPlayer(id: string): Promise<Player> {
-  return fetch(`/players/${id}`);
+export function usePlayer(id: string) {
+  return useSWR<Player>(`/players/${id}`, fetch);
 }
 
-type CreatePlayerInput = {
+export type CreatePlayerInput = {
   username: string;
   email: string;
 };
 
+// GET /players?username=
+export function usePlayersByUsername(username: string) {
+  return useSWR<Player[]>(username.length < 1 ? null : `/players?username=${username}`, fetch);
+}
+
+// GET /players?team=
+export function usePlayersByTeam(teamId: string | null) {
+  return useSWR<Player[]>(teamId ?? `/players?team=${teamId}`, fetch);
+}
+
+// === MUTATIONS ===
+
 // POST /players
-export async function createPlayer(input: CreatePlayerInput): Promise<Player> {
+export function createPlayer(input: CreatePlayerInput): Promise<Player> {
   return fetch(`/players/`, {
     method: Method.POST,
     body: JSON.stringify(input),
@@ -25,18 +36,8 @@ export async function createPlayer(input: CreatePlayerInput): Promise<Player> {
 }
 
 // DELETE /players/:id
-export async function deletePlayer(id: string): Promise<null> {
+export function deletePlayer(id: number): Promise<null> {
   return fetch(`/players/${id}`, {
     method: Method.DELETE,
   }).then(() => null);
-}
-
-// GET /players?username=
-export async function listPlayersByUsername(username: string): Promise<Player[]> {
-  return fetch(`/players?username=${username}`);
-}
-
-// GET /players?team=
-export async function listPlayersByTeam(team: string): Promise<Player[]> {
-  return fetch(`/players?team=${team}`);
 }
