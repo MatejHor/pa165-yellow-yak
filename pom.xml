@@ -13,7 +13,6 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
-        <tomcat.version>8.5.34</tomcat.version>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>

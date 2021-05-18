@@ -15,14 +15,7 @@ public class StartInitializer extends AbstractAnnotationConfigDispatcherServletI
 
     @Override
     protected String[] getServletMappings() {
-        return new String[]{"/"};
-    }
-
-    @Override
-    protected Filter[] getServletFilters() {
-        CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
-        encodingFilter.setEncoding("utf-8");
-        return new Filter[]{encodingFilter};
+        return new String[]{"/api/v1/*"};
     }
 
     @Override

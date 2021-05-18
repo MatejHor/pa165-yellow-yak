@@ -8,15 +8,35 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.validation.Validator;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Locale;
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.config.EnableHypermediaSupport;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * The central Spring context and Spring MVC configuration.
@@ -25,64 +45,49 @@ import javax.validation.Validator;
  * see http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html#mvc-config-enable
  */
 
+@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 @EnableWebMvc
 @Configuration
-@Import({ServiceConfiguration.class})
-@ComponentScan(basePackages = "cz.fi.muni.pa165.yellow_yak.controller")
+//@Import({EshopWithSampleDataConfiguration.class})
+@ComponentScan(basePackages = {"cz.fi.muni.pa165.yellow_yak.controller"})
 public class RestConfig implements WebMvcConfigurer {
 
-    private final static Logger log = LoggerFactory.getLogger(RestConfig.class);
-
-    private static final String TEXTS = "Texts";
-
-    /**
-     * Maps the main page to a specific view.
-     */
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        log.debug("mapping URL / to home view");
-        registry.addViewController("/").setViewName("home");
-    }
-
-
-    /**
-     * Enables default Tomcat servlet that serves static files.
-     */
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        log.debug("enabling default servlet for static files");
-        configurer.enable();
-    }
-
-//    /**
-//     * Provides mapping from view names to JSP pages in WEB-INF/jsp directory.
-//     */
-//    @Bean
-//    public ViewResolver viewResolver() {
-//        log.debug("registering JSP in /WEB-INF/jsp/ as views");
-//        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-//        viewResolver.setPrefix("/WEB-INF/jsp/");
-//        viewResolver.setSuffix(".jsp");
-//        return viewResolver;
-//    }
-
-    /**
-     * Provides localized messages.
-     */
     @Bean
-    public MessageSource messageSource() {
-        log.debug("registering ResourceBundle 'Texts' for messages");
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename(TEXTS);
-        return messageSource;
+    public MappingJackson2HttpMessageConverter customJackson2HttpMessageConverter() {
+        MappingJackson2HttpMessageConverter jsonConverter = new MappingJackson2HttpMessageConverter();
+        jsonConverter.setObjectMapper(objectMapper());
+        return jsonConverter;
+    }
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(customJackson2HttpMessageConverter());
+    }
+
+    // see  http://stackoverflow.com/questions/25709672/how-to-change-hal-links-format-using-spring-hateoas
+    @Override
+    public void configureContentNegotiation(ContentNegotiationConfigurer c) {
+        c.defaultContentType(MediaTypes.HAL_JSON);
+    }
+
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        //configuring mapper for HAL
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH));
+        return objectMapper;
     }
 
     /**
      * Provides JSR-303 Validator.
+     *
+     * @return JSR-303 validator
      */
     @Bean
     public Validator validator() {
-        log.debug("registering JSR-303 validator");
         return new LocalValidatorFactoryBean();
     }
+
+
 }
