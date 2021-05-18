@@ -22,6 +22,14 @@ be seen by the users with the best teams according to different games and statis
 
 ![Alt text](wiki/UseCaseDiagram.PNG "UseCase diagram")
 
+## Run project
+
+1. ```mvn clean install -DskipTests``` 
+2. ```cd GamingManagement-rest```
+3. ```mvn cargo:run``` 
+
+Project url: http://localhost:8080/GamingManagement-rest/
+
 ## API
 
 Competition:
