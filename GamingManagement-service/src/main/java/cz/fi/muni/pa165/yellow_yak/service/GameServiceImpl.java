@@ -2,10 +2,11 @@ package cz.fi.muni.pa165.yellow_yak.service;
 
 import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import cz.fi.muni.pa165.yellow_yak.persistance.GameDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  */
 @Service
 public class GameServiceImpl implements GameService{
-    @Inject
+    @Autowired
     private GameDao gameDao;
 
     @Override
@@ -22,7 +23,7 @@ public class GameServiceImpl implements GameService{
 
         Game game = new Game();
         game.setName(name);
-        game.setCreatedAt(LocalDateTime.now());
+        game.setCreatedAt(LocalDate.now());
 
         gameDao.create(game);
         return game;

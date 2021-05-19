@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -34,7 +34,7 @@ public class Player {
     @Email
     private String email;
 
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     @Override
     public int hashCode() {

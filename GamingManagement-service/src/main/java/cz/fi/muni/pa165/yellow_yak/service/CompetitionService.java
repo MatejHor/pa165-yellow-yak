@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.yellow_yak.service;
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -42,5 +43,5 @@ public interface CompetitionService {
     /**
      * Find Competition which have oldest createdAt date
      */
-    public LocalDateTime findOldestCompetition();
+    public LocalDate findOldestCompetition();
 }

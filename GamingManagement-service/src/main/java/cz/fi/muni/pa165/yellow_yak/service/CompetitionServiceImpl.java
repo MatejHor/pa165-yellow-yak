@@ -6,7 +6,8 @@ import cz.fi.muni.pa165.yellow_yak.persistance.GameDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public class CompetitionServiceImpl implements CompetitionService {
         Competition competition = new Competition();
         competition.setGame(gameDao.findById(gameId));
         competition.setName(name);
-        competition.setCreatedAt(LocalDateTime.now());
+        competition.setCreatedAt(LocalDate.now());
 
         competitionDao.create(competition);
         return competition;
@@ -50,7 +51,7 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public LocalDateTime findOldestCompetition() {
+    public LocalDate findOldestCompetition() {
         return (competitionDao.findAll().isEmpty()) ? null : competitionDao.findOldest().getCreatedAt();
     }
 }

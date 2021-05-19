@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -29,7 +29,7 @@ public class Game {
     @NotNull
     private String name;
 
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     @Override
     public int hashCode() {

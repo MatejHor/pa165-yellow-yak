@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class TeamServiceImpl implements TeamService {
         if (name != null) {
             Team newTeam = new Team();
             newTeam.setName(name);
-            newTeam.setCreatedAt(LocalDateTime.now());
+            newTeam.setCreatedAt(LocalDate.now());
 
             teamDao.create(newTeam);
             return newTeam;

@@ -17,7 +17,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceUnit;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -42,7 +43,7 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
         Player testPlayer1 = new Player();
 
         testPlayer1.setUsername("ReadyPlayerOne");
-        testPlayer1.setCreatedAt(LocalDateTime.now());
+        testPlayer1.setCreatedAt(LocalDate.now());
         testPlayer1.setEmail("festergut@gmail.com");
 
 
@@ -60,7 +61,7 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(playerDao.findAll().size(), 1);
         Player testPlayer2 = new Player();
         testPlayer2.setUsername("ReadyPlayerTwo");
-        testPlayer2.setCreatedAt(LocalDateTime.now());
+        testPlayer2.setCreatedAt(LocalDate.now());
         testPlayer2.setEmail("patchwerk@gmail.com");
         playerDao.create(testPlayer2);
         Assert.assertEquals(playerDao.findAll().size(), 2);
@@ -109,7 +110,7 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(playerDao.findAll().get(0), testPlayer);
         Player testPlayer2 = new Player();
         testPlayer2.setUsername("ReadyPlayerTwo");
-        testPlayer2.setCreatedAt(LocalDateTime.now());
+        testPlayer2.setCreatedAt(LocalDate.now());
         testPlayer2.setEmail("patchwerk@gmail.com");
         playerDao.create(testPlayer2);
         Assert.assertEquals(playerDao.findAll().size(), 2);
@@ -137,7 +138,7 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
 
         Player testPlayer2 = new Player();
         testPlayer2.setUsername(testPlayer.getUsername());
-        testPlayer2.setCreatedAt(LocalDateTime.now());
+        testPlayer2.setCreatedAt(LocalDate.now());
         testPlayer2.setEmail("patchwerk@gmail.com");
         playerDao.create(testPlayer2);
         expectedPlayers = Arrays.asList(testPlayer, testPlayer2);
@@ -161,12 +162,12 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
 
         Team team = new Team();
         team.setName("kekegas");
-        team.setCreatedAt(LocalDateTime.now());
+        team.setCreatedAt(LocalDate.now());
 
         Member member = new Member();
         member.setPlayer(testPlayer);
         member.setTeam(team);
-        member.setCreatedAt(LocalDateTime.now());
+        member.setCreatedAt(LocalDate.now());
 
         em.getTransaction().begin();
         em.persist(team);

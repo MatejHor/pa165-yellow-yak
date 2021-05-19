@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.yellow_yak.facade;
 import cz.fi.muni.pa165.yellow_yak.dto.ScoreDTO;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface ScoreFacade {
      * @param oldest   date to search
      * @return list of scores
      */
-    public List<ScoreDTO> findByGamePlayerDate(@NotNull Long playerId, @NotNull Long gameId, LocalDateTime oldest);
+    public List<ScoreDTO> findByGamePlayerDate(@NotNull Long playerId, @NotNull Long gameId, LocalDate oldest);
 
     /**
      * Creates a new score

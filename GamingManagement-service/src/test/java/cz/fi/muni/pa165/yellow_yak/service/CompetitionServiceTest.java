@@ -18,7 +18,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -56,8 +57,8 @@ public class CompetitionServiceTest extends AbstractTestNGSpringContextTests {
         competition.setGame(game);
         competition.setName("TestNameCompetition");
         competition.setPrices("TestPrices");
-        competition.setCreatedAt(LocalDateTime.now());
-        competition.setStartedAt(LocalDateTime.now());
+        competition.setCreatedAt(LocalDate.now());
+        competition.setStartedAt(LocalDate.now());
     }
 
     @Test
@@ -69,7 +70,7 @@ public class CompetitionServiceTest extends AbstractTestNGSpringContextTests {
         Competition c = new Competition();
         c.setName("ZergFest");
         c.setGame(game);
-        c.setCreatedAt(LocalDateTime.now());
+        c.setCreatedAt(LocalDate.now());
 
         Competition res = competitionService.create(game.getId(), c.getName());
 
@@ -122,7 +123,7 @@ public class CompetitionServiceTest extends AbstractTestNGSpringContextTests {
         when(competitionDao.findOldest()).thenReturn(competition);
         when(competitionDao.findAll()).thenReturn(Collections.singletonList(competition));
 
-        LocalDateTime oldestCompetition = competitionService.findOldestCompetition();
+        LocalDate oldestCompetition = competitionService.findOldestCompetition();
 
         Assert.assertNotNull(oldestCompetition);
         Assert.assertEquals(oldestCompetition, competition.getCreatedAt());
@@ -132,7 +133,7 @@ public class CompetitionServiceTest extends AbstractTestNGSpringContextTests {
     public void findOldestTestNullCompetitions() {
         when(competitionDao.findAll()).thenReturn(Collections.emptyList());
 
-        LocalDateTime oldestCompetition = competitionService.findOldestCompetition();
+        LocalDate oldestCompetition = competitionService.findOldestCompetition();
 
         Assert.assertNull(oldestCompetition);
     }

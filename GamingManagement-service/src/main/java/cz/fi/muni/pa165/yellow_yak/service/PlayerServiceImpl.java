@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -28,15 +28,16 @@ public class PlayerServiceImpl implements PlayerService {
         Player player = new Player();
         player.setUsername(name);
         player.setEmail(email);
-        player.setCreatedAt(LocalDateTime.now());
+        player.setCreatedAt(LocalDate.now());
 
         playerDao.create(player);
         return player;
     }
 
     @Override
-    public void remove(@NotNull Long id) {
+    public boolean remove(@NotNull Long id) {
         playerDao.remove(playerDao.findById(id));
+        return playerDao.findById(id) == null;
     }
 
     @Override
