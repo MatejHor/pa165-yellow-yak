@@ -24,14 +24,14 @@ import java.util.List;
 @Configuration
 @Import(PersistenceSampleApplicationContext.class)
 @ComponentScan(basePackageClasses={
-        CompetitionService.class,
         GameService.class,
         PlayerService.class,
+        CompetitionService.class,
         ScoreService.class,
         TeamService.class,
-        CompetitionFacade.class,
         GameFacade.class,
         PlayerFacade.class,
+        CompetitionFacade.class,
         ScoreFacade.class,
         TeamFacade.class
 })
