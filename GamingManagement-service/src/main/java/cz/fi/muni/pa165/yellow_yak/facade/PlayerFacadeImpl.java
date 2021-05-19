@@ -44,12 +44,12 @@ public class PlayerFacadeImpl implements PlayerFacade {
     }
 
     @Override
-    public void remove(Long id) {
+    public boolean remove(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("arguments cannot be null");
         }
         log.info("removing player, id = {}", id);
-        playerService.remove(id);
+        return playerService.remove(id);
     }
 
     @Override

@@ -14,6 +14,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @author Matej Horniak
  */
@@ -36,9 +40,13 @@ public class ServiceConfiguration {
 
     @Bean
     public Mapper dozer(){
-        DozerBeanMapper dozer = new DozerBeanMapper();
-        dozer.addMapping(new DozerCustomConfig());
-        return dozer;
+        List<String> mappingFiles = new ArrayList();
+        mappingFiles.add("dozerJdk8Converters.xml");
+
+
+        DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
+        dozerBeanMapper.setMappingFiles(mappingFiles);
+        return dozerBeanMapper;
     }
 
     /**

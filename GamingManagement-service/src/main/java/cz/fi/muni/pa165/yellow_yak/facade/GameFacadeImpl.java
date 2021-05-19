@@ -20,10 +20,10 @@ import java.util.List;
 public class GameFacadeImpl implements GameFacade{
     final static Logger log = LoggerFactory.getLogger(ScoreFacadeImpl.class);
 
-    @Inject
+    @Autowired
     private BeanMappingService beanMappingService;
 
-    @Inject
+    @Autowired
     private GameService gameService;
 
     @Autowired

@@ -7,6 +7,7 @@ import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceNotFoundException;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceNotModifiedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpEntity;
@@ -37,10 +38,10 @@ public class CompetitionControllerHateoas {
 
     final static Logger logger = LoggerFactory.getLogger(CompetitionControllerHateoas.class);
 
-    @Inject
+    @Autowired
     private CompetitionFacade competitionFacade;
 
-    @Inject
+    @Autowired
     private CompetitionResourceAssembler competitionResourceAssembler;
 
     /**

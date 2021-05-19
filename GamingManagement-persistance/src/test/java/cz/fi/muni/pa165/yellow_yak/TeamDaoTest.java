@@ -15,7 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceUnit;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
 
@@ -38,10 +38,10 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
         EntityManager em = entityManagerFactory.createEntityManager();
 
         Team testTeam1 = new Team();
-        testTeam1.setCreatedAt(LocalDateTime.now());
+        testTeam1.setCreatedAt(LocalDate.now());
         testTeam1.setName("Test Team" + new Random().nextInt());
         Team testTeam2 = new Team();
-        testTeam2.setCreatedAt(LocalDateTime.now().minusDays( 1 ));
+        testTeam2.setCreatedAt(LocalDate.now().minusDays( 1 ));
         testTeam2.setName("Test Team" + + new Random().nextInt());
 
         teamDao.create(testTeam1);
@@ -79,7 +79,7 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void removeTeamTest() {
         Team team = new Team();
-        team.setCreatedAt(LocalDateTime.now());
+        team.setCreatedAt(LocalDate.now());
         team.setName("TestTeamRemove");
         teamDao.create(team);
 

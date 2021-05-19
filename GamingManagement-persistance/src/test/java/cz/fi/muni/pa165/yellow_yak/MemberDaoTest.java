@@ -15,7 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceUnit;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -42,16 +42,16 @@ public class MemberDaoTest extends AbstractTestNGSpringContextTests {
         testPlayer = new Player();
         testPlayer.setUsername("Player1");
         testPlayer.setEmail("kek@lol.bur");
-        testPlayer.setCreatedAt(LocalDateTime.now());
+        testPlayer.setCreatedAt(LocalDate.now());
 
         testTeam = new Team();
         testTeam.setName("Team1");
-        testTeam.setCreatedAt(LocalDateTime.now());
+        testTeam.setCreatedAt(LocalDate.now());
 
         testMember = new Member();
         testMember.setPlayer(testPlayer);
         testMember.setTeam(testTeam);
-        testMember.setCreatedAt(LocalDateTime.now());
+        testMember.setCreatedAt(LocalDate.now());
 
         em.getTransaction().begin();
         em.persist(testPlayer);
@@ -68,7 +68,7 @@ public class MemberDaoTest extends AbstractTestNGSpringContextTests {
         Player player = new Player();
         player.setUsername("Player2");
         player.setEmail("lol@kek.lmao");
-        player.setCreatedAt(LocalDateTime.now());
+        player.setCreatedAt(LocalDate.now());
 
         em.getTransaction().begin();
         em.persist(player);
@@ -78,7 +78,7 @@ public class MemberDaoTest extends AbstractTestNGSpringContextTests {
         Member member = new Member();
         member.setPlayer(player);
         member.setTeam(testTeam);
-        member.setCreatedAt(LocalDateTime.now());
+        member.setCreatedAt(LocalDate.now());
 
         member.setPlayer(player);
         memberDao.create(member);
@@ -98,7 +98,7 @@ public class MemberDaoTest extends AbstractTestNGSpringContextTests {
         Player player = new Player();
         player.setUsername("Player2");
         player.setEmail("lol@kek.lmao");
-        player.setCreatedAt(LocalDateTime.now());
+        player.setCreatedAt(LocalDate.now());
 
         em.getTransaction().begin();
         em.persist(player);

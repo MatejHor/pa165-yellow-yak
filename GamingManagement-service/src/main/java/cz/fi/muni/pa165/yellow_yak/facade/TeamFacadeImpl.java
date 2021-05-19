@@ -21,10 +21,10 @@ public class TeamFacadeImpl implements TeamFacade {
 
     final static Logger log = LoggerFactory.getLogger(TeamFacadeImpl.class);
 
-    @Inject
+    @Autowired
     private TeamService teamService;
 
-    @Inject
+    @Autowired
     private BeanMappingService beanMappingService;
 
     @Autowired

@@ -49,8 +49,8 @@ Player:
 * `GET /players/:id` -> `PlayerFacade.findById`
 * `POST /players` -> `PlayerFacade.create`
 * `DELETE /players/:id` -> `PlayerFacade.remove`
-* `GET /players?username=` -> `PlayerFacade.findByUsername`
-* `GET /players?team=` -> `PlayerFacade.findByTeam`
+* `GET /players/username/:username` -> `PlayerFacade.findByUsername`
+* `GET /players/team/:teamId` -> `PlayerFacade.findByTeam`
 
 Score:
 * `GET /score/:id` -> `ScoreFacade.findById`

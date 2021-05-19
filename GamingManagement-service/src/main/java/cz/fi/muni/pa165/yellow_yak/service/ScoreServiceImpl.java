@@ -8,7 +8,8 @@ import cz.fi.muni.pa165.yellow_yak.persistance.ScoreDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -30,7 +31,7 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     public List<Score> findByPlayerAndCompetitionAndDate(Long playerId,
                                                          List<Competition> competitions,
-                                                         LocalDateTime createdAt) {
+                                                         LocalDate createdAt) {
         return scoreDao.findByPlayerAndCompetitionAndDate(playerId, competitions, createdAt);
     }
 

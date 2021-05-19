@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.yellow_yak.persistance;
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Score;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public interface ScoreDao {
      */
     List<Score> findByPlayerAndCompetitionAndDate(Long playerId,
                                                   List<Competition> competitions,
-                                                  LocalDateTime createdAt);
+                                                  LocalDate createdAt);
 
     /**
      * Finds a score by player and game

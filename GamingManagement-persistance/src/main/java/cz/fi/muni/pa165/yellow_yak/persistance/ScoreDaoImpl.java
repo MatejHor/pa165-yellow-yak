@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class ScoreDaoImpl implements ScoreDao {
     @Override
     public List<Score> findByPlayerAndCompetitionAndDate(Long playerId,
                                                          List<Competition> competitions,
-                                                         LocalDateTime createdAt) {
+                                                         LocalDate createdAt) {
         return em.createQuery(
                 "select s from Score s" +
                         " join s.player as p join s.competition as c " +

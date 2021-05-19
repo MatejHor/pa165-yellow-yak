@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -22,7 +22,7 @@ public class PlayerDTO {
     @NotNull
     @Email
     private String email;
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     @Override
     public int hashCode() {

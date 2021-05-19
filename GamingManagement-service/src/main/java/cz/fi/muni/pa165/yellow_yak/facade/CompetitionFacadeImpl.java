@@ -1,15 +1,14 @@
 package cz.fi.muni.pa165.yellow_yak.facade;
 
 import cz.fi.muni.pa165.yellow_yak.dto.CompetitionDTO;
-import cz.fi.muni.pa165.yellow_yak.service.*;
+import cz.fi.muni.pa165.yellow_yak.service.BeanMappingService;
+import cz.fi.muni.pa165.yellow_yak.service.CompetitionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -21,10 +20,10 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
 
     final static Logger log = LoggerFactory.getLogger(ScoreFacadeImpl.class);
 
-    @Inject
+    @Autowired
     private BeanMappingService beanMappingService;
 
-    @Inject
+    @Autowired
     private CompetitionService competitionService;
 
     @Autowired

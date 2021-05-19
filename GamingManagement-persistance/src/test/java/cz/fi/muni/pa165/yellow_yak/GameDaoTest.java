@@ -14,7 +14,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceUnit;
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class GameDaoTest extends AbstractTestNGSpringContextTests {
     private void init() {
         Game gameTest = new Game();
         gameTest.setName("TestGame");
-        gameTest.setCreatedAt(LocalDateTime.now());
+        gameTest.setCreatedAt(LocalDate.now());
 
         gameDao.create(gameTest);
         game = gameTest;
@@ -50,7 +50,7 @@ public class GameDaoTest extends AbstractTestNGSpringContextTests {
     public void createGame() {
         Game gameTest = new Game();
         gameTest.setName("NewGame");
-        gameTest.setCreatedAt(LocalDateTime.now());
+        gameTest.setCreatedAt(LocalDate.now());
 
         gameDao.create(gameTest);
 
@@ -61,7 +61,7 @@ public class GameDaoTest extends AbstractTestNGSpringContextTests {
     public void createGameNullName() {
         Game gameTest = new Game();
         gameTest.setName(null);
-        gameTest.setCreatedAt(LocalDateTime.now());
+        gameTest.setCreatedAt(LocalDate.now());
 
         gameDao.create(gameTest);
     }
@@ -70,7 +70,7 @@ public class GameDaoTest extends AbstractTestNGSpringContextTests {
     public void createGameDuplicateName() {
         Game gameTest = new Game();
         gameTest.setName("TestGame");
-        gameTest.setCreatedAt(LocalDateTime.now());
+        gameTest.setCreatedAt(LocalDate.now());
 
         gameDao.create(gameTest);
     }
@@ -144,7 +144,7 @@ public class GameDaoTest extends AbstractTestNGSpringContextTests {
     public void removeGame() {
         Game gameTest  = new Game();
         gameTest.setName("GameForRemove");
-        gameTest.setCreatedAt(LocalDateTime.now());
+        gameTest.setCreatedAt(LocalDate.now());
 
         gameDao.create(gameTest);
 

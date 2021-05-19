@@ -17,7 +17,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceUnit;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
 
@@ -42,14 +42,14 @@ public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
 
         Game gameTest = new Game();
         gameTest.setName("GameTest" + new Random().nextInt());
-        gameTest.setCreatedAt(LocalDateTime.now());
+        gameTest.setCreatedAt(LocalDate.now());
 
         Competition competitionTest = new Competition();
         competitionTest.setName("Test" + new Random().nextInt());
         competitionTest.setPrices("Price1, Price2");
-        competitionTest.setCreatedAt(LocalDateTime.now());
-        competitionTest.setFinishedAt(LocalDateTime.now());
-        competitionTest.setStartedAt(LocalDateTime.now());
+        competitionTest.setCreatedAt(LocalDate.now());
+        competitionTest.setFinishedAt(LocalDate.now());
+        competitionTest.setStartedAt(LocalDate.now());
         competitionTest.setGame(gameTest);
 
         em.getTransaction().begin();
@@ -81,9 +81,9 @@ public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
         Competition competitionTest = new Competition();
         competitionTest.setName("TestCreate");
         competitionTest.setPrices("Price");
-        competitionTest.setCreatedAt(LocalDateTime.now());
-        competitionTest.setFinishedAt(LocalDateTime.now());
-        competitionTest.setStartedAt(LocalDateTime.now());
+        competitionTest.setCreatedAt(LocalDate.now());
+        competitionTest.setFinishedAt(LocalDate.now());
+        competitionTest.setStartedAt(LocalDate.now());
         competitionTest.setGame(game);
 
         competitionDao.create(competitionTest);
@@ -130,9 +130,9 @@ public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
         Competition competitionTest = new Competition();
         competitionTest.setName("TestCreate");
         competitionTest.setPrices("Price");
-        competitionTest.setCreatedAt(LocalDateTime.now().minusDays( 1 ));
-        competitionTest.setFinishedAt(LocalDateTime.now());
-        competitionTest.setStartedAt(LocalDateTime.now());
+        competitionTest.setCreatedAt(LocalDate.now().minusDays( 1 ));
+        competitionTest.setFinishedAt(LocalDate.now());
+        competitionTest.setStartedAt(LocalDate.now());
         competitionTest.setGame(game);
         competitionDao.create(competitionTest);
 

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * handlers can be managed from a central location.
  * It is also possible to associate one handler to a set of Controllers
  * See https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/ControllerAdvice.html
+ *
+ * @author Matej Horniak
  */
 @ControllerAdvice
 public class GlobalExceptionController {

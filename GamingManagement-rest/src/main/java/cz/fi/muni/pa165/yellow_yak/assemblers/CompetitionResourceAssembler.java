@@ -18,7 +18,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
  * of the API See
  * http://docs.spring.io/spring-hateoas/docs/current/reference/html/
  *
- * @author brossi
  */
 @Component
 public class CompetitionResourceAssembler implements RepresentationModelAssembler<CompetitionDTO, EntityModel<CompetitionDTO>> {
