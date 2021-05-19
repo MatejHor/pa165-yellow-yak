@@ -22,7 +22,7 @@ be seen by the users with the best teams according to different games and statis
 
 ![Alt text](wiki/UseCaseDiagram.PNG "UseCase diagram")
 
-## Run project
+## REST api
 
 1. ```mvn clean install -DskipTests``` 
 2. ```cd GamingManagement-rest```
