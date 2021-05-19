@@ -24,7 +24,7 @@ public interface CompetitionService {
      * Removes the competition
      * @param competitionId competition ID to remove
      */
-    public void remove(@NotNull Long competitionId);
+    public boolean remove(@NotNull Long competitionId);
 
     /**
      * Finds a competition by id
