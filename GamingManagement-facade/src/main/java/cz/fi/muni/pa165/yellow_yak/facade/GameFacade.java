@@ -21,7 +21,7 @@ public interface GameFacade {
      * Removes the game
      * @param id game id to remove
      */
-    public void remove(@NotNull Long id);
+    public boolean remove(@NotNull Long id);
 
     /**
      * Finds a game by id

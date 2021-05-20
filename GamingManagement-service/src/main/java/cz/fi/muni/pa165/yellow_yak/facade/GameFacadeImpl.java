@@ -42,12 +42,12 @@ public class GameFacadeImpl implements GameFacade{
     }
 
     @Override
-    public void remove(Long id) {
+    public boolean remove(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("arguments cannot be null");
         }
         log.info("removing game, id = {}", id);
-        gameService.remove(id);
+        return gameService.remove(id);
     }
 
     @Override
