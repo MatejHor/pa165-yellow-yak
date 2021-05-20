@@ -25,7 +25,7 @@
   "scripts": {
     "types": "tsc --noEmit",
     "lint": "eslint . --max-warnings 0",
-    "prettier": "prettier --check \"**/*.{js,jsx,ts,tsx,md,yml}\" || echo \"oops 🙀 pls run 'yarn fmt'\"",
+    "prettier": "prettier --check \"**/*.{js,jsx,ts,tsx,md,yml}\" || (echo \"oops 🙀 pls run 'yarn fmt'\" && exit 1)",
     "fmt": "prettier --write \"**/*.{js,jsx,ts,tsx,md,yml}\"",
     "ci": "run-p types lint prettier",
     "//": "",
