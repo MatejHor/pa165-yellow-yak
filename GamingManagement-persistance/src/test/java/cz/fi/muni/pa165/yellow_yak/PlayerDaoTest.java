@@ -151,7 +151,7 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(receivedPlayers.size(), 0);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void removePlayerTestNull() {
         playerDao.remove(null);
     }
