@@ -22,7 +22,7 @@ public interface CompetitionFacade {
      * Removes the competition
      * @param id id to remove
      */
-    public void remove(@NotNull Long id);
+    public boolean remove(@NotNull Long id);
 
     /**
      * Finds a competition by id

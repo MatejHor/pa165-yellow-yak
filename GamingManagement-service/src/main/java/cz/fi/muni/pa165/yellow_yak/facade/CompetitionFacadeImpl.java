@@ -42,12 +42,12 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     }
 
     @Override
-    public void remove(Long id) {
+    public boolean remove(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("arguments cannot be null");
         }
         log.info("removing competition, id = {}", id);
-        competitionService.remove(id);
+        return competitionService.remove(id);
     }
 
     @Override

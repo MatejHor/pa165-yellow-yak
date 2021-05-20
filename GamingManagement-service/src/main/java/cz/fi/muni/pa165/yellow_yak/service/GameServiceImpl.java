@@ -30,10 +30,9 @@ public class GameServiceImpl implements GameService{
     }
 
     @Override
-    public void remove(Long id) {
-        if (id == null) return;
-
+    public boolean remove(Long id) {
         gameDao.remove(gameDao.findById(id));
+        return gameDao.findById(id) == null;
     }
 
     @Override

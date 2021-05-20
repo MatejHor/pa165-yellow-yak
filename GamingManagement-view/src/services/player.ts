@@ -17,12 +17,12 @@ export type CreatePlayerInput = {
 
 // GET /players?username=
 export function usePlayersByUsername(username: string) {
-  return useSWR<Player[]>(username.length < 1 ? null : `/players?username=${username}`, fetch);
+  return useSWR<Player[]>(username.length < 1 ? null : `/players/username/${username}`, fetch);
 }
 
 // GET /players?team=
 export function usePlayersByTeam(teamId: string | null) {
-  return useSWR<Player[]>(teamId === null ? null : `/players?team=${teamId}`, fetch);
+  return useSWR<Player[]>(teamId === null ? null : `/players/team/${teamId}`, fetch);
 }
 
 // === MUTATIONS ===

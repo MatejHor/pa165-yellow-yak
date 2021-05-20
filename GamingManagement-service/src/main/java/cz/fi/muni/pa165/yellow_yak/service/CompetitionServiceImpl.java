@@ -28,14 +28,16 @@ public class CompetitionServiceImpl implements CompetitionService {
         competition.setGame(gameDao.findById(gameId));
         competition.setName(name);
         competition.setCreatedAt(LocalDate.now());
+        competition.setStartedAt(LocalDate.now());
 
         competitionDao.create(competition);
         return competition;
     }
 
     @Override
-    public void remove(Long competitionId) {
+    public boolean remove(Long competitionId) {
         competitionDao.remove(competitionDao.findById(competitionId));
+        return competitionDao.findById(competitionId) == null;
     }
 
     @Override

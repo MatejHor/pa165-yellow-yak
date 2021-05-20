@@ -71,6 +71,7 @@ public class CompetitionServiceTest extends AbstractTestNGSpringContextTests {
         c.setName("ZergFest");
         c.setGame(game);
         c.setCreatedAt(LocalDate.now());
+        c.setStartedAt(LocalDate.now());
 
         Competition res = competitionService.create(game.getId(), c.getName());
 

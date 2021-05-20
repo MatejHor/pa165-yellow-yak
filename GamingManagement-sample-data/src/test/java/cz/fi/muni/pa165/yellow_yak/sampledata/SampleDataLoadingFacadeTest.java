@@ -1,7 +1,10 @@
 package cz.fi.muni.pa165.yellow_yak.sampledata;
 
 import cz.fi.muni.pa165.yellow_yak.persistance.CompetitionDao;
+import cz.fi.muni.pa165.yellow_yak.persistance.GameDao;
 import cz.fi.muni.pa165.yellow_yak.persistance.PlayerDao;
+import cz.fi.muni.pa165.yellow_yak.service.CompetitionService;
+import cz.fi.muni.pa165.yellow_yak.service.GameService;
 import cz.fi.muni.pa165.yellow_yak.service.PlayerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,10 +37,19 @@ public class SampleDataLoadingFacadeTest extends AbstractTestNGSpringContextTest
     @Autowired
     public PlayerDao playerDao;
 
+    @Autowired
+    public GameDao gameDao;
+
     // TODO Doplnit dao
 
     @Autowired
     public PlayerService playerService;
+
+    @Autowired
+    public GameService gameService;
+
+    @Autowired
+    public CompetitionService competitionService;
 
     // TODO Doplnit service
 
@@ -55,6 +67,12 @@ public class SampleDataLoadingFacadeTest extends AbstractTestNGSpringContextTest
         Assert.assertTrue(playerService.findAll().size() > 0);
 
         // TODO doplnit test
+
+        Assert.assertTrue(gameDao.findAll().size() > 0);
+        Assert.assertTrue(gameService.findAll().size() > 0);
+
+        Assert.assertTrue(competitionDao.findAll().size() > 0);
+//        Assert.assertTrue(competitionService.findAll().size() > 0);
     }
 
 }
