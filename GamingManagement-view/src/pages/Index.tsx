@@ -2,9 +2,10 @@ import React from "react";
 import * as Yup from "yup";
 import { Redirect, Route, Link, Switch } from "wouter";
 import { Alert, Button, Col, Container, Form, InputGroup, Nav, Navbar, Row } from "react-bootstrap";
-import { Formik } from "formik";
+import {Formik, FormikHelpers} from "formik";
 
-import Player from "./Players";
+import Players from "./Players";
+import Teams from "./Teams";
 import { save } from "../services/storage";
 import { login } from "../services/auth";
 import useState, { isSuccess } from "../services/useState";
@@ -12,6 +13,7 @@ import useState, { isSuccess } from "../services/useState";
 enum Routes {
   INDEX = "/",
   PLAYERS = "/players",
+  TEAMS = "/teams",
 }
 
 type FormValues = {
@@ -32,15 +34,20 @@ const Index = () => {
     [],
   );
 
-  const handleSubmit = React.useCallback((values: FormValues) => {
-    login(values)
-      .then(({ token }) => {
-        save(token);
-        setState({ error: null });
-      })
-      .catch((error) => {
-        setState({ error });
-      });
+  const handleSubmit = React.useCallback((values: FormValues, form: FormikHelpers<FormValues>) => {
+    setState({ error: null }); // TODO enable this
+    // form.setSubmitting(true);
+    // login(values)
+    //   .then(({ token }) => {
+    //     save(token);
+    //     setState({ error: null });
+    //   })
+    //   .catch((error) => {
+    //     setState({ error });
+    //   })
+    //   .finally(() => {
+    //     form.setSubmitting(false);
+    //   });
   }, []);
 
   if (!success) {
@@ -124,7 +131,10 @@ const Index = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Link href={Routes.PLAYERS}>
-              <Nav.Link>Player</Nav.Link>
+              <Nav.Link>Players</Nav.Link>
+            </Link>
+            <Link href={Routes.TEAMS}>
+              <Nav.Link>Teams</Nav.Link>
             </Link>
           </Nav>
         </Navbar.Collapse>
@@ -133,7 +143,8 @@ const Index = () => {
       <Container className="my-3">
         <Row className="justify-content-md-center">
           <Switch>
-            <Route path={Routes.PLAYERS}>{() => <Player />}</Route>
+            <Route path={Routes.PLAYERS}>{() => <Players />}</Route>
+            <Route path={Routes.TEAMS}>{() => <Teams />}</Route>
 
             <Redirect to={Routes.INDEX} />
           </Switch>
