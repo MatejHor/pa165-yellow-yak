@@ -2,6 +2,7 @@ package cz.fi.muni.pa165.yellow_yak.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.fi.muni.pa165.yellow_yak.ApiUris;
+import cz.fi.muni.pa165.yellow_yak.mixin.PlayerDTOMixin;
 import cz.fi.muni.pa165.yellow_yak.dto.PlayerDTO;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceAlreadyExistingException;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceNotFoundException;

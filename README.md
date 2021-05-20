@@ -28,7 +28,11 @@ be seen by the users with the best teams according to different games and statis
 2. ```cd GamingManagement-rest```
 3. ```mvn cargo:run``` 
 
-Project url: http://localhost:8080/GamingManagement-rest/
+OR
+
+```mvn clean install -DskipTests && cd GamingManagement-rest && mvn cargo:run```
+
+REST url: http://localhost:8080/pa165/rest/
 
 ## API
 
@@ -46,11 +50,18 @@ Game:
 * `GET /games` -> `GameFacade.findAll`
 
 Player:
-* `GET /players/:id` -> `PlayerFacade.findById`
-* `POST /players` -> `PlayerFacade.create`
-* `DELETE /players/:id` -> `PlayerFacade.remove`
-* `GET /players/username/:username` -> `PlayerFacade.findByUsername`
-* `GET /players/team/:teamId` -> `PlayerFacade.findByTeam`
+* GET /players/ -> PlayerFacade.findAll  
+```curl -i -X GET http://localhost:8080/pa165/rest/players/```
+* GET /players/:id -> PlayerFacade.findById  
+```curl -i -X GET http://localhost:8080/pa165/rest/players/{id}```
+* POST /players -> PlayerFacade.create  
+```curl -X POST -i -H "Content-Type: application/json" --data '{"username": "player_6", "email": "player_6@gmail.com"}' http://localhost:8080/pa165/rest/players/create```
+* DELETE /players/:id -> PlayerFacade.remove  
+```curl -i -X DELETE http://localhost:8080/pa165/rest/players/{id}```
+* GET /players/username/:username -> PlayerFacade.findByUsername  
+```curl -i -X GET http://localhost:8080/pa165/rest/players/username/{username}```
+* GET /players/team/:teamId -> PlayerFacade.findByTeam  
+```curl -i -X GET http://localhost:8080/pa165/rest/players/team/{teamId}```
 
 Score:
 * `GET /score/:id` -> `ScoreFacade.findById`
