@@ -38,7 +38,7 @@
                         <execution>
                             <id>yarn install</id>
                             <goals>
-                                <goal>yarn</goal>
+                                <goal>yarn --frozen-lockfile</goal>
                             </goals>
                             <phase>install</phase>
                         </execution>
