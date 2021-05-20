@@ -24,8 +24,8 @@ public class TeamDaoImpl implements TeamDao {
     }
 
     @Override
-    public void remove(Team team) {
-        em.remove(this.findById(team.getId()));
+    public void remove(Long id) {
+        em.remove(this.findById(id));
     }
 
     @Override

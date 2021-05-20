@@ -35,8 +35,8 @@ public class PlayerDaoImpl implements PlayerDao {
     }
 
     @Override
-    public void remove(Player p) {
-        em.remove(this.findById(p.getId()));
+    public void remove(Long id) {
+        em.remove(this.findById(id));
     }
 
     @Override

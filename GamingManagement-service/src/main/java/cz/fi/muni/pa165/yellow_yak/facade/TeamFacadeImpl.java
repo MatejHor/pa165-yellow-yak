@@ -43,12 +43,12 @@ public class TeamFacadeImpl implements TeamFacade {
     }
 
     @Override
-    public void remove(Long teamId) {
+    public boolean remove(Long teamId) {
         if (teamId == null) {
             throw new IllegalArgumentException("teamId cannot be null");
         }
         log.info("removing team, id = {}", teamId);
-        teamService.remove(teamId);
+        return teamService.remove(teamId);
     }
 
     @Override

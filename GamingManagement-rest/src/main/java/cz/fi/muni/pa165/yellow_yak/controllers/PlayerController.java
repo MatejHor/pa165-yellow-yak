@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Matej Horniak
@@ -48,12 +49,11 @@ public class PlayerController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final PlayerDTO findPlayer(@PathVariable("id") long id) throws Exception {
         logger.debug("rest findPlayer({})", id);
-        try {
-            return playerFacade.findById(id);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return null;
+        PlayerDTO player = playerFacade.findById(id);
+        if (player == null) {
+            throw new ResourceNotFoundException();
         }
+        return player;
     }
 
     /**
@@ -69,8 +69,7 @@ public class PlayerController {
         try {
             return playerFacade.remove(id);
         } catch (Exception e) {
-            logger.error(e.getMessage());
-            return false;
+            throw new ResourceNotFoundException();
         }
     }
 
@@ -84,12 +83,11 @@ public class PlayerController {
     @RequestMapping(value = "/username/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Collection<PlayerDTO> findPlayerByUsername(@PathVariable("username") String username) throws Exception {
         logger.debug("rest findPlayerByUsername({})", username);
-        try {
-            return playerFacade.findByUsername(username);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return null;
+        List<PlayerDTO> players = playerFacade.findByUsername(username);
+        if (players.size() > 0) {
+            throw new ResourceNotFoundException();
         }
+        return players;
     }
 
     /**
@@ -102,12 +100,11 @@ public class PlayerController {
     @RequestMapping(value = "/team/{teamId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Collection<PlayerDTO> findPlayerByTeam(@PathVariable("team") Long teamId) throws Exception {
         logger.debug("rest findPlayerByTeam({})", teamId);
-        try {
-            return playerFacade.findByTeam(teamId);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return null;
+        List<PlayerDTO> players = playerFacade.findByTeam(teamId);
+        if (players.size() > 0) {
+            throw new ResourceNotFoundException();
         }
+        return players;
     }
 
     /**
@@ -124,8 +121,7 @@ public class PlayerController {
         try {
             return playerFacade.create(player.getUsername(), player.getEmail());
         } catch (Exception e) {
-            logger.error(e.getMessage());
-            return null;
+            throw new ResourceAlreadyExistingException();
         }
     }
 }

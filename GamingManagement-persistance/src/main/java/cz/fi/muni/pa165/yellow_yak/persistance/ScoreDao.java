@@ -4,7 +4,6 @@ import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Score;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -32,9 +31,9 @@ public interface ScoreDao {
 
     /**
      * Removes a score
-     * @param s score to remove
+     * @param id score to remove
      */
-    void remove(Score s);
+    void remove(Long id);
 
     /**
      * Updates a score

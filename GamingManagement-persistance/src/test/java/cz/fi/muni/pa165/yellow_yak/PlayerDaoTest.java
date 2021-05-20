@@ -53,7 +53,7 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
 
     @AfterMethod
     private void afterEach() {
-        playerDao.findAll().forEach(player -> playerDao.remove(player));
+        playerDao.findAll().forEach(player -> playerDao.remove(player.getId()));
     }
 
     @Test
@@ -100,7 +100,7 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void removePlayerTest() {
         Assert.assertEquals(playerDao.findAll().size(), 1);
-        playerDao.remove(testPlayer);
+        playerDao.remove(testPlayer.getId());
         Assert.assertEquals(playerDao.findAll().size(), 0);
     }
 
@@ -116,8 +116,8 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(playerDao.findAll().size(), 2);
         List<Player> expectedPlayers = Arrays.asList(testPlayer, testPlayer2);
         Assert.assertEquals(playerDao.findAll(), expectedPlayers);
-        playerDao.remove(testPlayer);
-        playerDao.remove(testPlayer2);
+        playerDao.remove(testPlayer.getId());
+        playerDao.remove(testPlayer2.getId());
         Assert.assertEquals(playerDao.findAll().size(), 0);
     }
 
@@ -125,7 +125,7 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
     public void findPlayerByIdTest() {
         Player receivedPlayer = playerDao.findById(testPlayer.getId());
         Assert.assertEquals(receivedPlayer, testPlayer);
-        playerDao.remove(testPlayer);
+        playerDao.remove(testPlayer.getId());
         receivedPlayer = playerDao.findById(testPlayer.getId());
         Assert.assertNull(receivedPlayer);
     }
@@ -145,8 +145,8 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
         receivedPlayers = playerDao.findByUsername(testPlayer.getUsername());
         Assert.assertEquals(receivedPlayers, expectedPlayers);
 
-        playerDao.remove(testPlayer);
-        playerDao.remove(testPlayer2);
+        playerDao.remove(testPlayer.getId());
+        playerDao.remove(testPlayer2.getId());
         receivedPlayers = playerDao.findByUsername(testPlayer.getUsername());
         Assert.assertEquals(receivedPlayers.size(), 0);
     }

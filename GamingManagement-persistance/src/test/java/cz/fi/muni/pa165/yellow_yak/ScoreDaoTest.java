@@ -80,7 +80,7 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
 
     @AfterMethod
     private void remove() {
-        scoreDao.remove(score);
+        scoreDao.remove(score.getId());
     }
 
     @Test
@@ -132,7 +132,7 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
         scoreDao.create(scoreTest);
         Assert.assertNotNull(scoreDao.findById(scoreTest.getId()));
 
-        scoreDao.remove(scoreTest);
+        scoreDao.remove(scoreTest.getId());
         Assert.assertNull(scoreDao.findById(scoreTest.getId()));
     }
 

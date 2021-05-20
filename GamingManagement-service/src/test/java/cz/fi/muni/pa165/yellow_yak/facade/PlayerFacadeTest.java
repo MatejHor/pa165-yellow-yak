@@ -84,9 +84,15 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
     @Test
     public void remove() {
         Mockito.doReturn(true).when(playerService).remove(player.getId());
-        Long id  = player.getId();
-        boolean success = playerService.remove(id);
-        Assert.assertTrue(success);
+
+        Assert.assertTrue(playerService.remove(player.getId()));
+    }
+
+    @Test
+    public void removeNotExisting() {
+        Mockito.doReturn(true).when(playerService).remove(1330L);
+
+        Assert.assertTrue(playerService.remove(1330L));
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)

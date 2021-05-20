@@ -36,7 +36,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public boolean remove(@NotNull Long id) {
-        playerDao.remove(playerDao.findById(id));
+        playerDao.remove(id);
         return playerDao.findById(id) == null;
     }
 

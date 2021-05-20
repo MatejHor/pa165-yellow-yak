@@ -4,7 +4,6 @@ import cz.fi.muni.pa165.yellow_yak.dto.ScoreDTO;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -35,8 +34,9 @@ public interface ScoreFacade {
      * Removes the score
      *
      * @param id id to remove
+     * @return
      */
-    public void remove(@NotNull Long id);
+    public boolean remove(@NotNull Long id);
 
     /**
      * Finds a score by id

@@ -32,9 +32,9 @@ public interface PlayerDao {
 
     /**
      * Remove player
-     * @param p player to remove
+     * @param id player to remove
      */
-    void remove(Player p);
+    void remove(Long id);
 
     /**
      * Update player
