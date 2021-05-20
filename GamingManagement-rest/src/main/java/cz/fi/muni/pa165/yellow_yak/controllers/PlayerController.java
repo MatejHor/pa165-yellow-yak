@@ -84,7 +84,7 @@ public class PlayerController {
     public final Collection<PlayerDTO> findPlayerByUsername(@PathVariable("username") String username) throws Exception {
         logger.debug("rest findPlayerByUsername({})", username);
         List<PlayerDTO> players = playerFacade.findByUsername(username);
-        if (players.size() > 0) {
+        if (players.size() < 1) {
             throw new ResourceNotFoundException();
         }
         return players;
@@ -101,7 +101,7 @@ public class PlayerController {
     public final Collection<PlayerDTO> findPlayerByTeam(@PathVariable("team") Long teamId) throws Exception {
         logger.debug("rest findPlayerByTeam({})", teamId);
         List<PlayerDTO> players = playerFacade.findByTeam(teamId);
-        if (players.size() > 0) {
+        if (players.size() < 1) {
             throw new ResourceNotFoundException();
         }
         return players;

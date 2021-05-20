@@ -34,7 +34,7 @@ public class TeamDaoImpl implements TeamDao {
     }
 
     @Override
-    public List<Team> getAll() {
+    public List<Team> findAll() {
         return em.createQuery("select team from Team team", Team.class).getResultList();
     }
 

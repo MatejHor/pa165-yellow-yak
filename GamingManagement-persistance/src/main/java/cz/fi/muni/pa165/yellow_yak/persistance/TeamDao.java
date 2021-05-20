@@ -36,7 +36,7 @@ public interface TeamDao {
      *
      * @return list of all teams from the database
      */
-    List<Team> getAll();
+    List<Team> findAll();
 
     /**
      * Get team by an id
