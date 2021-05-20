@@ -22,11 +22,9 @@ public class PlayerFacadeImpl implements PlayerFacade {
 
     final static Logger log = LoggerFactory.getLogger(ScoreFacadeImpl.class);
 
-    @Autowired
-    private BeanMappingService beanMappingService;
+    private final BeanMappingService beanMappingService;
 
-    @Autowired
-    private PlayerService playerService;
+    private final PlayerService playerService;
 
     @Autowired
     public PlayerFacadeImpl(BeanMappingService beanMappingService, PlayerService playerService) {

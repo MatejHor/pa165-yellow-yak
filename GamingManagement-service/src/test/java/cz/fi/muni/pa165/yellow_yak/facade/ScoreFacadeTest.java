@@ -25,7 +25,10 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Matej Horniak, oreqizer, Lukas Mikula
@@ -51,6 +54,7 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
     private Player player;
     private Score score;
     private ScoreDTO scoreDTO;
+    private List<Competition> competitions;
 
     @BeforeClass
     public void init() throws ServiceException {
@@ -77,6 +81,9 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
         competitionDTO.setId(competition.getId());
         competitionDTO.setName(competition.getName());
         competitionDTO.setGame(gameDTO);
+
+        competitions = new ArrayList<>();
+        competitions.add(competition);
 
         player = new Player();
         player.setId(1337L);
@@ -121,7 +128,14 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void remove() {
-        scoreFacade.remove(1337L);
+        Mockito.doReturn(true).when(scoreService).remove(score.getId());
+        Assert.assertTrue(scoreFacade.remove(1338L));
+    }
+
+    @Test
+    public void removeNotExists() {
+        Mockito.doReturn(true).when(scoreService).remove(1337L);
+        Assert.assertTrue(scoreFacade.remove(1337L));
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
@@ -183,4 +197,19 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
         scoreFacade.findByCompetition(null);
     }
 
+    @Test
+    public void findByGamePlayerDate() {
+        Mockito.doReturn(Collections.singletonList(score)).when(scoreService).findByPlayerAndCompetitionAndDate(
+                player.getId(),
+                competitions,
+                LocalDate.now());
+        Mockito.doReturn(competitions).when(competitionService).findByGame(game.getId());
+
+        Assert.assertEquals(scoreFacade.findByGamePlayerDate(
+                player.getId(),
+                game.getId(),
+                LocalDate.now())
+                , Collections.singletonList(scoreDTO));
+
+    }
 }

@@ -33,10 +33,11 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public void remove(@NotNull Long teamId) {
-        if (teamId != null)
-            teamDao.remove(teamDao.findById(teamId));
-        return;
+    public boolean remove(@NotNull Long teamId) {
+        if (teamId == null)
+            return false;
+        teamDao.remove(teamId);
+        return teamDao.findById(teamId) == null;
     }
 
     @Override

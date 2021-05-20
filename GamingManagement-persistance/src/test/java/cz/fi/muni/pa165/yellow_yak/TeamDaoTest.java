@@ -51,7 +51,7 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
 
     @AfterMethod
     private void remove() {
-        teamDao.remove(testTeam);
+        teamDao.remove(testTeam.getId());
     }
 
 
@@ -84,7 +84,7 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
         teamDao.create(team);
 
         int teamsCountBefore = teamDao.getAll().size();
-        teamDao.remove(team);
+        teamDao.remove(team.getId());
         Assert.assertEquals(teamsCountBefore - 1,teamDao.getAll().size());
 
         Team removedTestTeam = teamDao.findById(team.getId());

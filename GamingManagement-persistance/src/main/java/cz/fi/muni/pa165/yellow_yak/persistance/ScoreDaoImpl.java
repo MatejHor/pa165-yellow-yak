@@ -3,13 +3,11 @@ package cz.fi.muni.pa165.yellow_yak.persistance;
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Score;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -38,8 +36,8 @@ public class ScoreDaoImpl implements ScoreDao {
     }
 
     @Override
-    public void remove(Score s) {
-        em.remove(this.findById(s.getId()));
+    public void remove(Long id) {
+        em.remove(this.findById(id));
     }
 
     @Override

@@ -35,7 +35,7 @@ public interface ScoreService {
      * Removes the score
      * @param id id to remove
      */
-    public void remove(Long id);
+    public boolean remove(Long id);
 
     /**
      * Finds a score by id

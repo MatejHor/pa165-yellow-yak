@@ -20,9 +20,9 @@ public interface TeamDao {
     /**
      * Remove team
      *
-     * @param team team entity
+     * @param id team entity
      */
-    void remove(Team team);
+    void remove(Long id);
 
     /**
      * Update existing team

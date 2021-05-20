@@ -50,10 +50,11 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public void remove(Long id) {
+    public boolean remove(Long id) {
         if (id == null)
-            return;
-        scoreDao.remove(scoreDao.findById(id));
+            return false;
+        scoreDao.remove(id);
+        return scoreDao.findById(id) == null;
     }
 
     @Override

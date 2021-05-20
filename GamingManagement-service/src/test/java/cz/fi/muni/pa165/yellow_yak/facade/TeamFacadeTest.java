@@ -76,7 +76,16 @@ public class TeamFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void remove() {
-        teamFacade.remove(1338L);
+        Mockito.doReturn(true).when(teamService).remove(team.getId());
+
+        Assert.assertTrue(teamFacade.remove(team.getId()));
+    }
+
+    @Test
+    public void removeNotExisting() {
+        Mockito.doReturn(true).when(teamService).remove(1336L);
+
+        Assert.assertTrue(teamFacade.remove(1336L));
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)

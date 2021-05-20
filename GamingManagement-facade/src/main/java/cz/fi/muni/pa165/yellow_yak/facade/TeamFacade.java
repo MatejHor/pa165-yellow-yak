@@ -22,7 +22,7 @@ public interface TeamFacade {
      * Removes the team
      * @param teamId ID of a team to remove
      */
-    public void remove(@NotNull Long teamId);
+    public boolean remove(@NotNull Long teamId);
 
     /**
      * Finds a team by id
