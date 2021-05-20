@@ -55,7 +55,7 @@ Player:
 * GET /players/:id -> PlayerFacade.findById  
 ```curl -i -X GET http://localhost:8080/pa165/rest/players/{id}```
 * POST /players -> PlayerFacade.create  
-```curl -X POST -i -H "Content-Type: application/json" --data '{"username": "player_6", "email": "player_6@gmail.com"}' http://localhost:8080/pa165/rest/players/create```
+```curl --location --request POST 'http://localhost:8080/pa165/rest/players/create' --header 'Content-Type: application/json' --data-raw '{"username": "player_8", "email": "player_8@gmail.com"}'```
 * DELETE /players/:id -> PlayerFacade.remove  
 ```curl -i -X DELETE http://localhost:8080/pa165/rest/players/{id}```
 * GET /players/username/:username -> PlayerFacade.findByUsername  
@@ -78,7 +78,8 @@ Team:
 * `GET /teams?name=` -> `TeamFacade.findByName`
 
 Auth:
-* `POST /login` -> `AuthFacade.login` _TODO_
+* POST /login -> Auth.login for admin email: admin@gaming.com password: admin
+```curl --location --request POST 'http://localhost:8080/pa165/rest/login' --header 'Content-Type: application/json' --data-raw '{"email": "admin@gaming.com", "password": "admin"}'```
 
 ### Auth flow
 
