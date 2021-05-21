@@ -18,13 +18,12 @@ import java.util.List;
 @Service
 @Transactional
 public class GameFacadeImpl implements GameFacade{
+
     final static Logger log = LoggerFactory.getLogger(ScoreFacadeImpl.class);
 
-    @Autowired
-    private BeanMappingService beanMappingService;
+    private final BeanMappingService beanMappingService;
 
-    @Autowired
-    private GameService gameService;
+    private final GameService gameService;
 
     @Autowired
     public GameFacadeImpl(BeanMappingService beanMappingService, GameService gameService) {
