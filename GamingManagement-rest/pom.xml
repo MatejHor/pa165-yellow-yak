@@ -8,7 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>GamingManagement-rest</artifactId>
+    <artifactId>pa165</artifactId>
     <packaging>war</packaging>
     <name>Rest Layer</name>
     

@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.yellow_yak.sampledata;
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import cz.fi.muni.pa165.yellow_yak.entity.Player;
+import cz.fi.muni.pa165.yellow_yak.entity.Team;
 import cz.fi.muni.pa165.yellow_yak.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +56,12 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         Competition competition_3 = competition(game_3.getId(), "competition_3");
         Competition competition_4 = competition(game_4.getId(), "competition_4");
         Competition competition_5 = competition(game_5.getId(), "competition_5");
+    
+        Team team_1 = team("team_1");
+        Team team_2 = team("team_2");
+        Team team_3 = team("team_3");
+        Team team_4 = team("team_4");
+        Team team_5 = team("team_5");
     }
 
     private Player player(String username, String email) {
@@ -67,5 +74,9 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     private Competition competition(Long gameId, String name){
         return competitionService.create(gameId, name);
+    }
+    
+    private Team team(String name) {
+        return teamService.create(name);
     }
 }

@@ -63,7 +63,7 @@ public class TeamServiceTest extends AbstractTestNGSpringContextTests {
         when(teamDao.findByName(testTeam.getName())).thenReturn(Arrays.asList(testTeam, testTeam2));
         when(teamDao.findByName(null)).thenReturn(Collections.emptyList());
 
-        when(teamDao.getAll()).thenReturn(Arrays.asList(testTeam, testTeam2));
+        when(teamDao.findAll()).thenReturn(Arrays.asList(testTeam, testTeam2));
     }
 
     @Test

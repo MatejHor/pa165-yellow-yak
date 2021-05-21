@@ -57,7 +57,7 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = PersistenceException.class)
     public void createTeamTest() {
-        Assert.assertTrue(teamDao.getAll().size()>0);
+        Assert.assertTrue(teamDao.findAll().size()>0);
         teamDao.create(testTeam);
     }
 
@@ -83,9 +83,9 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
         team.setName("TestTeamRemove");
         teamDao.create(team);
 
-        int teamsCountBefore = teamDao.getAll().size();
+        int teamsCountBefore = teamDao.findAll().size();
         teamDao.remove(team.getId());
-        Assert.assertEquals(teamsCountBefore - 1,teamDao.getAll().size());
+        Assert.assertEquals(teamsCountBefore - 1,teamDao.findAll().size());
 
         Team removedTestTeam = teamDao.findById(team.getId());
         Assert.assertNull(removedTestTeam);
@@ -98,7 +98,7 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void getAllTeamsTest() {
-        List<Team> teamList = teamDao.getAll();
+        List<Team> teamList = teamDao.findAll();
         Assert.assertNotNull(teamList);
         Assert.assertTrue(teamList.size() >= 2);
 

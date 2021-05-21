@@ -56,6 +56,6 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public List<Team> findAll() {
-        return teamDao.getAll();
+        return teamDao.findAll();
     }
 }

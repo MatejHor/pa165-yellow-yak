@@ -2,6 +2,7 @@ package cz.fi.muni.pa165.yellow_yak.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.fi.muni.pa165.yellow_yak.ApiUris;
+import cz.fi.muni.pa165.yellow_yak.mixin.PlayerDTOMixin;
 import cz.fi.muni.pa165.yellow_yak.dto.PlayerDTO;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceAlreadyExistingException;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceNotFoundException;
@@ -84,7 +85,7 @@ public class PlayerController {
     public final Collection<PlayerDTO> findPlayerByUsername(@PathVariable("username") String username) throws Exception {
         logger.debug("rest findPlayerByUsername({})", username);
         List<PlayerDTO> players = playerFacade.findByUsername(username);
-        if (players.size() > 0) {
+        if (players.size() < 1) {
             throw new ResourceNotFoundException();
         }
         return players;
@@ -101,7 +102,7 @@ public class PlayerController {
     public final Collection<PlayerDTO> findPlayerByTeam(@PathVariable("team") Long teamId) throws Exception {
         logger.debug("rest findPlayerByTeam({})", teamId);
         List<PlayerDTO> players = playerFacade.findByTeam(teamId);
-        if (players.size() > 0) {
+        if (players.size() < 1) {
             throw new ResourceNotFoundException();
         }
         return players;
