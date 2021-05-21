@@ -91,7 +91,16 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void remove() {
-        competitionFacade.remove(1337L);
+        Mockito.doReturn(true).when(competitionService).remove(competition.getId());
+
+        Assert.assertTrue(competitionService.remove(competition.getId()));
+    }
+
+    @Test
+    public void removeNotExisting() {
+        Mockito.doReturn(true).when(competitionService).remove(1330L);
+
+        Assert.assertTrue(competitionService.remove(1330L));
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)

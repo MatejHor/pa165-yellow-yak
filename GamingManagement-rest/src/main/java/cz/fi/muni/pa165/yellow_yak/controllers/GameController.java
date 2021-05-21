@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Lukas Mikula
@@ -49,12 +50,11 @@ public class GameController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final GameDTO findGame(@PathVariable("id") Long id) throws Exception {
         logger.debug("rest findGame({})", id);
-        try {
-            return gameFacade.findById(id);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return null;
+        GameDTO game = gameFacade.findById(id);
+        if (game == null) {
+            throw new ResourceNotFoundException();
         }
+        return game;
     }
 
     /**
@@ -70,8 +70,7 @@ public class GameController {
         try {
             return gameFacade.remove(id);
         } catch (Exception e) {
-            logger.error(e.getMessage());
-            return false;
+            throw new ResourceNotFoundException();
         }
     }
 
@@ -82,15 +81,14 @@ public class GameController {
      * @return GameDTO
      * @throws ResourceNotFoundException
      */
-    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Collection<GameDTO> findGameByName(@PathVariable("name") String name) throws Exception {
         logger.debug("rest findGameByName({})", name);
-        try {
-            return gameFacade.findByName(name);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return null;
+        List<GameDTO> games = gameFacade.findByName(name);
+        if (games.size() < 1) {
+            throw new ResourceNotFoundException();
         }
+        return games;
     }
 
     /**
@@ -107,8 +105,7 @@ public class GameController {
         try {
             return gameFacade.create(game.getName());
         } catch (Exception e) {
-            logger.error(e.getMessage());
-            return null;
+            throw new ResourceAlreadyExistingException();
         }
     }
 }
