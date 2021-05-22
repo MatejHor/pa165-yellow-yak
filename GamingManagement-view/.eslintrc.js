@@ -11,6 +11,9 @@ module.exports = {
     {
       files: ["*.ts", "*.tsx"],
       extends: ["@reactizer/eslint-config/ts"],
+      rules: {
+        "@typescript-eslint/strict-boolean-expressions": OFF,
+      },
       parserOptions: {
         project: "./tsconfig.json",
       },

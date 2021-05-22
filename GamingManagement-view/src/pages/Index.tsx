@@ -10,11 +10,13 @@ import Teams from "./Teams";
 import { save } from "../services/storage";
 import { login } from "../services/auth";
 import useState, { isSuccess } from "../services/useState";
+import Games from "./Games";
 
 enum Routes {
   INDEX = "/",
   PLAYERS = "/players",
   TEAMS = "/teams",
+  GAMES = "/games",
 }
 
 type FormValues = {
@@ -147,6 +149,9 @@ const Index = () => {
             <Link href={Routes.TEAMS}>
               <Nav.Link>Teams</Nav.Link>
             </Link>
+            <Link href={Routes.GAMES}>
+              <Nav.Link>Games</Nav.Link>
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -156,6 +161,7 @@ const Index = () => {
           <Switch>
             <Route path={Routes.PLAYERS}>{() => <Players />}</Route>
             <Route path={Routes.TEAMS}>{() => <Teams />}</Route>
+            <Route path={Routes.GAMES}>{() => <Games />}</Route>
 
             <Redirect to={Routes.INDEX} />
           </Switch>
