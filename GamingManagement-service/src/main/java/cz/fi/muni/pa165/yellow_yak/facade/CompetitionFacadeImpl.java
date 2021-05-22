@@ -20,11 +20,9 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
 
     final static Logger log = LoggerFactory.getLogger(ScoreFacadeImpl.class);
 
-    @Autowired
-    private BeanMappingService beanMappingService;
+    private final BeanMappingService beanMappingService;
 
-    @Autowired
-    private CompetitionService competitionService;
+    private final CompetitionService competitionService;
 
     @Autowired
     public CompetitionFacadeImpl(BeanMappingService beanMappingService, CompetitionService competitionService) {

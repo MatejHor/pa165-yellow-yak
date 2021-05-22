@@ -10,11 +10,6 @@ export function usePlayer(id: string) {
   return useSWR<Player>(`/players/${id}`, fetch);
 }
 
-export type CreatePlayerInput = {
-  username: string;
-  email: string;
-};
-
 // GET /players?username=
 export function usePlayersByUsername(username: string) {
   return useSWR<Player[]>(username.length < 1 ? null : `/players/username/${username}`, fetch);
@@ -27,9 +22,14 @@ export function usePlayersByTeam(teamId: string | null) {
 
 // === MUTATIONS ===
 
+export type CreatePlayerInput = {
+  username: string;
+  email: string;
+};
+
 // POST /players
 export function createPlayer(input: CreatePlayerInput): Promise<Player> {
-  return fetch(`/players/`, {
+  return fetch(`/players/create`, {
     method: Method.POST,
     body: JSON.stringify(input),
   });

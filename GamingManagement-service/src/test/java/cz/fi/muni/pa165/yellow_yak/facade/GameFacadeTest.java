@@ -76,7 +76,16 @@ public class GameFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void remove() {
-        gameFacade.remove(1337L);
+        Mockito.doReturn(true).when(gameService).remove(game.getId());
+
+        Assert.assertTrue(gameService.remove(game.getId()));
+    }
+
+    @Test
+    public void removeNotExisting() {
+        Mockito.doReturn(true).when(gameService).remove(1330L);
+
+        Assert.assertTrue(gameService.remove(1330L));
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)

@@ -40,7 +40,7 @@ Competition:
 * `GET /competitions/:id` -> `CompetitionFacade.findById`
 * `POST /competitions` -> `CompetitionFacade.create`
 * `DELETE /competitions/:id` -> `CompetitionFacade.remove`
-* `GET /competitions?game=` -> `CompetitionFacade.findByGame`
+* `GET /competitions/game/:gameId=` -> `CompetitionFacade.findByGame`
 
 Game:
 * `GET /games/:id` -> `GameFacade.findById`

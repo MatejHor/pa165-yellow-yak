@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.yellow_yak.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.fi.muni.pa165.yellow_yak.facade.PlayerFacade;
 import cz.fi.muni.pa165.yellow_yak.mixin.AdminDTOMixin;
+import cz.fi.muni.pa165.yellow_yak.mixin.TokenDTOMixin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,19 +34,24 @@ public class AuthController {
      * @throws JsonProcessingException
      */
     @RequestMapping(value="login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final String login(@RequestBody AdminDTOMixin auth) throws JsonProcessingException {
+    public final TokenDTOMixin login(@RequestBody AdminDTOMixin auth) throws JsonProcessingException {
         logger.debug("rest AuthController()" + auth.getEmail());
-        boolean isAdmin = false;
+        TokenDTOMixin token = new TokenDTOMixin();
 
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
             byte[] password = md.digest(auth.getPassword().getBytes(StandardCharsets.UTF_8));
             byte[] adminPassword = md.digest("admin".getBytes(StandardCharsets.UTF_8));
-            isAdmin = "admin@gaming.com".equals(auth.getEmail()) && Arrays.equals(adminPassword, password);
+            boolean isAdmin = "admin@gaming.com".equals(auth.getEmail()) && Arrays.equals(adminPassword, password);
+            if (isAdmin) {
+                token.setToken("tokenADMIN");
+            } else {
+                token.setToken("tokenPLAYER");
+            }
         } catch (Exception e) {
             throw new InvalidParameterException();
         }
 
-        return (isAdmin) ? "tokenADMIN" : "tokenPLAYER";
+        return token;
     }
 }
