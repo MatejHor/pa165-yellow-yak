@@ -1,7 +1,9 @@
 import * as React from "react";
 import { Alert, Button, Form } from "react-bootstrap";
+
 import { deleteTeam, useTeamsByName } from "../../../../services/team";
 import Team from "../../../../components/Team";
+
 const NameAutocomplete = () => {
     const ref = React.useRef<HTMLInputElement>(null);
     const value = ref.current?.value ?? "";

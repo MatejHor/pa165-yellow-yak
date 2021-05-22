@@ -1,4 +1,5 @@
 import useSWR from "swr";
+
 import fetch, { Method } from "./fetch";
 import type Team from "../records/Team";
 // === QUERY ===

@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Col, Row } from "react-bootstrap";
+
 import type TeamType from "../../records/Team";
+
 type Props = {
     data: TeamType;
     renderActions?: (id: number) => React.ReactNode;
