@@ -72,10 +72,14 @@ Score:
 * `GET /score?competition=` -> `ScoreFacade.findByCompetition` business 2
   
 Team:
-* `GET /teams/:id` -> `TeamFacade.findById`
-* `POST /teams` -> `TeamFacade.create`
-* `DELETE /teams/:id` -> `TeamFacade.remove`
-* `GET /teams?name=` -> `TeamFacade.findByName`
+* GET /teams/:id -> TeamFacade.findById
+```curl -i -X GET http://localhost:8080/pa165/rest/teams/{id}```
+* POST /teams -> TeamFacade.create
+```curl --location --request POST 'http://localhost:8080/pa165/rest/teams/create' --header 'Content-Type: application/json' --data-raw '{"name": "team_6"}'```
+* DELETE /teams/:id -> TeamFacade.remove
+```curl -i -X DELETE http://localhost:8080/pa165/rest/teams/{id}```
+* GET /teams?name= -> TeamFacade.findByName
+```curl -i -X GET http://localhost:8080/pa165/rest/teams/?name={name}```
 
 Auth:
 * POST /login -> Auth.login for admin email: admin@gaming.com password: admin

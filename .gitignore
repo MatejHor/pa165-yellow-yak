@@ -21,3 +21,4 @@ lib/
 
 # YARN
 node_modoules
+/lib/
