@@ -46,7 +46,7 @@ Game:
 * `GET /games/:id` -> `GameFacade.findById`
 * `POST /games` -> `GameFacade.create`
 * `DELETE /games/:id` -> `GameFacade.remove`
-* `GET /games?name=` -> `GameFacade.findByName`
+* `GET /games/name/:name` -> `GameFacade.findByName`
 * `GET /games` -> `GameFacade.findAll`
 
 Player:
@@ -78,8 +78,8 @@ Team:
 ```curl --location --request POST 'http://localhost:8080/pa165/rest/teams/create' --header 'Content-Type: application/json' --data-raw '{"name": "team_6"}'```
 * DELETE /teams/:id -> TeamFacade.remove
 ```curl -i -X DELETE http://localhost:8080/pa165/rest/teams/{id}```
-* GET /teams?name= -> TeamFacade.findByName
-```curl -i -X GET http://localhost:8080/pa165/rest/teams/?name={name}```
+* GET /teams/name/:name= -> TeamFacade.findByName
+```curl -i -X GET http://localhost:8080/pa165/rest/teams/name/{name}```
 
 Auth:
 * POST /login -> Auth.login for admin email: admin@gaming.com password: admin
