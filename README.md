@@ -37,17 +37,26 @@ REST url: http://localhost:8080/pa165/rest/
 ## API
 
 Competition:
-* `GET /competitions/:id` -> `CompetitionFacade.findById`
-* `POST /competitions` -> `CompetitionFacade.create`
-* `DELETE /competitions/:id` -> `CompetitionFacade.remove`
-* `GET /competitions/game/:gameId=` -> `CompetitionFacade.findByGame`
+* GET /competitions/:id -> CompetitionFacade.findById
+```curl -i -X GET http://localhost:8080/pa165/rest/competitions/{id}```
+* POST /competitions -> CompetitionFacade.create
+```curl --location --request POST 'http://localhost:8080/pa165/rest/competitions/create' --header 'Content-Type: application/json' --data-raw '{ "game": {"id": 4,"name": "game_4"},"name": "competition_6"}'```
+* DELETE /competitions/:id -> CompetitionFacade.remove
+```curl -i -X DELETE http://localhost:8080/pa165/rest/competitions/{id}```
+* GET /competitions/game/:gameId -> CompetitionFacade.findByGame
+```curl -i -X GET http://localhost:8080/pa165/rest/competitions/game/{game}```
 
 Game:
-* `GET /games/:id` -> `GameFacade.findById`
-* `POST /games` -> `GameFacade.create`
-* `DELETE /games/:id` -> `GameFacade.remove`
-* `GET /games/name/:name` -> `GameFacade.findByName`
-* `GET /games` -> `GameFacade.findAll`
+* GET /games/:id -> GameFacade.findById
+```curl -i -X GET http://localhost:8080/pa165/rest/games/{id}```
+* POST /games -> GameFacade.create
+```curl --location --request POST 'http://localhost:8080/pa165/rest/games/create' --header 'Content-Type: application/json' --data-raw '{"name": "game_6"}'```
+* DELETE /games/:id -> GameFacade.remove
+```curl -i -X DELETE http://localhost:8080/pa165/rest/games/{id}```
+* GET /games/name/:name -> GameFacade.findByName
+```curl -i -X GET http://localhost:8080/pa165/rest/games/name/{name}```
+* GET /games -> GameFacade.findAll
+```curl -i -X GET http://localhost:8080/pa165/rest/games/```
 
 Player:
 * GET /players/ -> PlayerFacade.findAll  
