@@ -5,8 +5,7 @@ import { deletePlayer, usePlayersByUsername } from "../../../../services/player"
 import Player from "../../../../components/Player";
 
 const UsernameAutocomplete = () => {
-  const ref = React.useRef<HTMLInputElement>(null);
-  const value = ref.current?.value ?? "";
+  const [value, setValue] = React.useState("");
   const { data, error, revalidate } = usePlayersByUsername(value);
 
   const handleDelete = React.useCallback(
@@ -26,7 +25,13 @@ const UsernameAutocomplete = () => {
 
       <Form.Group controlId="username">
         <Form.Label>Username</Form.Label>
-        <Form.Control ref={ref} name="username" type="username" placeholder="Enter username" />
+        <Form.Control
+          value={value}
+          onChange={(ev) => setValue(ev.target.value)}
+          name="username"
+          type="username"
+          placeholder="Enter username"
+        />
       </Form.Group>
 
       {error != null && <Alert variant="danger">{error.message}</Alert>}

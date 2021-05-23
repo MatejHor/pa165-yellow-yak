@@ -5,9 +5,9 @@ import { deleteTeam, useTeamsByName } from "../../../../services/team";
 import Team from "../../../../components/Team";
 
 const NameAutocomplete = () => {
-  const ref = React.useRef<HTMLInputElement>(null);
-  const value = ref.current?.value ?? "";
+  const [value, setValue] = React.useState("");
   const { data, error, revalidate } = useTeamsByName(value);
+
   const handleDelete = React.useCallback(
     (id: number) => {
       deleteTeam(id)
@@ -18,12 +18,19 @@ const NameAutocomplete = () => {
     },
     [revalidate],
   );
+
   return (
     <div className="my-3">
       <h2 className="my-2">Serach by username</h2>
       <Form.Group controlId="username">
         <Form.Label>Name</Form.Label>
-        <Form.Control ref={ref} name="username" type="username" placeholder="Enter username" />
+        <Form.Control
+          value={value}
+          onChange={(ev) => setValue(ev.target.value)}
+          name="username"
+          type="username"
+          placeholder="Enter username"
+        />
       </Form.Group>
       {error != null && <Alert variant="danger">{error.message}</Alert>}
       {data?.map((team) => (
