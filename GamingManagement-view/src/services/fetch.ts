@@ -22,6 +22,7 @@ export default function fetch<T>(path: string, init: RequestInit = {}): Promise<
       ...init,
       headers: {
         ...headers,
+        "Content-Type": "application/json",
         Authorization: token === null ? "" : `Bearer ${token}`,
       },
     })
