@@ -31,7 +31,7 @@
     "//": "",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "copyfiles --up 1 \"build/**/*\" \"../GamingManagement-rest/public/pa165\"",
+    "postbuild": "copyfiles --up 1 \"build/**/*\" \"../GamingManagement-rest/src/main/public/pa165\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
