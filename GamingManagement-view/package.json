@@ -30,8 +30,8 @@
     "ci": "run-p types lint prettier",
     "//": "",
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "postbuild": "copyfiles --up 1 \"build/**/*\" \"../GamingManagement-rest/src/main/public/pa165\"",
+    "build": "cross-env PUBLIC_URL=/pa165 react-scripts build",
+    "postbuild": "copyfiles --up 1 \"build/**/*\" \"../GamingManagement-rest/src/main/webapp\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -57,6 +57,7 @@
     "@reactizer/eslint-config": "^0.34.0",
     "babel-plugin-module-resolver": "^4.1.0",
     "copyfiles": "^2.4.1",
+    "cross-env": "^7.0.3",
     "eslint": "^7.26.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.3.0"
