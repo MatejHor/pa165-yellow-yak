@@ -6,17 +6,17 @@ import { deleteGame, useGamesByName } from "../../../services/game";
 
 const SearchGameForm = () => {
   const [value, setValue] = React.useState("");
-  const { data, error, revalidate } = useGamesByName(value);
+  const { data, error, mutate } = useGamesByName(value);
 
   const handleDelete = React.useCallback(
     (id: number) => {
       deleteGame(id)
         .then(() => {
-          return revalidate();
+          return mutate();
         })
         .catch(() => {});
     },
-    [revalidate],
+    [mutate],
   );
   return (
     <div className="my-3">

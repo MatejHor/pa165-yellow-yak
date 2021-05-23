@@ -6,17 +6,17 @@ import Team from "../../../../components/Team";
 
 const NameAutocomplete = () => {
   const [value, setValue] = React.useState("");
-  const { data, error, revalidate } = useTeamsByName(value);
+  const { data, error, mutate } = useTeamsByName(value);
 
   const handleDelete = React.useCallback(
     (id: number) => {
       deleteTeam(id)
         .then(() => {
-          return revalidate();
+          return mutate();
         })
         .catch(() => {});
     },
-    [revalidate],
+    [mutate],
   );
 
   return (

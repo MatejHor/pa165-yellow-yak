@@ -84,13 +84,10 @@ public class TeamController {
      * @return TeamDTO
      * @throws ResourceNotFoundException
      */
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Collection<TeamDTO> findTeamByName(@RequestParam("name") String name) throws Exception {
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final Collection<TeamDTO> findTeamByName(@PathVariable("name") String name) throws Exception {
         logger.debug("rest findTeamByName({})", name);
         List<TeamDTO> teams = teamFacade.findByName(name);
-        if (teams.size() < 1) {
-            throw new ResourceNotFoundException();
-        }
         return teams;
     }
 }

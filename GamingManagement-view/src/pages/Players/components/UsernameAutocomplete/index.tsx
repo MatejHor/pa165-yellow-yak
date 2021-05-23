@@ -6,17 +6,17 @@ import Player from "../../../../components/Player";
 
 const UsernameAutocomplete = () => {
   const [value, setValue] = React.useState("");
-  const { data, error, revalidate } = usePlayersByUsername(value);
+  const { data, error, mutate } = usePlayersByUsername(value);
 
   const handleDelete = React.useCallback(
     (id: number) => {
       deletePlayer(id)
         .then(() => {
-          return revalidate();
+          return mutate();
         })
         .catch(() => {});
     },
-    [revalidate],
+    [mutate],
   );
 
   return (

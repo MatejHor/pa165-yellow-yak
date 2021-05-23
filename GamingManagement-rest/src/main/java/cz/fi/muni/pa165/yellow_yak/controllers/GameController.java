@@ -81,13 +81,10 @@ public class GameController {
      * @return GameDTO
      * @throws ResourceNotFoundException
      */
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Collection<GameDTO> findGameByName(@PathVariable("name") String name) throws Exception {
         logger.debug("rest findGameByName({})", name);
         List<GameDTO> games = gameFacade.findByName(name);
-        if (games.size() < 1) {
-            throw new ResourceNotFoundException();
-        }
         return games;
     }
 
