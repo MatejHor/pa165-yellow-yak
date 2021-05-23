@@ -2,7 +2,8 @@ import React from "react";
 import * as Yup from "yup";
 import { Redirect, Route, Link, Switch } from "wouter";
 import { Alert, Button, Col, Container, Form, InputGroup, Nav, Navbar, Row } from "react-bootstrap";
-import { Formik, FormikHelpers } from "formik";
+import type { FormikHelpers } from "formik";
+import { Formik } from "formik";
 
 import Players from "./Players";
 import Teams from "./Teams";

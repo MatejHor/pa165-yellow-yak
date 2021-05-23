@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.css";
 import React from "react";
 import ReactDOM from "react-dom";
+import { Router } from "wouter";
 
 import "./index.css";
 import App from "./pages/Index";
@@ -8,7 +9,9 @@ import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router base="/pa165">
+      <App />
+    </Router>
   </React.StrictMode>,
   document.getElementById("root"),
 );
