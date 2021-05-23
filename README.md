@@ -44,7 +44,7 @@ Competition:
 * DELETE /competitions/:id -> CompetitionFacade.remove
 ```curl -i -X DELETE http://localhost:8080/pa165/rest/competitions/{id}```
 * GET /competitions/game/:gameId -> CompetitionFacade.findByGame
-```curl -i -X GET http://localhost:8080/pa165/rest/competitions/game/{game}```
+```curl -i -X GET http://localhost:8080/pa165/rest/competitions/game/{gameId}```
 
 Game:
 * GET /games/:id -> GameFacade.findById
