@@ -26,7 +26,7 @@ export function createGame(input: CreateGameInput): Promise<PostCreateGameRespon
 
 // GET /games?name=
 export function useGamesByName(name: string) {
-    return useSWR<GetGamesByNameResponse>(name.length > 0 ? `/teams?name=${name}` : null, fetch);
+    return useSWR<GetGamesByNameResponse>(name.length > 0 ? `/games/?name=${name}` : null, fetch);
 }
 
 // DELETE /games/:id

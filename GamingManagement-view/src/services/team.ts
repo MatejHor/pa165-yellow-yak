@@ -9,7 +9,7 @@ export function useTeam(id: string) {
 }
 // GET /teams?name=
 export function useTeamsByName(name: string) {
-  return useSWR<Team[]>(name.length >= 1 ? `/teams?name=${name}` : null, fetch);
+  return useSWR<Team[]>(name.length >= 1 ? `/teams/?name=${name}` : null, fetch);
 }
 // === MUTATIONS ===
 export type CreateTeamInput = {
