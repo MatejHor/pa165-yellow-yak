@@ -43,7 +43,6 @@ public class GameFacadeTest extends AbstractTestNGSpringContextTests {
 
     @BeforeClass
     public void init() throws ServiceException {
-        // TODO gameService not being mocked
         MockitoAnnotations.initMocks(this);
         this.gameFacade = new GameFacadeImpl(beanMappingService, gameService);
     }

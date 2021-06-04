@@ -35,6 +35,11 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
+    public List<Competition> findAll() {
+        return competitionDao.findAll();
+    }
+
+    @Override
     public boolean remove(Long competitionId) {
         competitionDao.remove(competitionDao.findById(competitionId));
         return competitionDao.findById(competitionId) == null;

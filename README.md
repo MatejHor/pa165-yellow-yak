@@ -101,3 +101,4 @@ Auth:
 - call to `/login`, returns `{ token: string }`
 - app gets unlocked, further calls contain header `Authorization` with value
   `Bearer <token>` (without the `<>`), check every request
+

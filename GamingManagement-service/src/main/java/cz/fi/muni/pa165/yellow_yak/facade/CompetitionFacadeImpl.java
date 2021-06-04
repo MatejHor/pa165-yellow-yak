@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.yellow_yak.facade;
 
 import cz.fi.muni.pa165.yellow_yak.dto.CompetitionDTO;
+import cz.fi.muni.pa165.yellow_yak.dto.GameDTO;
 import cz.fi.muni.pa165.yellow_yak.service.BeanMappingService;
 import cz.fi.muni.pa165.yellow_yak.service.CompetitionService;
 import org.slf4j.Logger;
@@ -58,7 +59,6 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     }
 
     @Override
-    // TODO D1LL1G4F
     public List<CompetitionDTO> findByGame(Long gameId) {
         if (gameId == null) {
             throw new IllegalArgumentException("arguments cannot be null");
@@ -67,4 +67,9 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
         return beanMappingService.mapTo(competitionService.findByGame(gameId), CompetitionDTO.class);
     }
 
+    @Override
+    public List<CompetitionDTO> findAll() {
+        log.info("Get all Competition");
+        return beanMappingService.mapTo(competitionService.findAll(), CompetitionDTO.class);
+    }
 }

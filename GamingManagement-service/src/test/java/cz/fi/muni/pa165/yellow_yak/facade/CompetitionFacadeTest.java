@@ -44,7 +44,6 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
 
     @BeforeClass
     public void init() throws ServiceException {
-        // TODO competitionService not being mocked
         MockitoAnnotations.initMocks(this);
         this.competitionFacade = new CompetitionFacadeImpl(beanMappingService, competitionService);
     }
@@ -132,4 +131,10 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
         competitionFacade.findByGame(null);
     }
 
+    @Test
+    public void findAll() {
+        Mockito.doReturn(Collections.singletonList(competition)).when(competitionService).findAll();
+
+        Assert.assertEquals(competitionFacade.findAll(), Collections.singletonList(competitionDTO));
+    }
 }

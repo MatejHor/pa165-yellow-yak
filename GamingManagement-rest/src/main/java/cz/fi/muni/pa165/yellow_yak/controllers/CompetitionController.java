@@ -1,7 +1,9 @@
 package cz.fi.muni.pa165.yellow_yak.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.fi.muni.pa165.yellow_yak.ApiUris;
 import cz.fi.muni.pa165.yellow_yak.dto.CompetitionDTO;
+import cz.fi.muni.pa165.yellow_yak.dto.GameDTO;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceAlreadyExistingException;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceNotFoundException;
 import cz.fi.muni.pa165.yellow_yak.facade.CompetitionFacade;
@@ -40,6 +42,18 @@ public class CompetitionController {
             throw new ResourceNotFoundException();
         }
         return competition;
+    }
+
+    /**
+     * returns all competitions according to as JSON
+     *
+     * @return list of CompetitionDTOs
+     * @throws JsonProcessingException
+     */
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final Collection<CompetitionDTO> findCompetitions() throws JsonProcessingException {
+        logger.debug("rest findGames()");
+        return competitionFacade.findAll();
     }
 
     /**

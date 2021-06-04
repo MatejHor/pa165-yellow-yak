@@ -110,6 +110,17 @@ public class CompetitionServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    public void findAll() {
+        when(competitionDao.findAll()).thenReturn(Collections.singletonList(competition));
+        List<Competition> competitionTestList = competitionService.findAll();
+
+        Assert.assertNotNull(competitionTestList);
+        Assert.assertEquals(competitionTestList.size(), 1);
+        Competition competitionTest = competitionTestList.get(0);
+        Assert.assertEquals(competitionTest, competition);
+    }
+
+    @Test
     public void findByGameTestNullId() {
         when(competitionDao.findByGame(null)).thenReturn(Collections.emptyList());
 
