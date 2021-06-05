@@ -37,15 +37,29 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
     private PlayerDao playerDao;
 
     private Player testPlayer;
+    private Team testTeam;
 
     @BeforeMethod
     private void beforeEach() {
+        EntityManager em = emf.createEntityManager();
+
+        Team team = new Team();
+        team.setName("kekegas");
+        team.setCreatedAt(LocalDate.now());
+
+        em.getTransaction().begin();
+        em.persist(team);
+        em.getTransaction().commit();
+        em.close();
+
+        testTeam = team;
+
         Player testPlayer1 = new Player();
 
         testPlayer1.setUsername("ReadyPlayerOne");
         testPlayer1.setCreatedAt(LocalDate.now());
         testPlayer1.setEmail("festergut@gmail.com");
-
+        testPlayer1.setTeam(team);
 
         playerDao.create(testPlayer1);
         testPlayer = testPlayer1;
@@ -158,33 +172,33 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findPlayerByTeamTest() {
-        EntityManager em = emf.createEntityManager();
+//        EntityManager em = emf.createEntityManager();
+//
+//        Team team = new Team();
+//        team.setName("kekegas");
+//        team.setCreatedAt(LocalDate.now());
 
-        Team team = new Team();
-        team.setName("kekegas");
-        team.setCreatedAt(LocalDate.now());
+//        Member member = new Member();
+//        member.setPlayer(testPlayer);
+//        member.setTeam(team);
+//        member.setCreatedAt(LocalDate.now());
 
-        Member member = new Member();
-        member.setPlayer(testPlayer);
-        member.setTeam(team);
-        member.setCreatedAt(LocalDate.now());
+//        em.getTransaction().begin();
+//        em.persist(team);
+////        em.persist(member);
+//        em.getTransaction().commit();
 
-        em.getTransaction().begin();
-        em.persist(team);
-        em.persist(member);
-        em.getTransaction().commit();
-
-        List<Player> res = playerDao.findByTeam(team);
+        List<Player> res = playerDao.findByTeam(testTeam);
 
         Assert.assertNotNull(res);
         Assert.assertEquals(res.size(), 1);
         Assert.assertEquals(res.get(0), testPlayer);
 
-        em.getTransaction().begin();
-        em.remove(member);
-        em.remove(team);
-        em.getTransaction().commit();
-        em.close();
+//        em.getTransaction().begin();
+////        em.remove(member);
+//        em.remove(team);
+//        em.getTransaction().commit();
+//        em.close();
     }
 
 }
