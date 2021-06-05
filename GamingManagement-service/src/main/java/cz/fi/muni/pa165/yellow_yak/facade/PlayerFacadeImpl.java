@@ -33,12 +33,12 @@ public class PlayerFacadeImpl implements PlayerFacade {
     }
 
     @Override
-    public PlayerDTO create(String name, String email) {
+    public PlayerDTO create(String name, String email, Long teamId) {
         if (name == null || email == null) {
             throw new IllegalArgumentException("arguments cannot be null");
         }
-        log.info("creating player, name = {}, email = {}", name, email);
-        return beanMappingService.mapTo(playerService.create(name, email), PlayerDTO.class);
+        log.info("creating player, name = {}, email = {}, teamId = {}", name, email, teamId);
+        return beanMappingService.mapTo(playerService.create(name, email, teamId), PlayerDTO.class);
     }
 
     @Override
