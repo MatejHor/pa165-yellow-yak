@@ -1,6 +1,5 @@
 package cz.fi.muni.pa165.yellow_yak;
 
-import cz.fi.muni.pa165.yellow_yak.entity.Member;
 import cz.fi.muni.pa165.yellow_yak.entity.Player;
 import cz.fi.muni.pa165.yellow_yak.entity.Team;
 import cz.fi.muni.pa165.yellow_yak.persistance.PlayerDao;
@@ -172,33 +171,11 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findPlayerByTeamTest() {
-//        EntityManager em = emf.createEntityManager();
-//
-//        Team team = new Team();
-//        team.setName("kekegas");
-//        team.setCreatedAt(LocalDate.now());
-
-//        Member member = new Member();
-//        member.setPlayer(testPlayer);
-//        member.setTeam(team);
-//        member.setCreatedAt(LocalDate.now());
-
-//        em.getTransaction().begin();
-//        em.persist(team);
-////        em.persist(member);
-//        em.getTransaction().commit();
-
         List<Player> res = playerDao.findByTeam(testTeam);
 
         Assert.assertNotNull(res);
         Assert.assertEquals(res.size(), 1);
         Assert.assertEquals(res.get(0), testPlayer);
-
-//        em.getTransaction().begin();
-////        em.remove(member);
-//        em.remove(team);
-//        em.getTransaction().commit();
-//        em.close();
     }
 
 }
