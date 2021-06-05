@@ -39,11 +39,18 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     @SuppressWarnings("unused")
     public void loadData() throws IOException {
         // TODO nacitanie dat
-        Player player_1 = player("player_1", "player_1@gmail.com");
-        Player player_2 = player("player_2", "player_2@gmail.com");
-        Player player_3 = player("player_3", "player_3@gmail.com");
-        Player player_4 = player("player_4", "player_4@gmail.com");
-        Player player_5 = player("player_5", "player_5@gmail.com");
+
+        Team team_1 = team("team_1");
+        Team team_2 = team("team_2");
+        Team team_3 = team("team_3");
+        Team team_4 = team("team_4");
+        Team team_5 = team("team_5");
+
+        Player player_1 = player("player_1", "player_1@gmail.com", team_1.getId());
+        Player player_2 = player("player_2", "player_2@gmail.com", team_1.getId());
+        Player player_3 = player("player_3", "player_3@gmail.com", team_2.getId());
+        Player player_4 = player("player_4", "player_4@gmail.com", team_3.getId());
+        Player player_5 = player("player_5", "player_5@gmail.com", team_4.getId());
 
         Game game_1 = game("game_1");
         Game game_2 = game("game_2");
@@ -56,16 +63,11 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         Competition competition_3 = competition(game_3.getId(), "competition_3");
         Competition competition_4 = competition(game_4.getId(), "competition_4");
         Competition competition_5 = competition(game_5.getId(), "competition_5");
-    
-        Team team_1 = team("team_1");
-        Team team_2 = team("team_2");
-        Team team_3 = team("team_3");
-        Team team_4 = team("team_4");
-        Team team_5 = team("team_5");
+
     }
 
-    private Player player(String username, String email) {
-        return playerService.create(username, email);
+    private Player player(String username, String email, Long teamId) {
+        return playerService.create(username, email, teamId);
     }
 
     private Game game(String name){
