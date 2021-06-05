@@ -36,6 +36,11 @@ public class Player {
 
     private LocalDate createdAt;
 
+    @SuppressWarnings("JpaDataSourceORMInspection")
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
+
     @Override
     public int hashCode() {
         return Objects.hash(getUsername());
