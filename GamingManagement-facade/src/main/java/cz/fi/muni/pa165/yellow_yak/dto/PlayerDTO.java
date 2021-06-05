@@ -23,6 +23,7 @@ public class PlayerDTO {
     @Email
     private String email;
     private LocalDate createdAt;
+    private TeamDTO team;
 
     @Override
     public int hashCode() {
