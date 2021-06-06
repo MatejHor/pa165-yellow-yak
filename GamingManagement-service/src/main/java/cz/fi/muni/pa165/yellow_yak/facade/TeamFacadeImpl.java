@@ -13,6 +13,8 @@ import javax.inject.Inject;
 import java.util.List;
 
 /**
+ * Implementation for team facade
+ *
  * @author Matej Knazik
  */
 @Service
