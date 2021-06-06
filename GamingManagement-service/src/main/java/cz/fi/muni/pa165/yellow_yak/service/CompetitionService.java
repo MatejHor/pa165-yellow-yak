@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
+ * Competition service layer interface
+ *
  * @author matho, oreqizer
  */
 public interface CompetitionService {
