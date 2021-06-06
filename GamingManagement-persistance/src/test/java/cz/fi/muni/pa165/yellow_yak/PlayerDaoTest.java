@@ -23,6 +23,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * Tests for player DAO
+ *
  * @author Matej Knazik
  */
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
