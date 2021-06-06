@@ -5,6 +5,8 @@ import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import java.util.List;
 
 /**
+ * Game DAO interface
+ *
  * @author Matej Horniak
  */
 public interface GameDao {
