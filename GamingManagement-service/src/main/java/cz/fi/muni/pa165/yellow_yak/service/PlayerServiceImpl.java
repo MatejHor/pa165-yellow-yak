@@ -12,6 +12,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * Implementation for player service layer
+ *
  * @author Lukas Mikula, oreqizer
  */
 @Service
