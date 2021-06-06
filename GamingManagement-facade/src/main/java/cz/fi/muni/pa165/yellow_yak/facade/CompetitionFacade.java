@@ -7,6 +7,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
+ * Facade for Competition
+ *
  * @author oreqizer
  */
 public interface CompetitionFacade {
