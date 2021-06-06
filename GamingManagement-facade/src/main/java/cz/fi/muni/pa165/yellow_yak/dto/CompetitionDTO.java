@@ -8,7 +8,10 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
+
 /**
+ * DTO layer for competition
+ *
  * @author Lukas Mikula
  */
 @Getter
