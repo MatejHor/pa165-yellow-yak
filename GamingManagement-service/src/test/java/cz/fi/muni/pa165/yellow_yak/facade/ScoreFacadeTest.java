@@ -128,6 +128,26 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
         scoreFacade.create(null, 1L);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createZeroCompetitionId() {
+        scoreFacade.create(0, 1L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createNegativeCompetitionId() {
+        scoreFacade.create(-42, 1L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createZeroPlayerId() {
+        scoreFacade.create(1L, 0);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createNegativePlayerId() {
+        scoreFacade.create(1L, -42);
+    }
+
     @Test
     public void remove() {
         Mockito.doReturn(true).when(scoreService).remove(score.getId());
@@ -145,6 +165,16 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
         scoreFacade.remove(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeZeroId() {
+        scoreFacade.remove(0);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeNegativeId() {
+        scoreFacade.remove(-42);
+    }
+
     @Test
     public void findById() {
         Mockito.doReturn(score).when(scoreService).findById(score.getId());
@@ -155,6 +185,16 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByIdNullId() {
         scoreFacade.findById(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdZeroId() {
+        scoreFacade.findById(0);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdNegativeId() {
+        scoreFacade.findById(-42);
     }
 
     @Test
@@ -170,6 +210,16 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
         scoreFacade.setResult(null, 1);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void setResultZeroId() {
+        scoreFacade.setResult(0, 1);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void setResultNegativeId() {
+        scoreFacade.setResult(-42, 1);
+    }
+
     @Test
     public void findByPlayerGame() {
         Mockito.doReturn(Collections.singletonList(score)).when(scoreService).findByPlayerAndGame(player.getId(), game.getId());
@@ -183,8 +233,28 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByPlayerGameZeroGameId() {
+        scoreFacade.findByPlayerGame(1L, 0);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByPlayerGameNegativeGameId() {
+        scoreFacade.findByPlayerGame(1L, -42);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByPlayerGameNullPlayerId() {
         scoreFacade.findByPlayerGame(null, 1L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByPlayerGameZeroPlayerId() {
+        scoreFacade.findByPlayerGame(0, 1L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByPlayerGameNegativePlayerId() {
+        scoreFacade.findByPlayerGame(-42, 1L);
     }
 
     @Test
@@ -197,6 +267,16 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByCompetitionNullCompetitionId() {
         scoreFacade.findByCompetition(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByCompetitionZeroCompetitionId() {
+        scoreFacade.findByCompetition(0);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByCompetitionNegativeCompetitionId() {
+        scoreFacade.findByCompetition(-42);
     }
 
     @Test

@@ -90,6 +90,21 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
         competitionFacade.create(game.getId(), null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createEmptuName() {
+        competitionFacade.create(game.getId(), "");
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createZeroGameID() {
+        competitionFacade.create(0, competition.getName());
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createNegativeGameID() {
+        competitionFacade.create(-42, competition.getName());
+    }
+
     @Test
     public void remove() {
         Mockito.doReturn(true).when(competitionService).remove(competition.getId());
@@ -109,6 +124,16 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
         competitionFacade.remove(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeZeroId() {
+        competitionFacade.remove(0);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeNegativeId() {
+        competitionFacade.remove(-42);
+    }
+
     @Test
     public void findById() {
         Mockito.doReturn(competition).when(competitionService).findById(competition.getId());
@@ -121,6 +146,16 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
         competitionFacade.findById(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdZeroId() {
+        competitionFacade.findById(0);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdNegativeId() {
+        competitionFacade.findById(-42);
+    }
+
     @Test
     public void findByGame() {
         Mockito.doReturn(Collections.singletonList(competition)).when(competitionService).findByGame(1337L);
@@ -131,6 +166,16 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByGameNull() {
         competitionFacade.findByGame(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByGameZeroId() {
+        competitionFacade.findByGame(0);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByGameNegativeId() {
+        competitionFacade.findByGame(-42);
     }
 
     @Test

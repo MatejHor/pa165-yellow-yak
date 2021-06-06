@@ -76,6 +76,16 @@ public class TeamFacadeTest extends AbstractTestNGSpringContextTests {
         teamFacade.create(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createTeamZeroTest() {
+        teamFacade.create(0);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createTeamNegativeTest() {
+        teamFacade.create(-42);
+    }
+
     @Test
     public void remove() {
         Mockito.doReturn(true).when(teamService).remove(team.getId());
@@ -95,6 +105,16 @@ public class TeamFacadeTest extends AbstractTestNGSpringContextTests {
         teamFacade.remove(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeTeamZeroTest() {
+        teamFacade.remove(0);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeTeamNegativeTest() {
+        teamFacade.remove(-42);
+    }
+
     @Test
     public void findById() {
         Mockito.doReturn(team).when(teamService).findById(team.getId());
@@ -107,6 +127,16 @@ public class TeamFacadeTest extends AbstractTestNGSpringContextTests {
         teamFacade.findById(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdZeroTest() {
+        teamFacade.findById(0);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdNegativeTest() {
+        teamFacade.findById(-42);
+    }
+
     @Test
     public void findByName() {
         Mockito.doReturn(Collections.singletonList(team)).when(teamService).findByName(team.getName());
@@ -117,6 +147,11 @@ public class TeamFacadeTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByNameNullTest() {
         teamFacade.findByName(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByNameEmptyStringTest() {
+        teamFacade.findByName("");
     }
 
 
