@@ -53,7 +53,7 @@ public class PlayerDaoImpl implements PlayerDao {
 
     @Override
     public List<Player> findByTeam(Team team) {
-        return em.createQuery("select p from Player p join Member m on m.player = p where m.team = :team",
+        return em.createQuery("select p from Player p join p.team as t where t = :team",
                 Player.class)
                 .setParameter("team", team)
                 .getResultList();

@@ -25,7 +25,6 @@ import javax.sql.DataSource;
 @ComponentScan(basePackageClasses = {
         CompetitionDao.class,
         GameDao.class,
-        MemberDao.class,
         ScoreDao.class,
         TeamDao.class,
         PlayerDao.class

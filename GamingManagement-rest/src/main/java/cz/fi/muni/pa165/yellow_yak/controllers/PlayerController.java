@@ -96,7 +96,7 @@ public class PlayerController {
      * @throws ResourceNotFoundException
      */
     @RequestMapping(value = "/team/{teamId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Collection<PlayerDTO> findPlayerByTeam(@PathVariable("team") Long teamId) throws Exception {
+    public final Collection<PlayerDTO> findPlayerByTeam(@PathVariable("teamId") Long teamId) throws Exception {
         logger.debug("rest findPlayerByTeam({})", teamId);
         List<PlayerDTO> players = playerFacade.findByTeam(teamId);
         return players;
@@ -114,7 +114,7 @@ public class PlayerController {
     public final PlayerDTO createPlayer(@RequestBody PlayerDTO player) throws Exception {
         logger.debug("rest createPlayer()");
         try {
-            return playerFacade.create(player.getUsername(), player.getEmail());
+            return playerFacade.create(player.getUsername(), player.getEmail(), player.getTeam().getId());
         } catch (Exception e) {
             throw new ResourceAlreadyExistingException();
         }

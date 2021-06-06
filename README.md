@@ -66,7 +66,7 @@ Player:
 * GET /players/:id -> PlayerFacade.findById  
 ```curl -i -X GET http://localhost:8080/pa165/rest/players/{id}```
 * POST /players -> PlayerFacade.create  
-```curl --location --request POST 'http://localhost:8080/pa165/rest/players/create' --header 'Content-Type: application/json' --data-raw '{"username": "player_8", "email": "player_8@gmail.com"}'```
+```curl --location --request POST 'http://localhost:8080/pa165/rest/players/create' --header 'Content-Type: application/json' --data-raw '{"username": "player_8", "email": "player_8@gmail.com", "team": {"id": 1}}'```
 * DELETE /players/:id -> PlayerFacade.remove  
 ```curl -i -X DELETE http://localhost:8080/pa165/rest/players/{id}```
 * GET /players/username/:username -> PlayerFacade.findByUsername  

@@ -3,8 +3,10 @@ package cz.fi.muni.pa165.yellow_yak.facade;
 import cz.fi.muni.pa165.yellow_yak.config.ServiceConfiguration;
 import cz.fi.muni.pa165.yellow_yak.dto.PlayerDTO;
 import cz.fi.muni.pa165.yellow_yak.dto.GameDTO;
+import cz.fi.muni.pa165.yellow_yak.dto.TeamDTO;
 import cz.fi.muni.pa165.yellow_yak.entity.Player;
 import cz.fi.muni.pa165.yellow_yak.entity.Game;
+import cz.fi.muni.pa165.yellow_yak.entity.Team;
 import cz.fi.muni.pa165.yellow_yak.service.BeanMappingService;
 import cz.fi.muni.pa165.yellow_yak.service.PlayerService;
 import org.hibernate.service.spi.ServiceException;
@@ -39,6 +41,7 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
     private PlayerFacade playerFacade;
 
     private Player player;
+    private Team team;
     private PlayerDTO playerDTO;
 
     @BeforeClass
@@ -50,15 +53,24 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void setup() {
+        team = new Team();
+        team.setId(1338L);
+        team.setName("Faze");
+
         player = new Player();
         player.setId(1338L);
         player.setUsername("xxx_BILLY_xxx");
         player.setEmail("lol@kek.bur");
 
+        TeamDTO teamDTO = new TeamDTO();
+        teamDTO.setId(team.getId());
+        teamDTO.setName(team.getName());
+
         playerDTO = new PlayerDTO();
         playerDTO.setId(player.getId());
         playerDTO.setUsername(player.getUsername());
         playerDTO.setEmail(player.getEmail());
+        playerDTO.setTeam(teamDTO);
 
         Mockito.doReturn(playerDTO).when(beanMappingService).mapTo(player, PlayerDTO.class);
         Mockito.doReturn(Collections.singletonList(playerDTO)).when(beanMappingService).mapTo(Collections.singletonList(player), PlayerDTO.class);
@@ -66,19 +78,19 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void create() {
-        Mockito.doReturn(player).when(playerService).create(player.getUsername(), player.getEmail());
+        Mockito.doReturn(player).when(playerService).create(player.getUsername(), player.getEmail(), team.getId());
 
-        Assert.assertEquals(playerFacade.create(player.getUsername(), player.getEmail()), playerDTO);
+        Assert.assertEquals(playerFacade.create(player.getUsername(), player.getEmail(), team.getId()), playerDTO);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void createNullUsername() {
-        playerFacade.create(null, player.getEmail());
+        playerFacade.create(null, player.getEmail(), team.getId());
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void createNullEmail() {
-        playerFacade.create(player.getUsername(), null);
+        playerFacade.create(player.getUsername(), null, team.getId());
     }
 
     @Test

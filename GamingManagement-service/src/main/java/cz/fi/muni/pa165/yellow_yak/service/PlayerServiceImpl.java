@@ -24,11 +24,12 @@ public class PlayerServiceImpl implements PlayerService {
     private TeamDao teamDao;
 
     @Override
-    public Player create(String name, String email) {
+    public Player create(String name, String email, Long teamId) {
         Player player = new Player();
         player.setUsername(name);
         player.setEmail(email);
         player.setCreatedAt(LocalDate.now());
+        player.setTeam(teamDao.findById(teamId));
 
         playerDao.create(player);
         return player;

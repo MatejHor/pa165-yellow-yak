@@ -60,7 +60,7 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
         p.setEmail("lol@kek.bur");
         p.setCreatedAt(LocalDate.now());
 
-        Player res = playerService.create("xxx_BILLY_xxx", "lol@kek.bur");
+        Player res = playerService.create("xxx_BILLY_xxx", "lol@kek.bur", null);
 
         Assert.assertEquals(res, p);
     }
