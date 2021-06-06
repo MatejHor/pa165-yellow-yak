@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * Implemenation for team DAO
+ *
  * @author Matej Knazik
  */
 @Repository
