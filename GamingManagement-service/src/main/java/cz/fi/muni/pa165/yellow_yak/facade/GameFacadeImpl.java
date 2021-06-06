@@ -38,6 +38,9 @@ public class GameFacadeImpl implements GameFacade{
         if (name == null) {
             throw new IllegalArgumentException("arguments cannot be null");
         }
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("invalid argument");
+        }
         log.info("creating game, name = {}", name);
         return beanMappingService.mapTo(gameService.create(name), GameDTO.class);
     }
@@ -46,6 +49,9 @@ public class GameFacadeImpl implements GameFacade{
     public boolean remove(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("arguments cannot be null");
+        }
+        if (id <= 0) {
+            throw new IllegalArgumentException("invalid argument");
         }
         log.info("removing game, id = {}", id);
         return gameService.remove(id);
@@ -56,6 +62,9 @@ public class GameFacadeImpl implements GameFacade{
         if (id == null) {
             throw new IllegalArgumentException("arguments cannot be null");
         }
+        if (id <= 0) {
+            throw new IllegalArgumentException("invalid argument");
+        }
         log.info("finding game by ID, id = {}", id);
         return beanMappingService.mapTo(gameService.findById(id), GameDTO.class);
     }
@@ -64,6 +73,9 @@ public class GameFacadeImpl implements GameFacade{
     public List<GameDTO> findByName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("arguments cannot be null");
+        }
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("invalid argument");
         }
         log.info("listing game by name, name = {}", name);
         return beanMappingService.mapTo(gameService.findByName(name), GameDTO.class);

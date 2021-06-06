@@ -40,6 +40,9 @@ public class TeamFacadeImpl implements TeamFacade {
         if (name == null) {
             throw new IllegalArgumentException("name cannot be null");
         }
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("invalid argument");
+        }
         log.info("create team, name = {}", name);
         return beanMappingService.mapTo(teamService.create(name), TeamDTO.class);
     }
@@ -48,6 +51,9 @@ public class TeamFacadeImpl implements TeamFacade {
     public boolean remove(Long teamId) {
         if (teamId == null) {
             throw new IllegalArgumentException("teamId cannot be null");
+        }
+        if (teamId <= 0) {
+            throw new IllegalArgumentException("id cannot be zero or negative value");
         }
         log.info("removing team, id = {}", teamId);
         return teamService.remove(teamId);
@@ -58,6 +64,9 @@ public class TeamFacadeImpl implements TeamFacade {
         if (teamId == null) {
             throw new IllegalArgumentException("teamId cannot be null");
         }
+        if (teamId <= 0) {
+            throw new IllegalArgumentException("id cannot be zero or negative value");
+        }
         log.info("finding team by ID, id = {}", teamId);
         return beanMappingService.mapTo(teamService.findById(teamId), TeamDTO.class);
     }
@@ -66,6 +75,9 @@ public class TeamFacadeImpl implements TeamFacade {
     public List<TeamDTO> findByName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("name cannot be null");
+        }
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("invalid argument");
         }
         log.info("finding teams by name, name = {}", name);
         return beanMappingService.mapTo(teamService.findByName(name), TeamDTO.class);
