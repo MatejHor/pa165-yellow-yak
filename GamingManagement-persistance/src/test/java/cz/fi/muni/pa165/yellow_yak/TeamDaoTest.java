@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
+ * Tests for team DAO
+ *
  * @author Matej Knazik
  */
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
