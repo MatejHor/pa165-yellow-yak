@@ -3,8 +3,10 @@ import { Alert, Button, Form } from "react-bootstrap";
 
 import { deletePlayer, usePlayersByUsername } from "../../../../services/player";
 import Player from "../../../../components/Player";
+import { useIsAdmin } from "../../../../services/authContext";
 
 const UsernameAutocomplete = () => {
+  const isAdmin = useIsAdmin();
   const [value, setValue] = React.useState("");
   const { data, error, mutate } = usePlayersByUsername(value);
 
@@ -40,11 +42,13 @@ const UsernameAutocomplete = () => {
         <Player
           key={player.id}
           data={player}
-          renderActions={(id) => (
-            <Button type="primary" onClick={() => handleDelete(id)}>
-              Delete
-            </Button>
-          )}
+          renderActions={(id) =>
+            isAdmin && (
+              <Button type="primary" onClick={() => handleDelete(id)}>
+                Delete
+              </Button>
+            )
+          }
         />
       ))}
     </div>

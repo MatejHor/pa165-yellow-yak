@@ -99,7 +99,7 @@ const Index = () => {
                         isInvalid={form.touched.email === true && form.errors.email != null}
                         onChange={form.handleChange}
                         onBlur={form.handleBlur}
-                        placeholder="Enter email"
+                        placeholder={isAdmin ? "admin@gaming.com" : "Enter email"}
                       />
                       <Form.Control.Feedback type="invalid">
                         {form.errors.email}
@@ -118,7 +118,7 @@ const Index = () => {
                           isInvalid={form.touched.password === true && form.errors.password != null}
                           onChange={form.handleChange}
                           onBlur={form.handleBlur}
-                          placeholder="Password"
+                          placeholder="admin"
                         />
                         <Form.Control.Feedback type="invalid">
                           {form.errors.password}
