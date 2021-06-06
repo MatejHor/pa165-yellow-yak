@@ -51,15 +51,16 @@ public class PlayerController {
      * @param id player identifier
      * @return PlayerDTO
      * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final PlayerDTO findPlayer(@PathVariable("id") long id) throws ResourceNotFoundException {
+    public final PlayerDTO findPlayer(@PathVariable("id") long id) throws ResourceNotFoundException, InvalidParameterException {
         logger.debug("rest findPlayer({})", id);
         PlayerDTO player = null;
         try {
             player = playerFacade.findById(id);
-        } catch (Exception e) {
-            throw new ResourceNotFoundException();
+        } catch (IllegalArgumentException e) {
+            throw new InvalidParameterException();
         }
         if (player == null) {
             throw new ResourceNotFoundException();
@@ -73,12 +74,15 @@ public class PlayerController {
      * @param id player identifier
      * @return if operation was successful
      * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Boolean removePlayer(@PathVariable("id") long id) throws ResourceNotFoundException {
+    public final Boolean removePlayer(@PathVariable("id") long id) throws ResourceNotFoundException, InvalidParameterException {
         logger.debug("rest removePlayer({})", id);
         try {
             return playerFacade.remove(id);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidParameterException();
         } catch (Exception e) {
             throw new ResourceNotFoundException();
         }
@@ -89,12 +93,17 @@ public class PlayerController {
      *
      * @param username player username
      * @return PlayerDTO
-     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
      */
     @RequestMapping(value = "/username/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Collection<PlayerDTO> findPlayerByUsername(@PathVariable("username") String username) throws ResourceNotFoundException {
+    public final Collection<PlayerDTO> findPlayerByUsername(@PathVariable("username") String username) throws InvalidParameterException {
         logger.debug("rest findPlayerByUsername({})", username);
-        List<PlayerDTO> players = playerFacade.findByUsername(username);
+        List<PlayerDTO> players = new ArrayList<>();
+        try {
+            players = playerFacade.findByUsername(username);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidParameterException();
+        }
         return players;
     }
 
@@ -111,7 +120,7 @@ public class PlayerController {
         List<PlayerDTO> players = new ArrayList<>();
         try {
             players = playerFacade.findByTeam(teamId);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new InvalidParameterException();
         }
         return players;
@@ -123,13 +132,16 @@ public class PlayerController {
      * @param player player's username and email
      * @return PlayerDTO
      * @throws ResourceAlreadyExistingException
+     * @throws InvalidParameterException
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public final PlayerDTO createPlayer(@RequestBody PlayerDTO player) throws ResourceAlreadyExistingException {
+    public final PlayerDTO createPlayer(@RequestBody PlayerDTO player) throws ResourceAlreadyExistingException, InvalidParameterException {
         logger.debug("rest createPlayer()");
         try {
             return playerFacade.create(player.getUsername(), player.getEmail(), player.getTeam().getId());
+        } catch (IllegalArgumentException e) {
+            throw new InvalidParameterException();
         } catch (Exception e) {
             throw new ResourceAlreadyExistingException();
         }

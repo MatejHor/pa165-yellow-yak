@@ -50,15 +50,16 @@ public class GameController {
      * @param id game identifier
      * @return GameDTO
      * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final GameDTO findGame(@PathVariable("id") Long id) throws ResourceNotFoundException {
+    public final GameDTO findGame(@PathVariable("id") Long id) throws ResourceNotFoundException, InvalidParameterException {
         logger.debug("rest findGame({})", id);
         GameDTO game = null;
         try {
             game = gameFacade.findById(id);
-        } catch (Exception e) {
-            throw new ResourceNotFoundException();
+        } catch (IllegalArgumentException e) {
+            throw new InvalidParameterException();
         }
         if (game == null) {
             throw new ResourceNotFoundException();
@@ -72,12 +73,15 @@ public class GameController {
      * @param id game identifier
      * @return if operation was successful
      * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Boolean removeGame(@PathVariable("id") Long id) throws ResourceNotFoundException {
+    public final Boolean removeGame(@PathVariable("id") Long id) throws ResourceNotFoundException, InvalidParameterException {
         logger.debug("rest removeGame({})", id);
         try {
             return gameFacade.remove(id);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidParameterException();
         } catch (Exception e) {
             throw new ResourceNotFoundException();
         }
@@ -96,7 +100,7 @@ public class GameController {
         List<GameDTO> games = new ArrayList<>();
         try {
             games = gameFacade.findByName(name);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new InvalidParameterException();
         }
         return games;
@@ -108,13 +112,16 @@ public class GameController {
      * @param game game's name
      * @return GameDTO
      * @throws ResourceAlreadyExistingException
+     * @throws InvalidParameterException
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public final GameDTO createGame(@RequestBody GameDTO game) throws ResourceAlreadyExistingException {
+    public final GameDTO createGame(@RequestBody GameDTO game) throws ResourceAlreadyExistingException, InvalidParameterException {
         logger.debug("rest createGame()");
         try {
             return gameFacade.create(game.getName());
+        } catch (IllegalArgumentException e) {
+            throw new InvalidParameterException();
         } catch (Exception e) {
             throw new ResourceAlreadyExistingException();
         }

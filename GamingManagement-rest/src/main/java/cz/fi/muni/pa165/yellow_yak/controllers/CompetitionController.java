@@ -37,15 +37,16 @@ public class CompetitionController {
      * @param id competition identifier
      * @return CompetitionDTO
      * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final CompetitionDTO findCompetition(@PathVariable("id") Long id) throws ResourceNotFoundException {
+    public final CompetitionDTO findCompetition(@PathVariable("id") Long id) throws ResourceNotFoundException, InvalidParameterException {
         logger.debug("rest findCompetition({})", id);
         CompetitionDTO competition = null;
         try {
             competition = competitionFacade.findById(id);
-        } catch (Exception e) {
-            throw new ResourceNotFoundException();
+        } catch (IllegalArgumentException e) {
+            throw new InvalidParameterException();
         }
         if (competition == null) {
             throw new ResourceNotFoundException();
@@ -78,7 +79,7 @@ public class CompetitionController {
         List<CompetitionDTO> competitions = new ArrayList<>();
         try {
             competitions = competitionFacade.findByGame(gameId);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new InvalidParameterException();
         }
         return competitions;
@@ -90,12 +91,15 @@ public class CompetitionController {
      * @param id competition identifier
      * @return if operation was successful
      * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Boolean removeCompetition(@PathVariable("id") Long id) throws ResourceNotFoundException {
+    public final Boolean removeCompetition(@PathVariable("id") Long id) throws ResourceNotFoundException, InvalidParameterException {
         logger.debug("rest removeCompetition({})", id);
         try {
             return competitionFacade.remove(id);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidParameterException();
         } catch (Exception e) {
             throw new ResourceNotFoundException();
         }
@@ -107,13 +111,16 @@ public class CompetitionController {
      * @param competition competition's name
      * @return GameDTO
      * @throws ResourceAlreadyExistingException
+     * @throws IllegalArgumentException
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public final CompetitionDTO createGame(@RequestBody CompetitionDTO competition) throws ResourceAlreadyExistingException {
+    public final CompetitionDTO createGame(@RequestBody CompetitionDTO competition) throws ResourceAlreadyExistingException, IllegalArgumentException {
         logger.debug("rest createGame()");
         try {
             return competitionFacade.create(competition.getGame().getId(), competition.getName());
+        } catch (IllegalArgumentException e) {
+            throw new InvalidParameterException();
         } catch (Exception e) {
             throw new ResourceAlreadyExistingException();
         }
