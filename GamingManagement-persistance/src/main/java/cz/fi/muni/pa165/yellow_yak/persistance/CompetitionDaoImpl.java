@@ -10,6 +10,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
+ * Implementation for competition DAO
+ *
  * @author Lukas Mikula
  */
 @Repository
