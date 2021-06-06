@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
+ * Team entity
+ *
  * @author Matej Knazik
  */
 @Entity
