@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.yellow_yak.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.fi.muni.pa165.yellow_yak.ApiUris;
 import cz.fi.muni.pa165.yellow_yak.dto.CompetitionDTO;
+import cz.fi.muni.pa165.yellow_yak.exceptions.InvalidParameterException;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceAlreadyExistingException;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceNotFoundException;
 import cz.fi.muni.pa165.yellow_yak.facade.CompetitionFacade;
@@ -69,19 +70,16 @@ public class CompetitionController {
      *
      * @param gameId competition gameId
      * @return CompetitionDTO
-     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
      */
     @RequestMapping(value = "/game/{gameId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Collection<CompetitionDTO> findCompetitionByGame(@PathVariable("gameId") Long gameId) throws ResourceNotFoundException {
+    public final Collection<CompetitionDTO> findCompetitionByGame(@PathVariable("gameId") Long gameId) throws InvalidParameterException {
         logger.debug("rest findCompetitionByGame({})", gameId);
         List<CompetitionDTO> competitions = new ArrayList<>();
         try {
             competitions = competitionFacade.findByGame(gameId);
         } catch (Exception e) {
-            throw new ResourceNotFoundException();
-        }
-        if (competitions.size() < 1) {
-            throw new ResourceNotFoundException();
+            throw new InvalidParameterException();
         }
         return competitions;
     }

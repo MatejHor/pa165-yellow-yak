@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.yellow_yak.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.fi.muni.pa165.yellow_yak.ApiUris;
 import cz.fi.muni.pa165.yellow_yak.dto.GameDTO;
+import cz.fi.muni.pa165.yellow_yak.exceptions.InvalidParameterException;
 import cz.fi.muni.pa165.yellow_yak.mixin.PlayerDTOMixin;
 import cz.fi.muni.pa165.yellow_yak.dto.PlayerDTO;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceAlreadyExistingException;
@@ -102,19 +103,16 @@ public class PlayerController {
      *
      * @param teamId team identifier
      * @return PlayerDTO
-     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
      */
     @RequestMapping(value = "/team/{teamId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Collection<PlayerDTO> findPlayerByTeam(@PathVariable("teamId") Long teamId) throws ResourceNotFoundException {
+    public final Collection<PlayerDTO> findPlayerByTeam(@PathVariable("teamId") Long teamId) throws InvalidParameterException {
         logger.debug("rest findPlayerByTeam({})", teamId);
         List<PlayerDTO> players = new ArrayList<>();
         try {
             players = playerFacade.findByTeam(teamId);
         } catch (Exception e) {
-            throw new ResourceNotFoundException();
-        }
-        if (players.size() < 1) {
-            throw new ResourceNotFoundException();
+            throw new InvalidParameterException();
         }
         return players;
     }

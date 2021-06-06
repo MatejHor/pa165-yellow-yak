@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.fi.muni.pa165.yellow_yak.ApiUris;
 import cz.fi.muni.pa165.yellow_yak.dto.GameDTO;
 import cz.fi.muni.pa165.yellow_yak.dto.PlayerDTO;
+import cz.fi.muni.pa165.yellow_yak.exceptions.InvalidParameterException;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceAlreadyExistingException;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceNotFoundException;
 import cz.fi.muni.pa165.yellow_yak.facade.GameFacade;
@@ -87,19 +88,16 @@ public class GameController {
      *
      * @param name player name
      * @return GameDTO
-     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
      */
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Collection<GameDTO> findGameByName(@PathVariable("name") String name) throws ResourceNotFoundException {
+    public final Collection<GameDTO> findGameByName(@PathVariable("name") String name) throws InvalidParameterException {
         logger.debug("rest findGameByName({})", name);
         List<GameDTO> games = new ArrayList<>();
         try {
             games = gameFacade.findByName(name);
         } catch (Exception e) {
-            throw new ResourceNotFoundException();
-        }
-        if (games.size() < 1) {
-            throw new ResourceNotFoundException();
+            throw new InvalidParameterException();
         }
         return games;
     }

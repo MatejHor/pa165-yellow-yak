@@ -2,6 +2,7 @@ package cz.fi.muni.pa165.yellow_yak.controllers;
 
 import cz.fi.muni.pa165.yellow_yak.ApiUris;
 import cz.fi.muni.pa165.yellow_yak.dto.TeamDTO;
+import cz.fi.muni.pa165.yellow_yak.exceptions.InvalidParameterException;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceAlreadyExistingException;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceNotFoundException;
 import cz.fi.muni.pa165.yellow_yak.facade.TeamFacade;
@@ -91,19 +92,16 @@ public class TeamController {
      *
      * @param name team name
      * @return TeamDTO
-     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
      */
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Collection<TeamDTO> findTeamByName(@PathVariable("name") String name) throws ResourceNotFoundException {
+    public final Collection<TeamDTO> findTeamByName(@PathVariable("name") String name) throws InvalidParameterException {
         logger.debug("rest findTeamByName({})", name);
         List<TeamDTO> teams = new ArrayList<>();
         try {
             teams = teamFacade.findByName(name);
         } catch (Exception e) {
-            throw new ResourceNotFoundException();
-        }
-        if (teams.size() < 1) {
-            throw new ResourceNotFoundException();
+            throw new InvalidParameterException();
         }
         return teams;
     }
