@@ -2,6 +2,7 @@ package cz.fi.muni.pa165.yellow_yak.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.fi.muni.pa165.yellow_yak.ApiUris;
+import cz.fi.muni.pa165.yellow_yak.dto.GameDTO;
 import cz.fi.muni.pa165.yellow_yak.mixin.PlayerDTOMixin;
 import cz.fi.muni.pa165.yellow_yak.dto.PlayerDTO;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceAlreadyExistingException;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -52,7 +54,12 @@ public class PlayerController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final PlayerDTO findPlayer(@PathVariable("id") long id) throws ResourceNotFoundException {
         logger.debug("rest findPlayer({})", id);
-        PlayerDTO player = playerFacade.findById(id);
+        PlayerDTO player = null;
+        try {
+            player = playerFacade.findById(id);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException();
+        }
         if (player == null) {
             throw new ResourceNotFoundException();
         }
@@ -100,7 +107,15 @@ public class PlayerController {
     @RequestMapping(value = "/team/{teamId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Collection<PlayerDTO> findPlayerByTeam(@PathVariable("teamId") Long teamId) throws ResourceNotFoundException {
         logger.debug("rest findPlayerByTeam({})", teamId);
-        List<PlayerDTO> players = playerFacade.findByTeam(teamId);
+        List<PlayerDTO> players = new ArrayList<>();
+        try {
+            players = playerFacade.findByTeam(teamId);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException();
+        }
+        if (players.size() < 1) {
+            throw new ResourceNotFoundException();
+        }
         return players;
     }
 

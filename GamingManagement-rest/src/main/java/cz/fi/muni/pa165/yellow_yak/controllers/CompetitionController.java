@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -39,7 +40,12 @@ public class CompetitionController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final CompetitionDTO findCompetition(@PathVariable("id") Long id) throws ResourceNotFoundException {
         logger.debug("rest findCompetition({})", id);
-        CompetitionDTO competition = competitionFacade.findById(id);
+        CompetitionDTO competition = null;
+        try {
+            competition = competitionFacade.findById(id);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException();
+        }
         if (competition == null) {
             throw new ResourceNotFoundException();
         }
@@ -68,7 +74,12 @@ public class CompetitionController {
     @RequestMapping(value = "/game/{gameId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Collection<CompetitionDTO> findCompetitionByGame(@PathVariable("gameId") Long gameId) throws ResourceNotFoundException {
         logger.debug("rest findCompetitionByGame({})", gameId);
-        List<CompetitionDTO> competitions = competitionFacade.findByGame(gameId);
+        List<CompetitionDTO> competitions = new ArrayList<>();
+        try {
+            competitions = competitionFacade.findByGame(gameId);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException();
+        }
         if (competitions.size() < 1) {
             throw new ResourceNotFoundException();
         }

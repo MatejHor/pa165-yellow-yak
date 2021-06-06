@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -52,7 +53,12 @@ public class GameController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final GameDTO findGame(@PathVariable("id") Long id) throws ResourceNotFoundException {
         logger.debug("rest findGame({})", id);
-        GameDTO game = gameFacade.findById(id);
+        GameDTO game = null;
+        try {
+            game = gameFacade.findById(id);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException();
+        }
         if (game == null) {
             throw new ResourceNotFoundException();
         }
@@ -86,7 +92,15 @@ public class GameController {
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Collection<GameDTO> findGameByName(@PathVariable("name") String name) throws ResourceNotFoundException {
         logger.debug("rest findGameByName({})", name);
-        List<GameDTO> games = gameFacade.findByName(name);
+        List<GameDTO> games = new ArrayList<>();
+        try {
+            games = gameFacade.findByName(name);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException();
+        }
+        if (games.size() < 1) {
+            throw new ResourceNotFoundException();
+        }
         return games;
     }
 

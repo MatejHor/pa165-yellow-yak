@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -37,7 +39,12 @@ public class TeamController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final TeamDTO findTeam(@PathVariable("id") long id) throws ResourceNotFoundException {
         logger.debug("rest findTeam({})", id);
-        TeamDTO team = teamFacade.findById(id);
+        TeamDTO team = null;
+        try {
+            team = teamFacade.findById(id);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException();
+        }
         if (team == null) {
             throw new ResourceNotFoundException();
         }
@@ -89,7 +96,15 @@ public class TeamController {
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Collection<TeamDTO> findTeamByName(@PathVariable("name") String name) throws ResourceNotFoundException {
         logger.debug("rest findTeamByName({})", name);
-        List<TeamDTO> teams = teamFacade.findByName(name);
+        List<TeamDTO> teams = new ArrayList<>();
+        try {
+            teams = teamFacade.findByName(name);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException();
+        }
+        if (teams.size() < 1) {
+            throw new ResourceNotFoundException();
+        }
         return teams;
     }
 }
