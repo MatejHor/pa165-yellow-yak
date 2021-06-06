@@ -6,6 +6,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
+ * Facade for Player
+ *
  * @author oreqizer
  */
 public interface PlayerFacade {
