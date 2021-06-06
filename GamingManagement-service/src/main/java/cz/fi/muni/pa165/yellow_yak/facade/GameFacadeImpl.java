@@ -13,6 +13,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
+ * Implementation for game facade
+ *
  * @author Lukas Mikula
  */
 @Service
