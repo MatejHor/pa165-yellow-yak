@@ -6,6 +6,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
+ * Player service layer interface
+ *
  * @author Lukas Mikula, oreqizer
  */
 public interface PlayerService {
