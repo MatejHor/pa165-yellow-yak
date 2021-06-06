@@ -11,10 +11,10 @@ import { save } from "../services/storage";
 import { login } from "../services/auth";
 import useState, { isSuccess } from "../services/useState";
 import Games from "./Games";
+import { Role, useAuth } from "../services/authContext";
 
 enum Routes {
   INDEX = "/",
-  PLAYERS = "/players",
   TEAMS = "/teams",
   GAMES = "/games",
 }
@@ -25,17 +25,22 @@ type FormValues = {
 };
 
 const Index = () => {
+  const { role, onSetRole } = useAuth();
   const [isAdmin, setIsAdmin] = React.useState(false);
   const [state, setState] = useState();
   const success = isSuccess(state);
 
   const validationSchema = React.useMemo(
     () =>
-      Yup.object().shape({
-        email: Yup.string().email("Invalid email").required("Required"),
-        password: Yup.string(),
-      }),
-    [],
+      isAdmin
+        ? Yup.object().shape({
+            email: Yup.string().email("Invalid email").required("Required"),
+            password: Yup.string().required("Required"),
+          })
+        : Yup.object().shape({
+            email: Yup.string().email("Invalid email").required("Required"),
+          }),
+    [isAdmin],
   );
 
   const handleSubmit = React.useCallback((values: FormValues, form: FormikHelpers<FormValues>) => {
@@ -43,6 +48,14 @@ const Index = () => {
     login(values)
       .then(({ token }) => {
         save(token);
+
+        // Yolo
+        if (token.toLowerCase().includes("admin")) {
+          onSetRole(Role.Admin);
+        } else {
+          onSetRole(Role.Player);
+        }
+
         setState({ error: null });
       })
       .catch((error) => {
@@ -51,7 +64,7 @@ const Index = () => {
       .finally(() => {
         form.setSubmitting(false);
       });
-  }, []);
+  }, [onSetRole]);
 
   if (!success) {
     return (
@@ -143,7 +156,7 @@ const Index = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Link href={Routes.PLAYERS}>
+            <Link href={Routes.INDEX}>
               <Nav.Link>Players</Nav.Link>
             </Link>
             <Link href={Routes.TEAMS}>
@@ -159,12 +172,26 @@ const Index = () => {
       <Container className="my-3">
         <Row className="justify-content-md-center">
           <Switch>
-            <Route path={Routes.PLAYERS}>{() => <Players />}</Route>
+            <Route path={Routes.INDEX}>{() => <Players />}</Route>
             <Route path={Routes.TEAMS}>{() => <Teams />}</Route>
             <Route path={Routes.GAMES}>{() => <Games />}</Route>
 
             <Redirect to={Routes.INDEX} />
           </Switch>
+        </Row>
+      </Container>
+
+      <Container className="my-5">
+        <Row className="justify-content-md-center">
+          {role === Role.Admin ? (
+            <p>
+              Logged in as <b>Admin</b>
+            </p>
+          ) : (
+            <p>
+              Logged in as <b>Player</b>
+            </p>
+          )}
         </Row>
       </Container>
     </>
