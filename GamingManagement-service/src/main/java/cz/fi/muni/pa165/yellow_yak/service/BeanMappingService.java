@@ -6,6 +6,8 @@ import java.util.List;
 import org.dozer.Mapper;
 
 /**
+ * Dozer mapper interface
+ *
  * @author matho
  */
 public interface BeanMappingService {
