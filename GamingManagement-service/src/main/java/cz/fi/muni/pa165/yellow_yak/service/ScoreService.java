@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
+ * Score service layer interface
+ *
  * @author Matej Horniak
  */
 public interface ScoreService {
