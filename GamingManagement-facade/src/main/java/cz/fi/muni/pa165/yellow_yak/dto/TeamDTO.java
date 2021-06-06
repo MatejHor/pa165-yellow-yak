@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
+ * DTO layer for Team
+ *
  * @author oreqizer
  */
 @Getter
