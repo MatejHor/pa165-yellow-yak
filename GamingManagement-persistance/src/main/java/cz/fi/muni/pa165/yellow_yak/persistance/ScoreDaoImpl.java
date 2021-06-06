@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * Implementation for score DAO
+ *
  * @author oreqizer, Matej Horniak
  */
 @Repository
