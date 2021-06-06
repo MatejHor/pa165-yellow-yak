@@ -3,10 +3,12 @@ import { Alert, Form } from "react-bootstrap";
 
 import GameList from "./GameList";
 import { deleteGame, useGamesByName } from "../../../services/game";
+import { useIsAdmin } from "../../../services/authContext";
 
 const SearchGameForm = () => {
   const [value, setValue] = React.useState("");
   const { data, error, mutate } = useGamesByName(value);
+  const isAdmin = useIsAdmin();
 
   const handleDelete = React.useCallback(
     (id: number) => {
@@ -34,7 +36,12 @@ const SearchGameForm = () => {
 
       {error != null && <Alert variant="danger">{error.message}</Alert>}
 
-      {data && <GameList games={data} handleDelete={handleDelete} />}
+      {data &&
+        (isAdmin ? (
+          <GameList games={data} handleDelete={handleDelete} />
+        ) : (
+          <GameList games={data} />
+        ))}
     </div>
   );
 };

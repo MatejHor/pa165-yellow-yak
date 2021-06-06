@@ -7,7 +7,7 @@ import { Formik } from "formik";
 
 import Players from "./Players";
 import Teams from "./Teams";
-import { save } from "../services/storage";
+import { save, remove } from "../services/storage";
 import { login } from "../services/auth";
 import useState, { isSuccess } from "../services/useState";
 import Games from "./Games";
@@ -65,6 +65,12 @@ const Index = () => {
         form.setSubmitting(false);
       });
   }, [onSetRole]);
+
+  const handleLogout = React.useCallback(() => {
+    remove();
+    onSetRole(null);
+    setState(null);
+  }, [onSetRole])
 
   if (!success) {
     return (
@@ -182,16 +188,8 @@ const Index = () => {
       </Container>
 
       <Container className="my-5">
-        <Row className="justify-content-md-center">
-          {role === Role.Admin ? (
-            <p>
-              Logged in as <b>Admin</b>
-            </p>
-          ) : (
-            <p>
-              Logged in as <b>Player</b>
-            </p>
-          )}
+        <Row className="justify-content-md-center align-items-center">
+          <Button onClick={handleLogout}>Logout {role === Role.Admin ? "Admin" : "Player"}</Button>
         </Row>
       </Container>
     </>

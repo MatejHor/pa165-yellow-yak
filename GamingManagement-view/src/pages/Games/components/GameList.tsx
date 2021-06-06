@@ -5,7 +5,7 @@ import type { Game } from "../../../services/game";
 
 type Props = {
   games: Game[];
-  handleDelete: (id: number) => void;
+  handleDelete?: (id: number) => void;
 };
 
 const GameList = ({ games, handleDelete }: Props) => {
@@ -20,13 +20,15 @@ const GameList = ({ games, handleDelete }: Props) => {
               </p>
             </Row>
           </Col>
-          <Col className="col-auto">
-            <Row>
-              <Button variant="outline-danger" onClick={() => handleDelete(game.id)}>
-                Delete
-              </Button>
-            </Row>
-          </Col>
+          {handleDelete != null && (
+            <Col className="col-auto">
+              <Row>
+                <Button variant="outline-danger" onClick={() => handleDelete(game.id)}>
+                  Delete
+                </Button>
+              </Row>
+            </Col>
+          )}
         </Row>
       ))}
     </>
