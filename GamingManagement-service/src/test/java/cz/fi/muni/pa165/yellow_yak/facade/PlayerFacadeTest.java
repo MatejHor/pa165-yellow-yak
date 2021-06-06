@@ -25,6 +25,8 @@ import org.testng.annotations.Test;
 import java.util.Collections;
 
 /**
+ * Tests for player facade
+ *
  * @author oreqizer, Lukas Mikula
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
