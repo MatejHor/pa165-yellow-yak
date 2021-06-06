@@ -23,6 +23,8 @@ import org.testng.annotations.Test;
 import java.util.Collections;
 
 /**
+ * Tests for team facade
+ *
  * @author Matej Knazik, Lukas Mikula
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
