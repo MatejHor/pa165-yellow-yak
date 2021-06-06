@@ -61,7 +61,7 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
         playerTest.setCreatedAt(LocalDate.now());
 
         Score scoreTest = new Score();
-        scoreTest.setResult(420);
+        scoreTest.setResult("3:2");
         scoreTest.setCreatedAt(LocalDate.now());
         scoreTest.setCompetition(competitionTest);
         scoreTest.setPlayer(playerTest);
@@ -278,7 +278,7 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
         player.setCreatedAt(LocalDate.now());
 
         Score score2 = new Score();
-        score2.setResult(419);
+        score2.setResult("3:1");
         score2.setCreatedAt(LocalDate.now());
         score2.setCompetition(competition);
         score2.setPlayer(player);

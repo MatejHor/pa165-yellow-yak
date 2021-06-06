@@ -199,7 +199,7 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void setResult() {
-        int result = 420;
+        String result = "1:3";
         Mockito.doReturn(score).when(scoreService).setResult(score.getId(), result);
 
         Assert.assertEquals(scoreFacade.setResult(score.getId(), result), scoreDTO);
@@ -207,17 +207,22 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void setResultNullId() {
-        scoreFacade.setResult(null, 1);
+        scoreFacade.setResult(null, "1:2");
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void setResultEmptyStringResult() {
+        scoreFacade.setResult(null, "");
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void setResultZeroId() {
-        scoreFacade.setResult(0L, 1);
+        scoreFacade.setResult(0L, "1:2");
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void setResultNegativeId() {
-        scoreFacade.setResult(-1330L, 1);
+        scoreFacade.setResult(-1330L, "1:2");
     }
 
     @Test

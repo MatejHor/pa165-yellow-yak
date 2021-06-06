@@ -91,12 +91,12 @@ public class ScoreFacadeImpl implements ScoreFacade {
     }
 
     @Override
-    public ScoreDTO setResult(Long id, int result) {
+    public ScoreDTO setResult(Long id, String result) {
         if (id == null) {
             throw new IllegalArgumentException("Id is null");
         }
-        if (id <= 0) {
-            throw new IllegalArgumentException("id cannot be zero or negative value");
+        if (id <= 0 || result.isEmpty()) {
+            throw new IllegalArgumentException("invalid argument");
         }
         log.info("setting result, id = {}, result = {}", id, result);
         return beanMappingService.mapTo(scoreService.setResult(id, result), ScoreDTO.class);

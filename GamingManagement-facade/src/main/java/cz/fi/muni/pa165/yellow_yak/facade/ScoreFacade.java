@@ -52,7 +52,7 @@ public interface ScoreFacade {
      * @param result result
      * @return updated score
      */
-    public ScoreDTO setResult(@NotNull Long id, int result);
+    public ScoreDTO setResult(@NotNull Long id, String result);
 
     /**
      * Lists score statistics for the player
