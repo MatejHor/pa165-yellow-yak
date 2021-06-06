@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
+ * DTO layer for Player
+ *
  * @author Matej Horniak
  */
 @Getter
