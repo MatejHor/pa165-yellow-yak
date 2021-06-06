@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
+ * Player entity
+ *
  * @author Matej Horniak
  */
 @Entity
