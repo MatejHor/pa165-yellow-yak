@@ -35,7 +35,7 @@ public class TeamController {
      * @throws ResourceNotFoundException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final TeamDTO findTeam(@PathVariable("id") long id) throws Exception {
+    public final TeamDTO findTeam(@PathVariable("id") long id) throws ResourceNotFoundException {
         logger.debug("rest findTeam({})", id);
         TeamDTO team = teamFacade.findById(id);
         if (team == null) {
@@ -52,7 +52,7 @@ public class TeamController {
      * @throws ResourceNotFoundException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Boolean removeTeam(@PathVariable("id") long id) throws Exception {
+    public final Boolean removeTeam(@PathVariable("id") long id) throws ResourceNotFoundException {
         logger.debug("rest removeTeam({})", id);
         try {
             return teamFacade.remove(id);
@@ -70,7 +70,7 @@ public class TeamController {
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public final TeamDTO createTeam(@RequestBody TeamDTO team) throws Exception {
+    public final TeamDTO createTeam(@RequestBody TeamDTO team) throws ResourceAlreadyExistingException {
         logger.debug("rest createTeam()");
         try {
             return teamFacade.create(team.getName());
@@ -87,7 +87,7 @@ public class TeamController {
      * @throws ResourceNotFoundException
      */
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Collection<TeamDTO> findTeamByName(@PathVariable("name") String name) throws Exception {
+    public final Collection<TeamDTO> findTeamByName(@PathVariable("name") String name) throws ResourceNotFoundException {
         logger.debug("rest findTeamByName({})", name);
         List<TeamDTO> teams = teamFacade.findByName(name);
         return teams;

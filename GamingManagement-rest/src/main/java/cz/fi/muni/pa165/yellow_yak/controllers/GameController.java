@@ -50,7 +50,7 @@ public class GameController {
      * @throws ResourceNotFoundException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final GameDTO findGame(@PathVariable("id") Long id) throws Exception {
+    public final GameDTO findGame(@PathVariable("id") Long id) throws ResourceNotFoundException {
         logger.debug("rest findGame({})", id);
         GameDTO game = gameFacade.findById(id);
         if (game == null) {
@@ -67,7 +67,7 @@ public class GameController {
      * @throws ResourceNotFoundException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Boolean removeGame(@PathVariable("id") Long id) throws Exception {
+    public final Boolean removeGame(@PathVariable("id") Long id) throws ResourceNotFoundException {
         logger.debug("rest removeGame({})", id);
         try {
             return gameFacade.remove(id);
@@ -84,7 +84,7 @@ public class GameController {
      * @throws ResourceNotFoundException
      */
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Collection<GameDTO> findGameByName(@PathVariable("name") String name) throws Exception {
+    public final Collection<GameDTO> findGameByName(@PathVariable("name") String name) throws ResourceNotFoundException {
         logger.debug("rest findGameByName({})", name);
         List<GameDTO> games = gameFacade.findByName(name);
         return games;
@@ -99,7 +99,7 @@ public class GameController {
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public final GameDTO createGame(@RequestBody GameDTO game) throws Exception {
+    public final GameDTO createGame(@RequestBody GameDTO game) throws ResourceAlreadyExistingException {
         logger.debug("rest createGame()");
         try {
             return gameFacade.create(game.getName());

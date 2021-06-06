@@ -37,7 +37,7 @@ public class CompetitionController {
      * @throws ResourceNotFoundException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final CompetitionDTO findCompetition(@PathVariable("id") Long id) throws Exception {
+    public final CompetitionDTO findCompetition(@PathVariable("id") Long id) throws ResourceNotFoundException {
         logger.debug("rest findCompetition({})", id);
         CompetitionDTO competition = competitionFacade.findById(id);
         if (competition == null) {
@@ -66,7 +66,7 @@ public class CompetitionController {
      * @throws ResourceNotFoundException
      */
     @RequestMapping(value = "/game/{gameId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Collection<CompetitionDTO> findCompetitionByGame(@PathVariable("gameId") Long gameId) throws Exception {
+    public final Collection<CompetitionDTO> findCompetitionByGame(@PathVariable("gameId") Long gameId) throws ResourceNotFoundException {
         logger.debug("rest findCompetitionByGame({})", gameId);
         List<CompetitionDTO> competitions = competitionFacade.findByGame(gameId);
         if (competitions.size() < 1) {
@@ -83,7 +83,7 @@ public class CompetitionController {
      * @throws ResourceNotFoundException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Boolean removeCompetition(@PathVariable("id") Long id) throws Exception {
+    public final Boolean removeCompetition(@PathVariable("id") Long id) throws ResourceNotFoundException {
         logger.debug("rest removeCompetition({})", id);
         try {
             return competitionFacade.remove(id);
@@ -101,7 +101,7 @@ public class CompetitionController {
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public final CompetitionDTO createGame(@RequestBody CompetitionDTO competition) throws Exception {
+    public final CompetitionDTO createGame(@RequestBody CompetitionDTO competition) throws ResourceAlreadyExistingException {
         logger.debug("rest createGame()");
         try {
             return competitionFacade.create(competition.getGame().getId(), competition.getName());
