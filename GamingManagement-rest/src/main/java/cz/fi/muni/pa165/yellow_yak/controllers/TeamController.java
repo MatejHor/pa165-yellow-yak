@@ -14,6 +14,8 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * REST layer for team
+ *
  * @author oreqizer
  */
 @RestController
