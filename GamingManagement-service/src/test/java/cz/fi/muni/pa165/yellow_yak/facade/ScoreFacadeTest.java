@@ -130,22 +130,22 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void createZeroCompetitionId() {
-        scoreFacade.create(0, 1L);
+        scoreFacade.create(0L, 1L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void createNegativeCompetitionId() {
-        scoreFacade.create(-42, 1L);
+        scoreFacade.create(-1330L, 1L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void createZeroPlayerId() {
-        scoreFacade.create(1L, 0);
+        scoreFacade.create(1L, 0L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void createNegativePlayerId() {
-        scoreFacade.create(1L, -42);
+        scoreFacade.create(1L, -1330L);
     }
 
     @Test
@@ -167,12 +167,12 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void removeZeroId() {
-        scoreFacade.remove(0);
+        scoreFacade.remove(0L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void removeNegativeId() {
-        scoreFacade.remove(-42);
+        scoreFacade.remove(-1330L);
     }
 
     @Test
@@ -189,12 +189,12 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByIdZeroId() {
-        scoreFacade.findById(0);
+        scoreFacade.findById(0L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByIdNegativeId() {
-        scoreFacade.findById(-42);
+        scoreFacade.findById(-1330L);
     }
 
     @Test
@@ -212,12 +212,12 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void setResultZeroId() {
-        scoreFacade.setResult(0, 1);
+        scoreFacade.setResult(0L, 1);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void setResultNegativeId() {
-        scoreFacade.setResult(-42, 1);
+        scoreFacade.setResult(-1330L, 1);
     }
 
     @Test
@@ -234,12 +234,12 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByPlayerGameZeroGameId() {
-        scoreFacade.findByPlayerGame(1L, 0);
+        scoreFacade.findByPlayerGame(1L, 0L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByPlayerGameNegativeGameId() {
-        scoreFacade.findByPlayerGame(1L, -42);
+        scoreFacade.findByPlayerGame(1L, -1330L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
@@ -249,12 +249,12 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByPlayerGameZeroPlayerId() {
-        scoreFacade.findByPlayerGame(0, 1L);
+        scoreFacade.findByPlayerGame(0L, 1L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByPlayerGameNegativePlayerId() {
-        scoreFacade.findByPlayerGame(-42, 1L);
+        scoreFacade.findByPlayerGame(-1330L, 1L);
     }
 
     @Test
@@ -271,12 +271,12 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByCompetitionZeroCompetitionId() {
-        scoreFacade.findByCompetition(0);
+        scoreFacade.findByCompetition(0L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByCompetitionNegativeCompetitionId() {
-        scoreFacade.findByCompetition(-42);
+        scoreFacade.findByCompetition(-1330L);
     }
 
     @Test

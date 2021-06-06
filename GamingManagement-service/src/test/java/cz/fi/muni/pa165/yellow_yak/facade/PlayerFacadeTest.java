@@ -107,12 +107,12 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void createZeroTeamId() {
-        playerFacade.create(player.getUsername(), player.getEmail(), 0);
+        playerFacade.create(player.getUsername(), player.getEmail(), 0L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void createNegativeTeamId() {
-        playerFacade.create(player.getUsername(), player.getEmail(), -42);
+        playerFacade.create(player.getUsername(), player.getEmail(), -1330L);
     }
 
     @Test
@@ -134,11 +134,11 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void removeZeroId() {playerFacade.remove(0);
+    public void removeZeroId() {playerFacade.remove(0L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void removeNegativeId() {playerFacade.remove(-42);
+    public void removeNegativeId() {playerFacade.remove(-1330L);
     }
 
     @Test
@@ -155,12 +155,12 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByIdZeroId() {
-        playerFacade.findById(0);
+        playerFacade.findById(0L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void findByIdZeroId() {
-        playerFacade.findById(-42);
+    public void findByIdNegativeId() {
+        playerFacade.findById(-1330L);
     }
 
     @Test
@@ -194,12 +194,12 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByTeamZeroId() {
-        playerFacade.findByTeam(0);
+        playerFacade.findByTeam(0L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByTeamNegativeId() {
-        playerFacade.findByTeam(-42);
+        playerFacade.findByTeam(-1330L);
     }
 
     @Test

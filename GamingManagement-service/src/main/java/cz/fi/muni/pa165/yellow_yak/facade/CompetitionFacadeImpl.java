@@ -74,7 +74,7 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
         if (gameId == null) {
             throw new IllegalArgumentException("arguments cannot be null");
         }
-        if (id <= 0) {
+        if (gameId <= 0) {
             throw new IllegalArgumentException("id cannot be zero or negative value");
         }
         log.info("listing competition by game ID, gameId = {}", gameId);

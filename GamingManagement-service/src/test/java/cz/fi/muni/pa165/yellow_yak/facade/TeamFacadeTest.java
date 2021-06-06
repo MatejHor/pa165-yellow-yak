@@ -77,13 +77,8 @@ public class TeamFacadeTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void createTeamZeroTest() {
-        teamFacade.create(0);
-    }
-
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void createTeamNegativeTest() {
-        teamFacade.create(-42);
+    public void createTeamEmptyStringTest() {
+        teamFacade.create("");
     }
 
     @Test
@@ -107,12 +102,12 @@ public class TeamFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void removeTeamZeroTest() {
-        teamFacade.remove(0);
+        teamFacade.remove(0L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void removeTeamNegativeTest() {
-        teamFacade.remove(-42);
+        teamFacade.remove(-1330L);
     }
 
     @Test
@@ -129,12 +124,12 @@ public class TeamFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByIdZeroTest() {
-        teamFacade.findById(0);
+        teamFacade.findById(0L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByIdNegativeTest() {
-        teamFacade.findById(-42);
+        teamFacade.findById(-1330L);
     }
 
     @Test

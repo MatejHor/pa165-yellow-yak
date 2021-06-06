@@ -87,7 +87,7 @@ public class PlayerFacadeImpl implements PlayerFacade {
         if (teamId == null) {
             throw new IllegalArgumentException("arguments cannot be null");
         }
-        if (id <= 0) {
+        if (teamId <= 0) {
             throw new IllegalArgumentException("teamId cannot be zero or negative value");
         }
         log.info("listing player by team, teamId = {}", teamId);

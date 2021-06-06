@@ -101,12 +101,12 @@ public class GameFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void removeZeroId() {
-        gameFacade.remove(0);
+        gameFacade.remove(0L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void removeNegativeId() {
-        gameFacade.remove(-42);
+        gameFacade.remove(-1330L);
     }
 
     @Test
@@ -123,12 +123,12 @@ public class GameFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByIdZeroId() {
-        gameFacade.findById(0);
+        gameFacade.findById(0L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByIdNegativeId() {
-        gameFacade.findById(-42);
+        gameFacade.findById(-1330L);
     }
 
     @Test

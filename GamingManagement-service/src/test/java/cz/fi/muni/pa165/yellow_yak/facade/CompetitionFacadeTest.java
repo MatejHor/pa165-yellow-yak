@@ -97,12 +97,12 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void createZeroGameID() {
-        competitionFacade.create(0, competition.getName());
+        competitionFacade.create(0L, competition.getName());
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void createNegativeGameID() {
-        competitionFacade.create(-42, competition.getName());
+        competitionFacade.create(-1330L, competition.getName());
     }
 
     @Test
@@ -126,12 +126,12 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void removeZeroId() {
-        competitionFacade.remove(0);
+        competitionFacade.remove(0L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void removeNegativeId() {
-        competitionFacade.remove(-42);
+        competitionFacade.remove(-1330L);
     }
 
     @Test
@@ -148,12 +148,12 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByIdZeroId() {
-        competitionFacade.findById(0);
+        competitionFacade.findById(0L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByIdNegativeId() {
-        competitionFacade.findById(-42);
+        competitionFacade.findById(-1330L);
     }
 
     @Test
@@ -170,12 +170,12 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByGameZeroId() {
-        competitionFacade.findByGame(0);
+        competitionFacade.findByGame(0L);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByGameNegativeId() {
-        competitionFacade.findByGame(-42);
+        competitionFacade.findByGame(-1330L);
     }
 
     @Test
