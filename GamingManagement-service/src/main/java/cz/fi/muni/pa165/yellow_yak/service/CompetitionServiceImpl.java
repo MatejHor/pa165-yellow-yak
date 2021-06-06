@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * Implementation for competition service layer
+ *
  * @author matho
  */
 @Service
