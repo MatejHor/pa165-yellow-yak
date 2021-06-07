@@ -17,8 +17,8 @@ export type Score = {
 
 type PostCreateScoreResponse = Score;
 
-type GetScoreByCompetitionId = Competition[];
-type GetScoreByGameIdPlayerId = Competition[];
+type GetScoreByCompetitionId = Score[];
+type GetScoreByGameIdPlayerId = Score[];
 
 export type CreateScoreInput = {
     competition: {

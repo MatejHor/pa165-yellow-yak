@@ -16,6 +16,7 @@ export type Competition = {
 type PostCreateCompetitionResponse = Competition;
 
 type GetCompetitionsByGameId = Competition[];
+type GetAllCompetitions = Competition[];
 
 export type CreateCompetitionInput = {
     name: string;
@@ -31,6 +32,11 @@ export function createCompetition(input: CreateCompetitionInput): Promise<PostCr
         method: Method.POST,
         body: JSON.stringify(input),
     });
+}
+
+// GET /competitions
+export function useAllCompetitions() {
+    return useSWR<GetAllCompetitions>(`/competitions`, fetch);
 }
 
 // GET /competitions/game/:gameId

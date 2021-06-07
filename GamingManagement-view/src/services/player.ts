@@ -10,6 +10,11 @@ export function usePlayer(id: string) {
   return useSWR<Player>(`/players/${id}`, fetch);
 }
 
+// GET /players
+export function useAllPlayers() {
+  return useSWR<Player[]>(`/players`, fetch);
+}
+
 // GET /players?username=
 export function usePlayersByUsername(username: string) {
   return useSWR<Player[]>(username.length < 1 ? null : `/players/username/${username}`, fetch);
