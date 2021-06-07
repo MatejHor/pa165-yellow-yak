@@ -75,12 +75,12 @@ Player:
 ```curl -i -X GET http://localhost:8080/pa165/rest/players/team/{teamId}```
 
 Score:
-* `GET /score/:id` -> `ScoreFacade.findById`
-* `POST /score/create body:{competition: {id: number}, player: {id: number}}` -> `ScoreFacade.create`
-* `POST /score/result body:{id: number, reslt: string}` -> `ScoreFacade.setResult` business 1
-* `DELETE /score/:id` -> `ScoreFacade.remove`
-* `GET /score/findBy/GameId/:gameId/PlayerId/:playerId` -> `ScoreFacade.findByPlayerGame`
-* `GET /findBy/CompetitionId/:competitionId` -> `ScoreFacade.findByCompetition` business 2
+* `GET /scores/:id` -> `ScoreFacade.findById`
+* `POST /scores/create body:{competition: {id: number}, player: {id: number}}` -> `ScoreFacade.create`
+* `POST /scores/result body:{id: number, result: string}` -> `ScoreFacade.setResult` business 1
+* `DELETE /scores/:id` -> `ScoreFacade.remove`
+* `GET /scores/findBy/GameId/:gameId/PlayerId/:playerId` -> `ScoreFacade.findByPlayerGame`
+* `GET /scores/findBy/CompetitionId/:competitionId` -> `ScoreFacade.findByCompetition` business 2
   
 Team:
 * GET /teams/:id -> TeamFacade.findById
