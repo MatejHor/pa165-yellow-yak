@@ -260,8 +260,28 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    public void findByPlayerTest() {
+        List<Score> result = scoreDao.findByPlayer(
+                player.getId());
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.size(), 1);
+        Score resultScore = result.get(0);
+        Assert.assertEquals(resultScore, score);
+    }
+
+    @Test
     public void findByCompetitionTestNotCompetition() {
         List<Score> result = scoreDao.findByCompetition(
+                null);
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.size(), 0);
+    }
+
+    @Test
+    public void findByPlayerTestNotCompetition() {
+        List<Score> result = scoreDao.findByPlayer(
                 null);
 
         Assert.assertNotNull(result);

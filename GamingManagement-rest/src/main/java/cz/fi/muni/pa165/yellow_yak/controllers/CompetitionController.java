@@ -7,6 +7,7 @@ import cz.fi.muni.pa165.yellow_yak.exceptions.InvalidParameterException;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceAlreadyExistingException;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceNotFoundException;
 import cz.fi.muni.pa165.yellow_yak.facade.CompetitionFacade;
+import cz.fi.muni.pa165.yellow_yak.facade.ScoreFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
