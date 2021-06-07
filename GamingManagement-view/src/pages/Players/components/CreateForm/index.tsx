@@ -7,16 +7,20 @@ import * as Yup from "yup";
 import type { CreatePlayerInput } from "../../../../services/player";
 import { createPlayer } from "../../../../services/player";
 import useState, { isSuccess } from "../../../../services/useState";
+import { useTeamsByName } from "../../../../services/team";
 
 const CreateForm = () => {
   const [state, setState] = useState();
   const success = isSuccess(state);
+  const [teamName, setTeamName] = React.useState("");
+  const { data: teams, error: teamsError } = useTeamsByName(teamName);
 
   const validationSchema = React.useMemo(
     () =>
       Yup.object().shape({
         username: Yup.string().required("Required"),
         email: Yup.string().email("Email is invalid").required("Required"),
+        teamId: Yup.number().min(1, "Required").required("Required"),
       }),
     [],
   );
@@ -47,6 +51,7 @@ const CreateForm = () => {
       initialValues={{
         username: "",
         email: "",
+        teamId: 0,
       }}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
@@ -86,6 +91,39 @@ const CreateForm = () => {
               <Form.Control.Feedback type="invalid">{form.errors.email}</Form.Control.Feedback>
             </InputGroup>
           </Form.Group>
+
+          <Form.Group controlId="Team name">
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              value={teamName}
+              onChange={(ev) => setTeamName(ev.target.value)}
+              name="name"
+              placeholder="Enter team name"
+            />
+          </Form.Group>
+
+          <Form.Group controlId="teamId">
+            <Form.Label>Team</Form.Label>
+            <InputGroup hasValidation>
+              <Form.Control
+                as="select"
+                name="teamId"
+                value={form.values.teamId}
+                isInvalid={form.touched.teamId === true && form.errors.teamId != null}
+                onChange={form.handleChange}
+                onBlur={form.handleBlur}
+                placeholder="Select team"
+              >
+                <option value={0} disabled>Select team</option>
+                {teams?.map(team => (
+                  <option key={team.id} value={team.id}>{team.name}</option>
+                ))}
+              </Form.Control>
+              <Form.Control.Feedback type="invalid">{form.errors.teamId}</Form.Control.Feedback>
+            </InputGroup>
+          </Form.Group>
+
+          {teamsError != null && <Alert variant="danger">{teamsError.message}</Alert>}
 
           {state?.error != null && <Alert variant="danger">{state.error.message}</Alert>}
 

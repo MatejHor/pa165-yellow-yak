@@ -23,15 +23,15 @@ const NameAutocomplete = () => {
 
   return (
     <div className="my-3">
-      <h2 className="my-2">Serach by username</h2>
-      <Form.Group controlId="username">
+      <h2 className="my-2">Serach by name</h2>
+      <Form.Group controlId="name">
         <Form.Label>Name</Form.Label>
         <Form.Control
           value={value}
           onChange={(ev) => setValue(ev.target.value)}
           name="username"
           type="username"
-          placeholder="Enter username"
+          placeholder="Enter name"
         />
       </Form.Group>
       {error != null && <Alert variant="danger">{error.message}</Alert>}

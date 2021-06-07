@@ -25,13 +25,20 @@ export function usePlayersByTeam(teamId: string | null) {
 export type CreatePlayerInput = {
   username: string;
   email: string;
+  teamId: number;
 };
 
 // POST /players
-export function createPlayer(input: CreatePlayerInput): Promise<Player> {
+export function createPlayer({ username, email, teamId }: CreatePlayerInput): Promise<Player> {
   return fetch(`/players/create`, {
     method: Method.POST,
-    body: JSON.stringify(input),
+    body: JSON.stringify({
+      username,
+      email,
+      team: {
+        id: teamId,
+      },
+    }),
   });
 }
 
