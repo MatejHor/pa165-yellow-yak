@@ -2,6 +2,7 @@ package cz.fi.muni.pa165.yellow_yak.controllers;
 
 import cz.fi.muni.pa165.yellow_yak.ApiUris;
 import cz.fi.muni.pa165.yellow_yak.dto.TeamDTO;
+import cz.fi.muni.pa165.yellow_yak.exceptions.InvalidParameterException;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceAlreadyExistingException;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceNotFoundException;
 import cz.fi.muni.pa165.yellow_yak.facade.TeamFacade;
@@ -10,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -33,11 +36,17 @@ public class TeamController {
      * @param id team identifier
      * @return TeamDTO
      * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final TeamDTO findTeam(@PathVariable("id") long id) throws Exception {
+    public final TeamDTO findTeam(@PathVariable("id") long id) throws ResourceNotFoundException, InvalidParameterException {
         logger.debug("rest findTeam({})", id);
-        TeamDTO team = teamFacade.findById(id);
+        TeamDTO team = null;
+        try {
+            team = teamFacade.findById(id);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidParameterException();
+        }
         if (team == null) {
             throw new ResourceNotFoundException();
         }
@@ -50,12 +59,15 @@ public class TeamController {
      * @param id team identifier
      * @return if operation was successful
      * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Boolean removeTeam(@PathVariable("id") long id) throws Exception {
+    public final Boolean removeTeam(@PathVariable("id") long id) throws ResourceNotFoundException, InvalidParameterException {
         logger.debug("rest removeTeam({})", id);
         try {
             return teamFacade.remove(id);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidParameterException();
         } catch (Exception e) {
             throw new ResourceNotFoundException();
         }
@@ -67,13 +79,16 @@ public class TeamController {
      * @param team team's name
      * @return TeamDTO
      * @throws ResourceAlreadyExistingException
+     * @throws InvalidParameterException
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public final TeamDTO createTeam(@RequestBody TeamDTO team) throws Exception {
+    public final TeamDTO createTeam(@RequestBody TeamDTO team) throws ResourceAlreadyExistingException, InvalidParameterException {
         logger.debug("rest createTeam()");
         try {
             return teamFacade.create(team.getName());
+        } catch (IllegalArgumentException e) {
+            throw new InvalidParameterException();
         } catch (Exception e) {
             throw new ResourceAlreadyExistingException();
         }
@@ -84,12 +99,17 @@ public class TeamController {
      *
      * @param name team name
      * @return TeamDTO
-     * @throws ResourceNotFoundException
+     * @throws InvalidParameterException
      */
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Collection<TeamDTO> findTeamByName(@PathVariable("name") String name) throws Exception {
+    public final Collection<TeamDTO> findTeamByName(@PathVariable("name") String name) throws InvalidParameterException {
         logger.debug("rest findTeamByName({})", name);
-        List<TeamDTO> teams = teamFacade.findByName(name);
+        List<TeamDTO> teams = new ArrayList<>();
+        try {
+            teams = teamFacade.findByName(name);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidParameterException();
+        }
         return teams;
     }
 }

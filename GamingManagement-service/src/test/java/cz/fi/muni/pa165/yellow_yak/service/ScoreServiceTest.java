@@ -303,7 +303,7 @@ public class ScoreServiceTest extends AbstractTestNGSpringContextTests {
         doReturn(score).when(scoreDao).findById(score.getId());
         doReturn(Collections.singletonList(score)).when(scoreDao).findCompetitionResults(score.getCompetition().getId());
 
-        int result = 420;
+        String result = "3:1";
         Score res = scoreService.setResult(score.getId(), result);
 
         Assert.assertNotNull(res);

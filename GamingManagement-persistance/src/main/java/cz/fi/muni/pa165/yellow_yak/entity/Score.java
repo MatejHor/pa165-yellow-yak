@@ -39,7 +39,7 @@ public class Score {
 
     private int placement;
 
-    private int result;
+    private String result;
 
     @CreatedDate
     private LocalDate createdAt;

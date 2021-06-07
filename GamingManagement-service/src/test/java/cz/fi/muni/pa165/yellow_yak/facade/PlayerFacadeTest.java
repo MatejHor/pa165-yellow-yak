@@ -95,6 +95,26 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
         playerFacade.create(player.getUsername(), null, team.getId());
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createEmptyEmail() {
+        playerFacade.create(player.getUsername(), "", team.getId());
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createEmptyUsername() {
+        playerFacade.create("", player.getEmail(), team.getId());
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createZeroTeamId() {
+        playerFacade.create(player.getUsername(), player.getEmail(), 0L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createNegativeTeamId() {
+        playerFacade.create(player.getUsername(), player.getEmail(), -1330L);
+    }
+
     @Test
     public void remove() {
         Mockito.doReturn(true).when(playerService).remove(player.getId());
@@ -113,6 +133,14 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
     public void removeNull() {playerFacade.remove(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeZeroId() {playerFacade.remove(0L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeNegativeId() {playerFacade.remove(-1330L);
+    }
+
     @Test
     public void findById() {
         Mockito.doReturn(player).when(playerService).findById(player.getId());
@@ -123,6 +151,16 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByIdNull() {
         playerFacade.findById(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdZeroId() {
+        playerFacade.findById(0L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdNegativeId() {
+        playerFacade.findById(-1330L);
     }
 
     @Test
@@ -137,6 +175,11 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
         playerFacade.findByUsername(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByUsernameEmptyString() {
+        playerFacade.findByUsername("");
+    }
+
     @Test
     public void findByTeam() {
         Mockito.doReturn(Collections.singletonList(player)).when(playerService).findByTeam(1337L);
@@ -147,6 +190,16 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByTeamNull() {
         playerFacade.findByTeam(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByTeamZeroId() {
+        playerFacade.findByTeam(0L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByTeamNegativeId() {
+        playerFacade.findByTeam(-1330L);
     }
 
     @Test

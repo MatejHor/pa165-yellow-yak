@@ -91,9 +91,7 @@ public class ScoreDaoImpl implements ScoreDao {
                 "select s from Score s " +
                         "join s.competition as c " +
                         "where c.id = :competitionId " +
-                        "and s.result > 0 " +
-                        "and s.result is not null " +
-                        "order by s.result desc", Score.class)
+                        "and s.result is not null ", Score.class)
                 .setParameter("competitionId", competitionId)
                 .getResultList();
     }

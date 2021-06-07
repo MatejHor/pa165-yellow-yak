@@ -52,7 +52,7 @@ public interface ScoreService {
      * @param result result
      * @return updated score
      */
-    public Score setResult(Long id, int result);
+    public Score setResult(Long id, String result);
 
     /**
      * Lists scores by username

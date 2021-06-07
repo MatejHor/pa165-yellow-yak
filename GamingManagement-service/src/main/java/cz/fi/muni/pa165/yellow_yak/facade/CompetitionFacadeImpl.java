@@ -38,6 +38,9 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
         if (gameId == null || name == null) {
             throw new IllegalArgumentException("arguments cannot be null");
         }
+        if (gameId <= 0 || name.isEmpty()) {
+            throw new IllegalArgumentException("invalid argument");
+        }
         log.info("creating competition, gameId = {}, name = {}", gameId, name);
         return beanMappingService.mapTo(competitionService.create(gameId, name), CompetitionDTO.class);
     }
@@ -46,6 +49,9 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     public boolean remove(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("arguments cannot be null");
+        }
+        if (id <= 0) {
+            throw new IllegalArgumentException("id cannot be zero or negative value");
         }
         log.info("removing competition, id = {}", id);
         return competitionService.remove(id);
@@ -56,6 +62,9 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
         if (id == null) {
             throw new IllegalArgumentException("arguments cannot be null");
         }
+        if (id <= 0) {
+            throw new IllegalArgumentException("id cannot be zero or negative value");
+        }
         log.info("finding competition by ID, id = {}", id);
         return beanMappingService.mapTo(competitionService.findById(id), CompetitionDTO.class);
     }
@@ -64,6 +73,9 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     public List<CompetitionDTO> findByGame(Long gameId) {
         if (gameId == null) {
             throw new IllegalArgumentException("arguments cannot be null");
+        }
+        if (gameId <= 0) {
+            throw new IllegalArgumentException("id cannot be zero or negative value");
         }
         log.info("listing competition by game ID, gameId = {}", gameId);
         return beanMappingService.mapTo(competitionService.findByGame(gameId), CompetitionDTO.class);

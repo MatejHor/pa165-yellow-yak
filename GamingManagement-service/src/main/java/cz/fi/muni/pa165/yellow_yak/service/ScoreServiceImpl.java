@@ -67,7 +67,7 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public Score setResult(Long id, int result) {
+    public Score setResult(Long id, String result) {
         Score score = scoreDao.findById(id);
         score.setResult(result);
 

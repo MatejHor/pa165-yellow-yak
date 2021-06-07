@@ -76,6 +76,11 @@ public class TeamFacadeTest extends AbstractTestNGSpringContextTests {
         teamFacade.create(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createTeamEmptyStringTest() {
+        teamFacade.create("");
+    }
+
     @Test
     public void remove() {
         Mockito.doReturn(true).when(teamService).remove(team.getId());
@@ -95,6 +100,16 @@ public class TeamFacadeTest extends AbstractTestNGSpringContextTests {
         teamFacade.remove(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeTeamZeroTest() {
+        teamFacade.remove(0L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeTeamNegativeTest() {
+        teamFacade.remove(-1330L);
+    }
+
     @Test
     public void findById() {
         Mockito.doReturn(team).when(teamService).findById(team.getId());
@@ -107,6 +122,16 @@ public class TeamFacadeTest extends AbstractTestNGSpringContextTests {
         teamFacade.findById(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdZeroTest() {
+        teamFacade.findById(0L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdNegativeTest() {
+        teamFacade.findById(-1330L);
+    }
+
     @Test
     public void findByName() {
         Mockito.doReturn(Collections.singletonList(team)).when(teamService).findByName(team.getName());
@@ -117,6 +142,11 @@ public class TeamFacadeTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByNameNullTest() {
         teamFacade.findByName(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByNameEmptyStringTest() {
+        teamFacade.findByName("");
     }
 
 

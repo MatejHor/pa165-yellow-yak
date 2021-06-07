@@ -75,6 +75,11 @@ public class GameFacadeTest extends AbstractTestNGSpringContextTests {
         gameFacade.create(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createEmptyName() {
+        gameFacade.create("");
+    }
+
     @Test
     public void remove() {
         Mockito.doReturn(true).when(gameService).remove(game.getId());
@@ -94,6 +99,16 @@ public class GameFacadeTest extends AbstractTestNGSpringContextTests {
         gameFacade.remove(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeZeroId() {
+        gameFacade.remove(0L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeNegativeId() {
+        gameFacade.remove(-1330L);
+    }
+
     @Test
     public void findById() {
         Mockito.doReturn(game).when(gameService).findById(game.getId());
@@ -106,6 +121,16 @@ public class GameFacadeTest extends AbstractTestNGSpringContextTests {
         gameFacade.findById(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdZeroId() {
+        gameFacade.findById(0L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdNegativeId() {
+        gameFacade.findById(-1330L);
+    }
+
     @Test
     public void findByName() {
         Mockito.doReturn(Collections.singletonList(game)).when(gameService).findByName(game.getName());
@@ -116,6 +141,11 @@ public class GameFacadeTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByNameNull() {
         gameFacade.findByName(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByNameEmptyName() {
+        gameFacade.findByName("");
     }
 
     @Test
