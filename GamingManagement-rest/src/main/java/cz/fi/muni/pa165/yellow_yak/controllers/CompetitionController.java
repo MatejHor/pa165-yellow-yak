@@ -7,6 +7,7 @@ import cz.fi.muni.pa165.yellow_yak.exceptions.InvalidParameterException;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceAlreadyExistingException;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceNotFoundException;
 import cz.fi.muni.pa165.yellow_yak.facade.CompetitionFacade;
+import cz.fi.muni.pa165.yellow_yak.facade.ScoreFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,8 @@ public class CompetitionController {
             competitions = competitionFacade.findByGame(gameId);
         } catch (IllegalArgumentException e) {
             throw new InvalidParameterException();
+        } catch (Exception e) {
+            throw new ResourceNotFoundException();
         }
         return competitions;
     }
@@ -115,8 +118,8 @@ public class CompetitionController {
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public final CompetitionDTO createGame(@RequestBody CompetitionDTO competition) throws ResourceAlreadyExistingException, IllegalArgumentException {
-        logger.debug("rest createGame()");
+    public final CompetitionDTO createCompetition(@RequestBody CompetitionDTO competition) throws ResourceAlreadyExistingException, IllegalArgumentException {
+        logger.debug("rest createCompetition()");
         try {
             return competitionFacade.create(competition.getGame().getId(), competition.getName());
         } catch (IllegalArgumentException e) {

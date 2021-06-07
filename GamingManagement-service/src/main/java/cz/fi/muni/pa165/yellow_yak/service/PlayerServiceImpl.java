@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.yellow_yak.service;
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Player;
 import cz.fi.muni.pa165.yellow_yak.persistance.PlayerDao;
+import cz.fi.muni.pa165.yellow_yak.persistance.ScoreDao;
 import cz.fi.muni.pa165.yellow_yak.persistance.TeamDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,9 @@ public class PlayerServiceImpl implements PlayerService {
     @Autowired
     private TeamDao teamDao;
 
+    @Autowired
+    private ScoreDao scoreDao;
+
     @Override
     public Player create(String name, String email, Long teamId) {
         Player player = new Player();
@@ -39,6 +43,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public boolean remove(@NotNull Long id) {
+        scoreDao.findByPlayer(id).stream().forEach(score -> scoreDao.remove(score.getId()));
         playerDao.remove(id);
         return playerDao.findById(id) == null;
     }

@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.yellow_yak.service;
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.persistance.CompetitionDao;
 import cz.fi.muni.pa165.yellow_yak.persistance.GameDao;
+import cz.fi.muni.pa165.yellow_yak.persistance.ScoreDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,9 @@ public class CompetitionServiceImpl implements CompetitionService {
     @Autowired
     private GameDao gameDao;
 
+    @Autowired
+    private ScoreDao scoreDao;
+
     @Override
     public Competition create(Long gameId, String name) {
         Competition competition = new Competition();
@@ -43,6 +47,7 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public boolean remove(Long competitionId) {
+        scoreDao.findByCompetition(competitionId).stream().forEach(score -> scoreDao.remove(score.getId()));
         competitionDao.remove(competitionDao.findById(competitionId));
         return competitionDao.findById(competitionId) == null;
     }

@@ -2,6 +2,8 @@ package cz.fi.muni.pa165.yellow_yak.service;
 
 import cz.fi.muni.pa165.yellow_yak.entity.Team;
 import cz.fi.muni.pa165.yellow_yak.persistance.TeamDao;
+import cz.fi.muni.pa165.yellow_yak.persistance.PlayerDao;
+import cz.fi.muni.pa165.yellow_yak.persistance.ScoreDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,12 @@ import java.util.List;
 public class TeamServiceImpl implements TeamService {
     @Autowired
     private TeamDao teamDao;
+
+    @Autowired
+    private PlayerDao playerDao;
+
+    @Autowired
+    private ScoreDao scoreDao;
 
     @Override
     public Team create(@NotNull String name) {
@@ -38,6 +46,10 @@ public class TeamServiceImpl implements TeamService {
     public boolean remove(@NotNull Long teamId) {
         if (teamId == null)
             return false;
+        playerDao.findByTeam(teamDao.findById(teamId)).stream().forEach(player -> {
+            scoreDao.findByPlayer(player.getId()).stream().forEach(score -> scoreDao.remove(score.getId()));
+            playerDao.remove(player.getId());
+        });
         teamDao.remove(teamId);
         return teamDao.findById(teamId) == null;
     }

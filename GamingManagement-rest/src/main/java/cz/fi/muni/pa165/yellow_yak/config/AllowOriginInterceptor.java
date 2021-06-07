@@ -20,11 +20,11 @@ public class AllowOriginInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler)
             throws Exception {
-        if (request.getHeader("Origin").equals("http://localhost:8080")) {
+        if (request.getHeader("Origin") != null && request.getHeader("Origin").equals("http://localhost:8080")) {
             // build
             response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
         }
-        if (request.getHeader("Origin").equals("http://localhost:3000")) {
+        if (request.getHeader("Origin") != null && request.getHeader("Origin").equals("http://localhost:3000")) {
             // devserver
             response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
         }

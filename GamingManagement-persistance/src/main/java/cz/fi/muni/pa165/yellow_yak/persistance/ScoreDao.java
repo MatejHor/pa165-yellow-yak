@@ -10,6 +10,7 @@ import java.util.List;
  * Score DAO interface
  *
  * @author oreqizer
+ * @author Matej Knazik
  */
 public interface ScoreDao {
     /**
@@ -42,6 +43,14 @@ public interface ScoreDao {
      * @param s score to update
      */
     void update(Score s);
+
+    /**
+     * Finds a score by player
+     *
+     * @param playerId the player's ID
+     * @return the found score
+     */
+    List<Score> findByPlayer(Long playerId);
 
     /**
      * Finds a score by player and competition

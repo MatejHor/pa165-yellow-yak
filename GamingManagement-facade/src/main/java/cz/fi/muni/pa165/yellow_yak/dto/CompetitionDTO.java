@@ -25,7 +25,7 @@ public class CompetitionDTO {
     private String name;
     private String prices;
 
-    private @NotNull LocalDate startedAt;
+    private LocalDate startedAt;
     private LocalDate finishedAt;
     private LocalDate createdAt;
 

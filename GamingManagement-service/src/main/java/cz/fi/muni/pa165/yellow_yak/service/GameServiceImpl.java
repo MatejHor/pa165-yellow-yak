@@ -2,6 +2,7 @@ package cz.fi.muni.pa165.yellow_yak.service;
 
 import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import cz.fi.muni.pa165.yellow_yak.persistance.GameDao;
+import cz.fi.muni.pa165.yellow_yak.persistance.CompetitionDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,9 @@ public class GameServiceImpl implements GameService{
     @Autowired
     private GameDao gameDao;
 
+    @Autowired
+    private CompetitionDao competitionDao;
+
     @Override
     public Game create(String name) {
         if (name == null) return null;
@@ -33,6 +37,7 @@ public class GameServiceImpl implements GameService{
 
     @Override
     public boolean remove(Long id) {
+        competitionDao.findByGame(gameDao.findById(id)).stream().forEach(competition -> competitionDao.remove(competition));
         gameDao.remove(gameDao.findById(id));
         return gameDao.findById(id) == null;
     }

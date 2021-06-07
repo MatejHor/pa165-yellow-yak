@@ -86,6 +86,17 @@ public class ScoreDaoImpl implements ScoreDao {
     }
 
     @Override
+    public List<Score> findByPlayer(Long playerId) {
+        return em.createQuery(
+                "select s from Score s " +
+                        "join s.player as p " +
+                        "where p.id = :playerId", Score.class)
+                .setParameter("playerId", playerId)
+                .getResultList();
+    }
+
+
+    @Override
     public List<Score> findCompetitionResults(Long competitionId) {
         return em.createQuery(
                 "select s from Score s " +

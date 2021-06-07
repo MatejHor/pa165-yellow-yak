@@ -11,6 +11,7 @@ export type Game = {
 type PostCreateGameResponse = Game;
 
 type GetGamesByNameResponse = Game[];
+type GetAllGames = Game[];
 
 export type CreateGameInput = {
   name: string;
@@ -27,6 +28,11 @@ export function createGame(input: CreateGameInput): Promise<PostCreateGameRespon
 // GET /games?name=
 export function useGamesByName(name: string) {
   return useSWR<GetGamesByNameResponse>(name.length > 0 ? `/games/name/${name}` : null, fetch);
+}
+
+// GET /games
+export function useAllGames() {
+  return useSWR<GetAllGames>(`/games`, fetch);
 }
 
 // DELETE /games/:id
