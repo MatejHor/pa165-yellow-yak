@@ -117,8 +117,8 @@ public class CompetitionController {
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public final CompetitionDTO createGame(@RequestBody CompetitionDTO competition) throws ResourceAlreadyExistingException, IllegalArgumentException {
-        logger.debug("rest createGame()");
+    public final CompetitionDTO createCompetition(@RequestBody CompetitionDTO competition) throws ResourceAlreadyExistingException, IllegalArgumentException {
+        logger.debug("rest createCompetition()");
         try {
             return competitionFacade.create(competition.getGame().getId(), competition.getName());
         } catch (IllegalArgumentException e) {

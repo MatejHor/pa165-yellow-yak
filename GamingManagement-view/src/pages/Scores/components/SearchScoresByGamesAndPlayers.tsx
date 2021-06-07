@@ -47,7 +47,7 @@ const SearchScoresByGamesAndPlayers = () => {
             )}
             {players && (
                 <Form.Group controlId="username">
-                    <Form.Label>Games</Form.Label>
+                    <Form.Label>Player</Form.Label>
                     <Form.Control
                         as="select"
                         onChange={(ev) => setPlayerId(Number(ev.target.value))}

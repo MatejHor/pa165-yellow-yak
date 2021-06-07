@@ -29,9 +29,9 @@ const CreateCompetitionForm = () => {
     const onSubmitHandler = React.useCallback(
         (values: FormInput, form: FormikHelpers<FormInput>) => {
             setState(null);
-            const game = games?.find(game => game.id === values.gameId)
+            const game = games?.find(game => game.id === Number(values.gameId))
             form.setSubmitting(true);
-            createCompetition({name: values.name, game})
+            createCompetition({name: values.name, game: game && {name: game.name, id: game.id} })
                 .then(() => {
                     setState({ error: null });
                 })
@@ -63,7 +63,6 @@ const CreateCompetitionForm = () => {
                         <InputGroup hasValidation>
                             <Form.Control
                                 name="name"
-                                type="name"
                                 value={form.values.name}
                                 isInvalid={form.touched.name === true && form.errors.name != null}
                                 onChange={form.handleChange}
@@ -82,7 +81,7 @@ const CreateCompetitionForm = () => {
                                 value={form.values.gameId}
                                 placeholder="e.g. Foxes vs Piranhas"
                                 onBlur={form.handleBlur}
-                                isInvalid={form.touched.name === true && !games?.find(game => game.id === form.values.gameId)}
+                                isInvalid={form.touched.gameId === true && !games?.some(game => game.id === Number(form.values.gameId))}
                             >
                                 {games?.map((game: Game) => (
                                     <option key={game.id} value={game.id}>{game.name}</option>
