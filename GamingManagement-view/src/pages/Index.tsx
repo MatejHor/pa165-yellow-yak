@@ -12,11 +12,13 @@ import { login } from "../services/auth";
 import useState, { isSuccess } from "../services/useState";
 import Games from "./Games";
 import { Role, useAuth } from "../services/authContext";
+import Competitions from "./Competitions";
 
 enum Routes {
   INDEX = "/",
   TEAMS = "/teams",
   GAMES = "/games",
+  COMPETITIONS = "/competitions",
 }
 
 type FormValues = {
@@ -171,6 +173,9 @@ const Index = () => {
             <Link href={Routes.GAMES}>
               <Nav.Link>Games</Nav.Link>
             </Link>
+            <Link href={Routes.COMPETITIONS}>
+              <Nav.Link>Competitions</Nav.Link>
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -181,7 +186,7 @@ const Index = () => {
             <Route path={Routes.INDEX}>{() => <Players />}</Route>
             <Route path={Routes.TEAMS}>{() => <Teams />}</Route>
             <Route path={Routes.GAMES}>{() => <Games />}</Route>
-
+            <Route path={Routes.COMPETITIONS}>{() => <Competitions />}</Route>
             <Redirect to={Routes.INDEX} />
           </Switch>
         </Row>
