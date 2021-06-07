@@ -62,10 +62,15 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         Competition competition_5 = competition(game_5.getId(), "competition_5");
 
         Score score_1 = score(competition_1.getId(), player_1.getId());
+        score_1.setResult("1:3");
         Score score_2 = score(competition_2.getId(), player_2.getId());
+        score_2.setResult("2:3");
         Score score_3 = score(competition_3.getId(), player_3.getId());
+        score_3.setResult("1:6");
         Score score_4 = score(competition_4.getId(), player_4.getId());
+        score_4.setResult("4:4");
         Score score_5 = score(competition_5.getId(), player_5.getId());
+        score_5.setResult("1:0");
     }
 
     private Player player(String username, String email, Long teamId) {
