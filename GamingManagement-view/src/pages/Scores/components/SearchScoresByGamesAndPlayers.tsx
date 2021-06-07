@@ -7,6 +7,7 @@ import { deleteScore, useScoreByGameIdPlayerId } from "../../../services/score";
 import {useAllPlayers} from "../../../services/player";
 import type Player from "../../../records/Player";
 import ScoreList from "./ScoreList";
+import {useIsAdmin} from "../../../services/authContext";
 
 
 const SearchScoresByGamesAndPlayers = () => {
@@ -15,6 +16,7 @@ const SearchScoresByGamesAndPlayers = () => {
     const { data: scoresByGamePlayer, error: scoresByGamePlayerError, mutate: scoresByGamePlayerMutate } = useScoreByGameIdPlayerId(gameId, playerId);
     const { data: games, error: gamesError } = useAllGames();
     const { data: players, error: playersError } = useAllPlayers();
+    const isAdmin = useIsAdmin();
 
     const handleDelete = React.useCallback(
         (id: number) => {
@@ -62,7 +64,7 @@ const SearchScoresByGamesAndPlayers = () => {
             {playersError != null && <Alert title="Players loading failed" variant="danger">{playersError.message}</Alert>}
             {scoresByGamePlayerError != null && <Alert title="Scores loading failed"  variant="danger">{scoresByGamePlayerError.message}</Alert>}
 
-            {scoresByGamePlayer && <ScoreList scores={scoresByGamePlayer} handleDelete={handleDelete} />}
+            {scoresByGamePlayer && <ScoreList scores={scoresByGamePlayer} handleDelete={isAdmin ? handleDelete : null} />}
         </div>
     );
 };

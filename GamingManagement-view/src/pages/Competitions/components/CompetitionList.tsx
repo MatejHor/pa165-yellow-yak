@@ -6,7 +6,7 @@ import type { Competition } from "../../../services/competition";
 
 type Props = {
     competitions: Competition[];
-    handleDelete: (id: number) => void;
+    handleDelete: null | ((id: number) => void);
 };
 
 const CompetitionList = ({ competitions, handleDelete }: Props) => {
@@ -21,13 +21,15 @@ const CompetitionList = ({ competitions, handleDelete }: Props) => {
                             </p>
                         </Row>
                     </Col>
-                    <Col className="col-auto">
-                        <Row>
-                            <Button variant="outline-danger" onClick={() => handleDelete(competition.id)}>
-                                Delete
-                            </Button>
-                        </Row>
-                    </Col>
+                    {handleDelete && (
+                        <Col className="col-auto">
+                            <Row>
+                              <Button variant="outline-danger" onClick={() => handleDelete(competition.id)}>
+                                 Delete
+                               </Button>
+                            </Row>
+                        </Col>
+                    )}
                 </Row>
             ))}
         </>

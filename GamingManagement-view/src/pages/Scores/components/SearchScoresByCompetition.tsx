@@ -5,12 +5,14 @@ import { deleteScore, useScoreByCompetitionId } from "../../../services/score";
 import type { Competition } from "../../../services/competition";
 import { useAllCompetitions } from "../../../services/competition";
 import ScoreList from "./ScoreList";
+import {useIsAdmin} from "../../../services/authContext";
 
 
 const SearchScoresByCompetitionForm = () => {
     const [competitionId, setCompetitionId] = React.useState(0);
     const { data: competitions, error: competitionsError } = useAllCompetitions();
     const { data: scoresByCompetition, error: scoresByCompetitionError, mutate: scoresByCompetitionMutate } = useScoreByCompetitionId(competitionId);
+    const isAdmin = useIsAdmin();
 
     const handleDelete = React.useCallback(
         (id: number) => {
@@ -43,7 +45,7 @@ const SearchScoresByCompetitionForm = () => {
             {competitionsError != null && <Alert title="Competitions loading failed" variant="danger">{competitionsError.message}</Alert>}
             {scoresByCompetitionError != null && <Alert title="Scores loading failed"  variant="danger">{scoresByCompetitionError.message}</Alert>}
 
-            {scoresByCompetition && <ScoreList scores={scoresByCompetition} handleDelete={handleDelete} />}
+            {scoresByCompetition && <ScoreList scores={scoresByCompetition} handleDelete={isAdmin ? handleDelete : null} />}
         </div>
     );
 };

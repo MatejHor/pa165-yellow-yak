@@ -5,7 +5,7 @@ import type {Score} from "../../../services/score";
 
 type Props = {
     scores: Score[];
-    handleDelete: (id: number) => void;
+    handleDelete: null | ((id: number) => void);
 };
 
 const ScoreList = ({ scores, handleDelete }: Props) => {
@@ -20,13 +20,15 @@ const ScoreList = ({ scores, handleDelete }: Props) => {
                             </p>
                         </Row>
                     </Col>
-                    <Col className="col-auto">
-                        <Row>
-                            <Button variant="outline-danger" onClick={() => handleDelete(score.id)}>
-                                Delete
-                            </Button>
-                        </Row>
-                    </Col>
+                    {handleDelete && (
+                        <Col className="col-auto">
+                            <Row>
+                                <Button variant="outline-danger" onClick={() => handleDelete(score.id)}>
+                                    Delete
+                                </Button>
+                            </Row>
+                        </Col>
+                    )}
                 </Row>
             ))}
         </>

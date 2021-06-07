@@ -5,12 +5,14 @@ import type { Game } from "../../../services/game";
 import { useAllGames } from "../../../services/game";
 import { deleteCompetition, useCompetitionsByGameId } from "../../../services/competition";
 import CompetitionList from "./CompetitionList";
+import {useIsAdmin} from "../../../services/authContext";
 
 
 const SearchCompetitionForm = () => {
     const [value, setValue] = React.useState(0);
     const { data: competitions, error: competitionsError, mutate: competitionsMutate } = useCompetitionsByGameId(value);
     const { data: games, error: gamesError } = useAllGames();
+    const isAdmin = useIsAdmin();
 
     const handleDelete = React.useCallback(
         (id: number) => {
@@ -43,7 +45,7 @@ const SearchCompetitionForm = () => {
             {competitionsError != null && <Alert title="Competition loading failed" variant="danger">{competitionsError.message}</Alert>}
             {gamesError != null && <Alert title="Games loading failed"  variant="danger">{gamesError.message}</Alert>}
 
-            {competitions && <CompetitionList competitions={competitions} handleDelete={handleDelete} />}
+            {competitions && <CompetitionList competitions={competitions} handleDelete={isAdmin ? handleDelete : null} />}
         </div>
     );
 };
