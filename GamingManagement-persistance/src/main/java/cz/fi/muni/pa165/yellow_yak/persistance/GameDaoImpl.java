@@ -11,6 +11,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
+ * Implementation for game DAO
+ *
  * @author Matej Horniak
  */
 @Repository

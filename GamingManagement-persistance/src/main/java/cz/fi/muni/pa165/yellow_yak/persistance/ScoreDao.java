@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * Score DAO interface
+ *
  * @author oreqizer
  */
 public interface ScoreDao {

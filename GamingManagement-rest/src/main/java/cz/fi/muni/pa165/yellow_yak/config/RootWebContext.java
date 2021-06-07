@@ -21,6 +21,9 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+/***
+ * Web MVC Configuration
+ */
 @EnableWebMvc
 @Configuration
 @Import({ServiceConfiguration.class, GamingManagementWithSampleDataConfiguration.class})

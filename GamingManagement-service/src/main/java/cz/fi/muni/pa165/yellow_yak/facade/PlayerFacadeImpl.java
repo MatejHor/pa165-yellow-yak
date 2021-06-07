@@ -14,6 +14,8 @@ import javax.inject.Inject;
 import java.util.List;
 
 /**
+ * Implementation for player facade
+ *
  * @author oreqizer
  */
 @Service

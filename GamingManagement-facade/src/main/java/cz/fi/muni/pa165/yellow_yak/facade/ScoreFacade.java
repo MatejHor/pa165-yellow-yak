@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * For 2 milestone
+ * Facade for Score
  *
  * @author Matej Horniak, oreqizer
  */

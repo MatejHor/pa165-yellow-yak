@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 /**
+ * REST layer for default entry point
+ *
  * @author Matej Horniak
  */
 @RestController

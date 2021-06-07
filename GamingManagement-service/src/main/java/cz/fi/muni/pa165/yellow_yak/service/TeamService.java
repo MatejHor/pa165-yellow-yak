@@ -8,6 +8,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
+ * Team service layer interface
+ *
  * @author Matej Knazik
  */
 public interface TeamService {

@@ -20,6 +20,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 /**
+ * REST layer for authentication
+ *
  * @author Matej Horniak
  */
 @RestController

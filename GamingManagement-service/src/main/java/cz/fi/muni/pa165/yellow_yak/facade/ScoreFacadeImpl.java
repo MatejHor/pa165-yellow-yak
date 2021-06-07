@@ -16,6 +16,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * Implementation for score facade
+ *
  * @author Matej Horniak
  */
 @Service

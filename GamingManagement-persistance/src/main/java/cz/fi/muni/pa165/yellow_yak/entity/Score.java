@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
+ * Score entity
+ *
  * @author oreqizer
  */
 @Entity

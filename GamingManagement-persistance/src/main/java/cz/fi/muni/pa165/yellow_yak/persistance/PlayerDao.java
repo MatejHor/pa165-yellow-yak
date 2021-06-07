@@ -6,6 +6,8 @@ import cz.fi.muni.pa165.yellow_yak.entity.Team;
 import java.util.List;
 
 /**
+ * Player DAO interface
+ *
  * @author Matej Horniak, oreqizer
  */
 public interface PlayerDao {

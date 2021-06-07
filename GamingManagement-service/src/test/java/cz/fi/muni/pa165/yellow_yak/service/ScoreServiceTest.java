@@ -30,6 +30,8 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 /**
+ * Tests for score service layer
+ *
  * @author Lukas Mikula, Matej Horniak
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)

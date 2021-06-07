@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
+ * Tests for competition DAO
+ *
  * @author Matej Horniak
  */
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)

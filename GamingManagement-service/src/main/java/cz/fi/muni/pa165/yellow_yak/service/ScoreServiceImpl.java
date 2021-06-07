@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 /**
+ * Implementation for score service layer
+ *
  * @author Matej Horniak
  */
 @Service

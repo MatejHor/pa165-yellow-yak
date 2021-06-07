@@ -26,6 +26,8 @@ import java.util.List;
 import static org.mockito.Mockito.when;
 
 /**
+ * Tests for competition service layer
+ *
  * @author matho
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)

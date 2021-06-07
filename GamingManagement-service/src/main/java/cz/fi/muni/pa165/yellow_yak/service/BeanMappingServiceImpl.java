@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * Implementation for dozer mapper
+ *
  * @author matho
  */
 @Service

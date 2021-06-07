@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * Implementation for game service layer
+ *
  * @author Lukas Mikula
  */
 @Service

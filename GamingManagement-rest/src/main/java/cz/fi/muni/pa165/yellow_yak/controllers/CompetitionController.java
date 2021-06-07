@@ -3,7 +3,6 @@ package cz.fi.muni.pa165.yellow_yak.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.fi.muni.pa165.yellow_yak.ApiUris;
 import cz.fi.muni.pa165.yellow_yak.dto.CompetitionDTO;
-import cz.fi.muni.pa165.yellow_yak.dto.GameDTO;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceAlreadyExistingException;
 import cz.fi.muni.pa165.yellow_yak.exceptions.ResourceNotFoundException;
 import cz.fi.muni.pa165.yellow_yak.facade.CompetitionFacade;
@@ -15,7 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.List;
+
 /**
+ * REST layer for competition
+ *
  * @author Matej Knazik
  */
 @RestController

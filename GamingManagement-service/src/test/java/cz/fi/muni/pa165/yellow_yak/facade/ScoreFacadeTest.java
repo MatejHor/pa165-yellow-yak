@@ -31,6 +31,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * Tests for score facade
+ *
  * @author Matej Horniak, oreqizer, Lukas Mikula
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)

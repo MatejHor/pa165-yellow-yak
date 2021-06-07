@@ -6,6 +6,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
+ * Game service layer interface
+ *
  * @author Lukas Mikula
  */
 public interface GameService {

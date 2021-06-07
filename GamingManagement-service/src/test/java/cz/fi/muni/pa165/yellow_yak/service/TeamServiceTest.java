@@ -22,6 +22,8 @@ import java.util.List;
 import static org.mockito.Mockito.when;
 
 /**
+ * Tests for team service layer
+ *
  * @author Matej Knazik
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)

@@ -11,6 +11,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * Implementation for team service layer
+ *
  * @author Matej Knazik
  */
 @Service

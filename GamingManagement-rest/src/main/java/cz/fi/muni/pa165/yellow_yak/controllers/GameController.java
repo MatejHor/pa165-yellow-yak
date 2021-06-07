@@ -17,6 +17,8 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * REST layer for Game
+ *
  * @author Lukas Mikula
  */
 @RestController

@@ -19,6 +19,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * Tests for game DAO
+ *
  * @author Lukas Mikula
  */
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)

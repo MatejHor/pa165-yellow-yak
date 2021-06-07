@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * Team DAO interface
+ *
  * @author Matej Knazik
  */
 public interface TeamDao {

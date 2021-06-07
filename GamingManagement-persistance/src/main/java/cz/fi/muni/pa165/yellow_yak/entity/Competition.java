@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
+ * Competition entity
+ *
  * @author Lukas Mikula
  */
 @Entity
