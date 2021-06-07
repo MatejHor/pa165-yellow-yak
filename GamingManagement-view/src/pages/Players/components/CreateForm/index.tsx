@@ -114,9 +114,13 @@ const CreateForm = () => {
                 onBlur={form.handleBlur}
                 placeholder="Select team"
               >
-                <option value={0} disabled>Select team</option>
-                {teams?.map(team => (
-                  <option key={team.id} value={team.id}>{team.name}</option>
+                <option value={0} disabled>
+                  Select team
+                </option>
+                {teams?.map((team) => (
+                  <option key={team.id} value={team.id}>
+                    {team.name}
+                  </option>
                 ))}
               </Form.Control>
               <Form.Control.Feedback type="invalid">{form.errors.teamId}</Form.Control.Feedback>

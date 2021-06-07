@@ -2,7 +2,7 @@ import { Col } from "react-bootstrap";
 
 import CreateForm from "./components/CreateForm";
 import NameAutocomplete from "./components/NameAutocomplete";
-import {useIsAdmin} from "../../services/authContext";
+import { useIsAdmin } from "../../services/authContext";
 
 const Teams = () => {
   const isAdmin = useIsAdmin();

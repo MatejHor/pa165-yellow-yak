@@ -43,34 +43,37 @@ const Index = () => {
     [isAdmin],
   );
 
-  const handleSubmit = React.useCallback((values: FormValues, form: FormikHelpers<FormValues>) => {
-    form.setSubmitting(true);
-    login(values)
-      .then(({ token }) => {
-        save(token);
+  const handleSubmit = React.useCallback(
+    (values: FormValues, form: FormikHelpers<FormValues>) => {
+      form.setSubmitting(true);
+      login(values)
+        .then(({ token }) => {
+          save(token);
 
-        // Yolo
-        if (token.toLowerCase().includes("admin")) {
-          onSetRole(Role.Admin);
-        } else {
-          onSetRole(Role.Player);
-        }
+          // Yolo
+          if (token.toLowerCase().includes("admin")) {
+            onSetRole(Role.Admin);
+          } else {
+            onSetRole(Role.Player);
+          }
 
-        setState({ error: null });
-      })
-      .catch((error) => {
-        setState({ error });
-      })
-      .finally(() => {
-        form.setSubmitting(false);
-      });
-  }, [onSetRole]);
+          setState({ error: null });
+        })
+        .catch((error) => {
+          setState({ error });
+        })
+        .finally(() => {
+          form.setSubmitting(false);
+        });
+    },
+    [onSetRole],
+  );
 
   const handleLogout = React.useCallback(() => {
     remove();
     onSetRole(null);
     setState(null);
-  }, [onSetRole])
+  }, [onSetRole]);
 
   if (!success) {
     return (
