@@ -79,11 +79,10 @@ public class CompetitionController {
         List<CompetitionDTO> competitions = new ArrayList<>();
         try {
             competitions = competitionFacade.findByGame(gameId);
-        } catch (Exception e) {
-            throw new ResourceNotFoundException();
-        }
         } catch (IllegalArgumentException e) {
             throw new InvalidParameterException();
+        } catch (Exception e) {
+            throw new ResourceNotFoundException();
         }
         return competitions;
     }
