@@ -77,6 +77,7 @@ const CreateCompetitionForm = () => {
                         <InputGroup hasValidation>
                             <Form.Control
                                 as="select"
+                                name="gameId"
                                 onChange={form.handleChange}
                                 value={form.values.gameId}
                                 placeholder="e.g. Foxes vs Piranhas"

@@ -76,11 +76,17 @@ Player:
 
 Score:
 * `GET /scores/:id` -> `ScoreFacade.findById`
+  ```curl -i -X GET 'http://localhost:8080/pa165/rest/scores/{id}' ```
 * `POST /scores/create body:{competition: {id: number}, player: {id: number}}` -> `ScoreFacade.create`
+  ```curl --location --request POST 'http://localhost:8080/pa165/rest/scores/create' --header 'Content-Type: application/json' --data-raw '"competition": { "id": 1 }, "player": {"id": 1 }```
 * `POST /scores/result body:{id: number, result: string}` -> `ScoreFacade.setResult` business 1
+  ```curl --location --request POST 'http://localhost:8080/pa165/rest/scores/result' --header 'Content-Type: application/json' --data-raw '"id": 1, "result": "5:2"```
 * `DELETE /scores/:id` -> `ScoreFacade.remove`
+```curl -i -X DELETE 'http://localhost:8080/pa165/rest/scores/{id}'```
 * `GET /scores/findBy/GameId/:gameId/PlayerId/:playerId` -> `ScoreFacade.findByPlayerGame`
-* `GET /scores/findBy/CompetitionId/:competitionId` -> `ScoreFacade.findByCompetition` business 2
+```curl -i -X GET 'http://localhost:8080/scores/findBy/GameId/{gameId}/PlayerId/{playerId}' ```
+* GET /scores/findBy/CompetitionId/:competitionId -> ScoreFacade.findByCompetition` business 2
+```curl -i -X GET 'http://localhost:8080/pa165/rest/scores/findBy/CompetitionId/{id}' ```
   
 Team:
 * GET /teams/:id -> TeamFacade.findById

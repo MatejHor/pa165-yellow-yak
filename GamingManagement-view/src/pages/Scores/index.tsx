@@ -12,7 +12,7 @@ const Scores = () => {
                 <Tab eventKey="home" title="Search scores by competition">
                     <SearchScoresByCompetitionForm />
                 </Tab>
-                <Tab eventKey="home" title="Search scores by games and players">
+                <Tab eventKey="profile" title="Search scores by games and players">
                     <SearchScoresByGamesAndPlayers />
                 </Tab>
             </Tabs>
