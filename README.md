@@ -76,11 +76,11 @@ Player:
 
 Score:
 * `GET /score/:id` -> `ScoreFacade.findById`
-* `POST /score` -> `ScoreFacade.create`
-* `POST /score/result` -> `ScoreFacade.setResult` business 1
+* `POST /score/create body:{competition: {id: number}, player: {id: number}}` -> `ScoreFacade.create`
+* `POST /score/result body:{id: number, reslt: string}` -> `ScoreFacade.setResult` business 1
 * `DELETE /score/:id` -> `ScoreFacade.remove`
-* `GET /score?game=&player=` -> `ScoreFacade.findByPlayerGame`
-* `GET /score?competition=` -> `ScoreFacade.findByCompetition` business 2
+* `GET /score/findBy/GameId/:gameId/PlayerId/:playerId` -> `ScoreFacade.findByPlayerGame`
+* `GET /findBy/CompetitionId/:competitionId` -> `ScoreFacade.findByCompetition` business 2
   
 Team:
 * GET /teams/:id -> TeamFacade.findById
