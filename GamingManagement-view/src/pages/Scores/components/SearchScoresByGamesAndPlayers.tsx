@@ -39,6 +39,7 @@ const SearchScoresByGamesAndPlayers = () => {
                         onChange={(ev) => setGameId(Number(ev.target.value))}
                         value={gameId}
                     >
+                        <option value={0} disabled>Select Game</option>
                         {games.map((game: Game) => (
                             <option key={game.id} value={game.id}>{game.name}</option>
                         ))}
@@ -53,6 +54,7 @@ const SearchScoresByGamesAndPlayers = () => {
                         onChange={(ev) => setPlayerId(Number(ev.target.value))}
                         value={playerId}
                     >
+                        <option value={0} disabled>Select Player</option>
                         {players.map((player: Player) => (
                             <option key={player.id} value={player.id}>{player.username}, {player.email}</option>
                         ))}

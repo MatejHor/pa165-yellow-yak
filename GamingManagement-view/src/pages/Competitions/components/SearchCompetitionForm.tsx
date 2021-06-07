@@ -35,6 +35,7 @@ const SearchCompetitionForm = () => {
                         onChange={(ev) => setValue(Number(ev.target.value))}
                         value={value}
                     >
+                        <option value={0} disabled>Select Game</option>
                         {games.map((game: Game) => (
                             <option key={game.id} value={game.id}>{game.name}</option>
                         ))}
