@@ -92,8 +92,8 @@ const CreateForm = () => {
             </InputGroup>
           </Form.Group>
 
-          <Form.Group controlId="Team name">
-            <Form.Label>Name</Form.Label>
+          <Form.Group controlId="teamId">
+            <Form.Label>Team name</Form.Label>
             <Form.Control
               value={teamName}
               onChange={(ev) => setTeamName(ev.target.value)}
