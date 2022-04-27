@@ -10,28 +10,40 @@ export function usePlayer(id: string) {
   return useSWR<Player>(`/players/${id}`, fetch);
 }
 
-export type CreatePlayerInput = {
-  username: string;
-  email: string;
-};
+// GET /players
+export function useAllPlayers() {
+  return useSWR<Player[]>(`/players`, fetch);
+}
 
 // GET /players?username=
 export function usePlayersByUsername(username: string) {
-  return useSWR<Player[]>(username.length < 1 ? null : `/players?username=${username}`, fetch);
+  return useSWR<Player[]>(username.length < 1 ? null : `/players/username/${username}`, fetch);
 }
 
 // GET /players?team=
 export function usePlayersByTeam(teamId: string | null) {
-  return useSWR<Player[]>(teamId === null ? null : `/players?team=${teamId}`, fetch);
+  return useSWR<Player[]>(teamId === null ? null : `/players/team/${teamId}`, fetch);
 }
 
 // === MUTATIONS ===
 
+export type CreatePlayerInput = {
+  username: string;
+  email: string;
+  teamId: number;
+};
+
 // POST /players
-export function createPlayer(input: CreatePlayerInput): Promise<Player> {
-  return fetch(`/players/`, {
+export function createPlayer({ username, email, teamId }: CreatePlayerInput): Promise<Player> {
+  return fetch(`/players/create`, {
     method: Method.POST,
-    body: JSON.stringify(input),
+    body: JSON.stringify({
+      username,
+      email,
+      team: {
+        id: teamId,
+      },
+    }),
   });
 }
 

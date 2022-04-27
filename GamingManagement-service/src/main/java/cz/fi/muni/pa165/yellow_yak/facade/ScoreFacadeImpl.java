@@ -12,11 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * Implementation for score facade
+ *
  * @author Matej Horniak
  */
 @Service
@@ -39,17 +40,20 @@ public class ScoreFacadeImpl implements ScoreFacade {
     }
 
     @Override
-    public List<ScoreDTO> findByGamePlayerDate(Long playerId, Long gameId, LocalDateTime oldest) {
+    public List<ScoreDTO> findByGamePlayerDate(Long playerId, Long gameId, LocalDate oldest) {
         if (playerId == null) {
             throw new IllegalArgumentException("playerId is null");
         }
         if (gameId == null) {
             throw new IllegalArgumentException("gameId is null");
         }
+        if (playerId <= 0 || gameId <= 0) {
+            throw new IllegalArgumentException("invalid argument");
+        }
         List<Competition> competitions = competitionService.findByGame(gameId);
         log.info("Get competition by gameId(gameId=" + gameId +
                 ", competition size=" + competitions.size() + ")");
-        LocalDateTime createAt = (oldest == null ) ?  competitionService.findOldestCompetition() : oldest;
+        LocalDate createAt = (oldest == null ) ?  competitionService.findOldestCompetition() : oldest;
         List<Score> scores = scoreService.findByPlayerAndCompetitionAndDate(
                 playerId,
                 competitions,
@@ -67,23 +71,32 @@ public class ScoreFacadeImpl implements ScoreFacade {
         if (competitionId == null) {
             throw new IllegalArgumentException("competitionId is null");
         }
+        if (competitionId <= 0 || playerId <= 0) {
+            throw new IllegalArgumentException("invalid argument");
+        }
         log.info("create score, competitionId = {}, playerId = {}", competitionId, playerId);
         return beanMappingService.mapTo(scoreService.create(competitionId, playerId), ScoreDTO.class);
     }
 
     @Override
-    public void remove(Long id) {
+    public boolean remove(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Id is null");
         }
+        if (id <= 0) {
+            throw new IllegalArgumentException("id cannot be zero or negative value");
+        }
         log.info("removing score, id = {}", id);
-        scoreService.remove(id);
+        return scoreService.remove(id);
     }
 
     @Override
-    public ScoreDTO setResult(Long id, int result) {
+    public ScoreDTO setResult(Long id, String result) {
         if (id == null) {
             throw new IllegalArgumentException("Id is null");
+        }
+        if (id <= 0 || result.isEmpty()) {
+            throw new IllegalArgumentException("invalid argument");
         }
         log.info("setting result, id = {}, result = {}", id, result);
         return beanMappingService.mapTo(scoreService.setResult(id, result), ScoreDTO.class);
@@ -93,6 +106,9 @@ public class ScoreFacadeImpl implements ScoreFacade {
     public ScoreDTO findById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Id is null");
+        }
+        if (id <= 0) {
+            throw new IllegalArgumentException("id cannot be zero or negative value");
         }
         log.info("finding player by ID, id = {}", id);
         return beanMappingService.mapTo(scoreService.findById(id), ScoreDTO.class);
@@ -106,6 +122,9 @@ public class ScoreFacadeImpl implements ScoreFacade {
         if (gameId == null) {
             throw new IllegalArgumentException("gameId is null");
         }
+        if (gameId <= 0 || playerId <= 0) {
+            throw new IllegalArgumentException("invalid argument");
+        }
         log.info("finding score by ID, playerId = {}, gameId = {}", playerId, gameId);
         return beanMappingService.mapTo(scoreService.findByPlayerAndGame(playerId, gameId), ScoreDTO.class);
     }
@@ -114,6 +133,9 @@ public class ScoreFacadeImpl implements ScoreFacade {
     public List<ScoreDTO> findByCompetition(Long competitionId) {
         if (competitionId == null) {
             throw new IllegalArgumentException("competitionId is null");
+        }
+        if (competitionId <= 0) {
+            throw new IllegalArgumentException("id cannot be zero or negative value");
         }
         log.info("finding score by ID, competitionId = {}", competitionId);
         return beanMappingService.mapTo(scoreService.findByCompetition(competitionId), ScoreDTO.class);

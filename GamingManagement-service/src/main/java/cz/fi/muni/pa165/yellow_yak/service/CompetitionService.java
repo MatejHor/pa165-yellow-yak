@@ -1,12 +1,16 @@
 package cz.fi.muni.pa165.yellow_yak.service;
 
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
+import cz.fi.muni.pa165.yellow_yak.entity.Game;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 /**
+ * Competition service layer interface
+ *
  * @author matho, oreqizer
  */
 public interface CompetitionService {
@@ -23,7 +27,7 @@ public interface CompetitionService {
      * Removes the competition
      * @param competitionId competition ID to remove
      */
-    public void remove(@NotNull Long competitionId);
+    public boolean remove(@NotNull Long competitionId);
 
     /**
      * Finds a competition by id
@@ -40,7 +44,13 @@ public interface CompetitionService {
     public List<Competition> findByGame(@NotNull Long gameId);
 
     /**
+     * Finds all competitions
+     * @return list of all competitions
+     */
+    public List<Competition> findAll();
+
+    /**
      * Find Competition which have oldest createdAt date
      */
-    public LocalDateTime findOldestCompetition();
+    public LocalDate findOldestCompetition();
 }

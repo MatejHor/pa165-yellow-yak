@@ -5,10 +5,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.validation.constraints.NotNull;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
+ * DTO layer for Team
+ *
  * @author oreqizer
  */
 @Getter
@@ -19,7 +21,7 @@ public class TeamDTO {
     @NotNull
     private String name;
 
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     @Override
     public boolean equals(Object o) {

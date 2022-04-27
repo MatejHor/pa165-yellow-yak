@@ -3,15 +3,18 @@ package cz.fi.muni.pa165.yellow_yak.service;
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Player;
 import cz.fi.muni.pa165.yellow_yak.persistance.PlayerDao;
+import cz.fi.muni.pa165.yellow_yak.persistance.ScoreDao;
 import cz.fi.muni.pa165.yellow_yak.persistance.TeamDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * Implementation for player service layer
+ *
  * @author Lukas Mikula, oreqizer
  */
 @Service
@@ -23,20 +26,26 @@ public class PlayerServiceImpl implements PlayerService {
     @Autowired
     private TeamDao teamDao;
 
+    @Autowired
+    private ScoreDao scoreDao;
+
     @Override
-    public Player create(String name, String email) {
+    public Player create(String name, String email, Long teamId) {
         Player player = new Player();
         player.setUsername(name);
         player.setEmail(email);
-        player.setCreatedAt(LocalDateTime.now());
+        player.setCreatedAt(LocalDate.now());
+        player.setTeam(teamDao.findById(teamId));
 
         playerDao.create(player);
         return player;
     }
 
     @Override
-    public void remove(@NotNull Long id) {
-        playerDao.remove(playerDao.findById(id));
+    public boolean remove(@NotNull Long id) {
+        scoreDao.findByPlayer(id).stream().forEach(score -> scoreDao.remove(score.getId()));
+        playerDao.remove(id);
+        return playerDao.findById(id) == null;
     }
 
     @Override

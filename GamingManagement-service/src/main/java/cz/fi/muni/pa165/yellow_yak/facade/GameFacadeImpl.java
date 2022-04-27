@@ -13,18 +13,19 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
+ * Implementation for game facade
+ *
  * @author Lukas Mikula
  */
 @Service
 @Transactional
 public class GameFacadeImpl implements GameFacade{
+
     final static Logger log = LoggerFactory.getLogger(ScoreFacadeImpl.class);
 
-    @Inject
-    private BeanMappingService beanMappingService;
+    private final BeanMappingService beanMappingService;
 
-    @Inject
-    private GameService gameService;
+    private final GameService gameService;
 
     @Autowired
     public GameFacadeImpl(BeanMappingService beanMappingService, GameService gameService) {
@@ -37,23 +38,32 @@ public class GameFacadeImpl implements GameFacade{
         if (name == null) {
             throw new IllegalArgumentException("arguments cannot be null");
         }
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("invalid argument");
+        }
         log.info("creating game, name = {}", name);
         return beanMappingService.mapTo(gameService.create(name), GameDTO.class);
     }
 
     @Override
-    public void remove(Long id) {
+    public boolean remove(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("arguments cannot be null");
         }
+        if (id <= 0) {
+            throw new IllegalArgumentException("invalid argument");
+        }
         log.info("removing game, id = {}", id);
-        gameService.remove(id);
+        return gameService.remove(id);
     }
 
     @Override
     public GameDTO findById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("arguments cannot be null");
+        }
+        if (id <= 0) {
+            throw new IllegalArgumentException("invalid argument");
         }
         log.info("finding game by ID, id = {}", id);
         return beanMappingService.mapTo(gameService.findById(id), GameDTO.class);
@@ -63,6 +73,9 @@ public class GameFacadeImpl implements GameFacade{
     public List<GameDTO> findByName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("arguments cannot be null");
+        }
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("invalid argument");
         }
         log.info("listing game by name, name = {}", name);
         return beanMappingService.mapTo(gameService.findByName(name), GameDTO.class);

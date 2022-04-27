@@ -6,10 +6,12 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * Implemenation for team DAO
+ *
  * @author Matej Knazik
  */
 @Repository
@@ -24,8 +26,8 @@ public class TeamDaoImpl implements TeamDao {
     }
 
     @Override
-    public void remove(Team team) {
-        em.remove(this.findById(team.getId()));
+    public void remove(Long id) {
+        em.remove(this.findById(id));
     }
 
     @Override
@@ -34,7 +36,7 @@ public class TeamDaoImpl implements TeamDao {
     }
 
     @Override
-    public List<Team> getAll() {
+    public List<Team> findAll() {
         return em.createQuery("select team from Team team", Team.class).getResultList();
     }
 
@@ -51,7 +53,7 @@ public class TeamDaoImpl implements TeamDao {
     }
 
     @Override
-    public List<Team> findByCreatedAt(LocalDateTime createdAt) {
+    public List<Team> findByCreatedAt(LocalDate createdAt) {
         return em.createQuery("select team from Team team where createdAt = :createdAt", Team.class)
                 .setParameter("createdAt", createdAt)
                 .getResultList();

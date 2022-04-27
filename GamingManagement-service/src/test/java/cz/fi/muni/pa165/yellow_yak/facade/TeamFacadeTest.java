@@ -23,6 +23,8 @@ import org.testng.annotations.Test;
 import java.util.Collections;
 
 /**
+ * Tests for team facade
+ *
  * @author Matej Knazik, Lukas Mikula
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
@@ -74,14 +76,38 @@ public class TeamFacadeTest extends AbstractTestNGSpringContextTests {
         teamFacade.create(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createTeamEmptyStringTest() {
+        teamFacade.create("");
+    }
+
     @Test
     public void remove() {
-        teamFacade.remove(1338L);
+        Mockito.doReturn(true).when(teamService).remove(team.getId());
+
+        Assert.assertTrue(teamFacade.remove(team.getId()));
+    }
+
+    @Test
+    public void removeNotExisting() {
+        Mockito.doReturn(true).when(teamService).remove(1336L);
+
+        Assert.assertTrue(teamFacade.remove(1336L));
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void removeTeamNullTest() {
         teamFacade.remove(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeTeamZeroTest() {
+        teamFacade.remove(0L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeTeamNegativeTest() {
+        teamFacade.remove(-1330L);
     }
 
     @Test
@@ -96,6 +122,16 @@ public class TeamFacadeTest extends AbstractTestNGSpringContextTests {
         teamFacade.findById(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdZeroTest() {
+        teamFacade.findById(0L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdNegativeTest() {
+        teamFacade.findById(-1330L);
+    }
+
     @Test
     public void findByName() {
         Mockito.doReturn(Collections.singletonList(team)).when(teamService).findByName(team.getName());
@@ -106,6 +142,11 @@ public class TeamFacadeTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByNameNullTest() {
         teamFacade.findByName(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByNameEmptyStringTest() {
+        teamFacade.findByName("");
     }
 
 

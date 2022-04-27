@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * Implementation for dozer mapper
+ *
  * @author matho
  */
 @Service
@@ -26,7 +28,7 @@ public class BeanMappingServiceImpl implements BeanMappingService {
     }
 
     public <T> T mapTo(Object u, Class<T> mapToClass) {
-        return dozer.map(u, mapToClass);
+        return (u == null) ? null : dozer.map(u, mapToClass);
     }
 
     public Mapper getMapper() {

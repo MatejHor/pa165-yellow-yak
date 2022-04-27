@@ -3,11 +3,11 @@ package cz.fi.muni.pa165.yellow_yak.facade;
 import cz.fi.muni.pa165.yellow_yak.dto.ScoreDTO;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
- * For 2 milestone
+ * Facade for Score
  *
  * @author Matej Horniak, oreqizer
  */
@@ -19,7 +19,7 @@ public interface ScoreFacade {
      * @param oldest   date to search
      * @return list of scores
      */
-    public List<ScoreDTO> findByGamePlayerDate(@NotNull Long playerId, @NotNull Long gameId, LocalDateTime oldest);
+    public List<ScoreDTO> findByGamePlayerDate(@NotNull Long playerId, @NotNull Long gameId, LocalDate oldest);
 
     /**
      * Creates a new score
@@ -34,8 +34,9 @@ public interface ScoreFacade {
      * Removes the score
      *
      * @param id id to remove
+     * @return
      */
-    public void remove(@NotNull Long id);
+    public boolean remove(@NotNull Long id);
 
     /**
      * Finds a score by id
@@ -51,7 +52,7 @@ public interface ScoreFacade {
      * @param result result
      * @return updated score
      */
-    public ScoreDTO setResult(@NotNull Long id, int result);
+    public ScoreDTO setResult(@NotNull Long id, String result);
 
     /**
      * Lists score statistics for the player

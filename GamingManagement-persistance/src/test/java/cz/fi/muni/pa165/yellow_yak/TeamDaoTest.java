@@ -15,11 +15,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceUnit;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
 
 /**
+ * Tests for team DAO
+ *
  * @author Matej Knazik
  */
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
@@ -38,10 +40,10 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
         EntityManager em = entityManagerFactory.createEntityManager();
 
         Team testTeam1 = new Team();
-        testTeam1.setCreatedAt(LocalDateTime.now());
+        testTeam1.setCreatedAt(LocalDate.now());
         testTeam1.setName("Test Team" + new Random().nextInt());
         Team testTeam2 = new Team();
-        testTeam2.setCreatedAt(LocalDateTime.now().minusDays( 1 ));
+        testTeam2.setCreatedAt(LocalDate.now().minusDays( 1 ));
         testTeam2.setName("Test Team" + + new Random().nextInt());
 
         teamDao.create(testTeam1);
@@ -51,13 +53,13 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
 
     @AfterMethod
     private void remove() {
-        teamDao.remove(testTeam);
+        teamDao.remove(testTeam.getId());
     }
 
 
     @Test(expectedExceptions = PersistenceException.class)
     public void createTeamTest() {
-        Assert.assertTrue(teamDao.getAll().size()>0);
+        Assert.assertTrue(teamDao.findAll().size()>0);
         teamDao.create(testTeam);
     }
 
@@ -79,26 +81,26 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void removeTeamTest() {
         Team team = new Team();
-        team.setCreatedAt(LocalDateTime.now());
+        team.setCreatedAt(LocalDate.now());
         team.setName("TestTeamRemove");
         teamDao.create(team);
 
-        int teamsCountBefore = teamDao.getAll().size();
-        teamDao.remove(team);
-        Assert.assertEquals(teamsCountBefore - 1,teamDao.getAll().size());
+        int teamsCountBefore = teamDao.findAll().size();
+        teamDao.remove(team.getId());
+        Assert.assertEquals(teamsCountBefore - 1,teamDao.findAll().size());
 
         Team removedTestTeam = teamDao.findById(team.getId());
         Assert.assertNull(removedTestTeam);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void removeTeamTestNull() {
         teamDao.remove(null);
     }
 
     @Test
     public void getAllTeamsTest() {
-        List<Team> teamList = teamDao.getAll();
+        List<Team> teamList = teamDao.findAll();
         Assert.assertNotNull(teamList);
         Assert.assertTrue(teamList.size() >= 2);
 

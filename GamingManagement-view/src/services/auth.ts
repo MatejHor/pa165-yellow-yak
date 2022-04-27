@@ -3,7 +3,7 @@ import fetch, { Method } from "./fetch";
 export type LoginInput = {
   email: string;
   password: string;
-}
+};
 
 export type LoginRes = {
   token: string;

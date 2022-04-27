@@ -1,11 +1,14 @@
 package cz.fi.muni.pa165.yellow_yak.facade;
 
 import cz.fi.muni.pa165.yellow_yak.dto.CompetitionDTO;
+import cz.fi.muni.pa165.yellow_yak.dto.GameDTO;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
+ * Facade for Competition
+ *
  * @author oreqizer
  */
 public interface CompetitionFacade {
@@ -22,7 +25,7 @@ public interface CompetitionFacade {
      * Removes the competition
      * @param id id to remove
      */
-    public void remove(@NotNull Long id);
+    public boolean remove(@NotNull Long id);
 
     /**
      * Finds a competition by id
@@ -38,4 +41,9 @@ public interface CompetitionFacade {
      */
     public List<CompetitionDTO> findByGame(@NotNull Long gameId);
 
+    /**
+     * Returns all competitions
+     * @return list of competitions
+     */
+    public List<CompetitionDTO> findAll();
 }

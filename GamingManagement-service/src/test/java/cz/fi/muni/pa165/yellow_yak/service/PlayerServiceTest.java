@@ -18,13 +18,15 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
 
 /**
+ * Tests for player service layer
+ *
  * @author Lukas Mikula
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
@@ -47,31 +49,34 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @BeforeMethod
-    public void createPlayer() {
+    public void createPlayerInit() {
         player = new Player();
         player.setUsername("blazeit_michael");
         player.setEmail("kek@lol.bur");
     }
 
     @Test
-    public void createCompetition() {
+    public void createPlayer() {
         Player p = new Player();
         p.setUsername("xxx_BILLY_xxx");
         p.setEmail("lol@kek.bur");
-        p.setCreatedAt(LocalDateTime.now());
+        p.setCreatedAt(LocalDate.now());
 
-        Player res = playerService.create(p.getUsername(), p.getEmail());
+        Player res = playerService.create("xxx_BILLY_xxx", "lol@kek.bur", null);
 
         Assert.assertEquals(res, p);
     }
 
     @Test
-    public void removeCompetition() {
-        playerService.remove(player.getId());
+    public void removePlayer() {
+        Long id = player.getId();
+        boolean success = playerService.remove(id);
+        Assert.assertNull(playerService.findById(id));
+        Assert.assertTrue(success);
     }
 
     @Test
-    public void findByIdCompetition() {
+    public void findByIdPlayer() {
         Mockito.doReturn(player).when(playerDao).findById(1L);
 
         Player res = playerService.findById(1L);

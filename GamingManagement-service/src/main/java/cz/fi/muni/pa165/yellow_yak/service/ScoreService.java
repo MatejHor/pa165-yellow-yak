@@ -5,10 +5,13 @@ import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Score;
 import cz.fi.muni.pa165.yellow_yak.entity.Score;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 /**
+ * Score service layer interface
+ *
  * @author Matej Horniak
  */
 public interface ScoreService {
@@ -20,7 +23,7 @@ public interface ScoreService {
      */
     public List<Score> findByPlayerAndCompetitionAndDate(Long playerId,
                                                          List<Competition> competitions,
-                                                         LocalDateTime createdAt);
+                                                         LocalDate createdAt);
 
     /**
      * Creates a new score
@@ -34,7 +37,7 @@ public interface ScoreService {
      * Removes the score
      * @param id id to remove
      */
-    public void remove(Long id);
+    public boolean remove(Long id);
 
     /**
      * Finds a score by id
@@ -49,7 +52,7 @@ public interface ScoreService {
      * @param result result
      * @return updated score
      */
-    public Score setResult(Long id, int result);
+    public Score setResult(Long id, String result);
 
     /**
      * Lists scores by username

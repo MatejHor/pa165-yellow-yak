@@ -146,7 +146,8 @@
         <module>GamingManagement-facade</module>
         <module>GamingManagement-service</module>
         <module>GamingManagement-persistance</module>
-        <module>GamingManagement-api</module>
+        <module>GamingManagement-sample-data</module>
         <module>GamingManagement-view</module>
+        <module>GamingManagement-rest</module>
     </modules>
 </project>

@@ -6,7 +6,7 @@ import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import java.util.List;
 
 /**
- * CompetitionDao performs CRUD operations for entity Competition.
+ * Competition DAO interface
  *
  * @author Lukas Mikula
  */

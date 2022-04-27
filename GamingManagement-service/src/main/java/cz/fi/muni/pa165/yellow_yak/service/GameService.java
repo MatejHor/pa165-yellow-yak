@@ -6,6 +6,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
+ * Game service layer interface
+ *
  * @author Lukas Mikula
  */
 public interface GameService {
@@ -21,7 +23,7 @@ public interface GameService {
      * Removes the game
      * @param id game ID to remove
      */
-    public void remove(@NotNull Long id);
+    public boolean remove(@NotNull Long id);
 
     /**
      * Finds a game by id

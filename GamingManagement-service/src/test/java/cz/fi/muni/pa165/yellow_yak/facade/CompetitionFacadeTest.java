@@ -25,6 +25,8 @@ import org.testng.annotations.Test;
 import java.util.Collections;
 
 /**
+ * Tests for competition facade
+ *
  * @author oreqizer, Lukas Mikula
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
@@ -44,7 +46,6 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
 
     @BeforeClass
     public void init() throws ServiceException {
-        // TODO competitionService not being mocked
         MockitoAnnotations.initMocks(this);
         this.competitionFacade = new CompetitionFacadeImpl(beanMappingService, competitionService);
     }
@@ -89,14 +90,48 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
         competitionFacade.create(game.getId(), null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createEmptuName() {
+        competitionFacade.create(game.getId(), "");
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createZeroGameID() {
+        competitionFacade.create(0L, competition.getName());
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createNegativeGameID() {
+        competitionFacade.create(-1330L, competition.getName());
+    }
+
     @Test
     public void remove() {
-        competitionFacade.remove(1337L);
+        Mockito.doReturn(true).when(competitionService).remove(competition.getId());
+
+        Assert.assertTrue(competitionService.remove(competition.getId()));
+    }
+
+    @Test
+    public void removeNotExisting() {
+        Mockito.doReturn(true).when(competitionService).remove(1330L);
+
+        Assert.assertTrue(competitionService.remove(1330L));
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void removeNull() {
         competitionFacade.remove(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeZeroId() {
+        competitionFacade.remove(0L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeNegativeId() {
+        competitionFacade.remove(-1330L);
     }
 
     @Test
@@ -111,6 +146,16 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
         competitionFacade.findById(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdZeroId() {
+        competitionFacade.findById(0L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdNegativeId() {
+        competitionFacade.findById(-1330L);
+    }
+
     @Test
     public void findByGame() {
         Mockito.doReturn(Collections.singletonList(competition)).when(competitionService).findByGame(1337L);
@@ -123,4 +168,20 @@ public class CompetitionFacadeTest extends AbstractTestNGSpringContextTests {
         competitionFacade.findByGame(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByGameZeroId() {
+        competitionFacade.findByGame(0L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByGameNegativeId() {
+        competitionFacade.findByGame(-1330L);
+    }
+
+    @Test
+    public void findAll() {
+        Mockito.doReturn(Collections.singletonList(competition)).when(competitionService).findAll();
+
+        Assert.assertEquals(competitionFacade.findAll(), Collections.singletonList(competitionDTO));
+    }
 }

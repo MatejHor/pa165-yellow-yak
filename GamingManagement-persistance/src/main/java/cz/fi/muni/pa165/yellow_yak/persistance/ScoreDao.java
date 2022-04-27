@@ -3,11 +3,14 @@ package cz.fi.muni.pa165.yellow_yak.persistance;
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Score;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * Score DAO interface
+ *
  * @author oreqizer
+ * @author Matej Knazik
  */
 public interface ScoreDao {
     /**
@@ -31,15 +34,23 @@ public interface ScoreDao {
 
     /**
      * Removes a score
-     * @param s score to remove
+     * @param id score to remove
      */
-    void remove(Score s);
+    void remove(Long id);
 
     /**
      * Updates a score
      * @param s score to update
      */
     void update(Score s);
+
+    /**
+     * Finds a score by player
+     *
+     * @param playerId the player's ID
+     * @return the found score
+     */
+    List<Score> findByPlayer(Long playerId);
 
     /**
      * Finds a score by player and competition
@@ -49,7 +60,7 @@ public interface ScoreDao {
      */
     List<Score> findByPlayerAndCompetitionAndDate(Long playerId,
                                                   List<Competition> competitions,
-                                                  LocalDateTime createdAt);
+                                                  LocalDate createdAt);
 
     /**
      * Finds a score by player and game

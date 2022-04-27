@@ -7,10 +7,12 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
+ * Player entity
+ *
  * @author Matej Horniak
  */
 @Entity
@@ -34,7 +36,12 @@ public class Player {
     @Email
     private String email;
 
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
+
+    @SuppressWarnings("JpaDataSourceORMInspection")
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
 
     @Override
     public int hashCode() {

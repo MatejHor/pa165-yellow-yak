@@ -6,10 +6,12 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
+ * DTO layer for Score
+ *
  * @author matho
  */
 @Getter
@@ -25,7 +27,7 @@ public class ScoreDTO {
     private String result;
     private String stats;
     @CreatedDate
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
     
     @Override
     public boolean equals(Object o) {

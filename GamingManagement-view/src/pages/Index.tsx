@@ -2,16 +2,25 @@ import React from "react";
 import * as Yup from "yup";
 import { Redirect, Route, Link, Switch } from "wouter";
 import { Alert, Button, Col, Container, Form, InputGroup, Nav, Navbar, Row } from "react-bootstrap";
+import type { FormikHelpers } from "formik";
 import { Formik } from "formik";
 
-import Player from "./Players";
-import { save } from "../services/storage";
+import Players from "./Players";
+import Teams from "./Teams";
+import { save, remove } from "../services/storage";
 import { login } from "../services/auth";
 import useState, { isSuccess } from "../services/useState";
+import Games from "./Games";
+import { Role, useAuth } from "../services/authContext";
+import Competitions from "./Competitions";
+import Scores from "./Scores";
 
 enum Routes {
   INDEX = "/",
-  PLAYERS = "/players",
+  TEAMS = "/teams",
+  GAMES = "/games",
+  COMPETITIONS = "/competitions",
+  SCORES = "/scores",
 }
 
 type FormValues = {
@@ -20,28 +29,55 @@ type FormValues = {
 };
 
 const Index = () => {
+  const { role, onSetRole } = useAuth();
+  const [isAdmin, setIsAdmin] = React.useState(false);
   const [state, setState] = useState();
   const success = isSuccess(state);
 
   const validationSchema = React.useMemo(
     () =>
-      Yup.object().shape({
-        email: Yup.string().email("Invalid email").required("Required"),
-        password: Yup.string().required("Required"),
-      }),
-    [],
+      isAdmin
+        ? Yup.object().shape({
+            email: Yup.string().email("Invalid email").required("Required"),
+            password: Yup.string().required("Required"),
+          })
+        : Yup.object().shape({
+            email: Yup.string().email("Invalid email").required("Required"),
+          }),
+    [isAdmin],
   );
 
-  const handleSubmit = React.useCallback((values: FormValues) => {
-    login(values)
-      .then(({ token }) => {
-        save(token);
-        setState({ error: null });
-      })
-      .catch((error) => {
-        setState({ error });
-      });
-  }, []);
+  const handleSubmit = React.useCallback(
+    (values: FormValues, form: FormikHelpers<FormValues>) => {
+      form.setSubmitting(true);
+      login(values)
+        .then(({ token }) => {
+          save(token);
+
+          // Yolo
+          if (token.toLowerCase().includes("admin")) {
+            onSetRole(Role.Admin);
+          } else {
+            onSetRole(Role.Player);
+          }
+
+          setState({ error: null });
+        })
+        .catch((error) => {
+          setState({ error });
+        })
+        .finally(() => {
+          form.setSubmitting(false);
+        });
+    },
+    [onSetRole],
+  );
+
+  const handleLogout = React.useCallback(() => {
+    remove();
+    onSetRole(null);
+    setState(null);
+  }, [onSetRole]);
 
   if (!success) {
     return (
@@ -70,7 +106,7 @@ const Index = () => {
                         isInvalid={form.touched.email === true && form.errors.email != null}
                         onChange={form.handleChange}
                         onBlur={form.handleBlur}
-                        placeholder="Enter email"
+                        placeholder={isAdmin ? "admin@gaming.com" : "Enter email"}
                       />
                       <Form.Control.Feedback type="invalid">
                         {form.errors.email}
@@ -78,23 +114,25 @@ const Index = () => {
                     </InputGroup>
                   </Form.Group>
 
-                  <Form.Group controlId="password">
-                    <Form.Label>Password</Form.Label>
-                    <InputGroup hasValidation>
-                      <Form.Control
-                        name="password"
-                        type="password"
-                        value={form.values.password}
-                        isInvalid={form.touched.password === true && form.errors.password != null}
-                        onChange={form.handleChange}
-                        onBlur={form.handleBlur}
-                        placeholder="Password"
-                      />
-                      <Form.Control.Feedback type="invalid">
-                        {form.errors.password}
-                      </Form.Control.Feedback>
-                    </InputGroup>
-                  </Form.Group>
+                  {isAdmin && (
+                    <Form.Group controlId="password">
+                      <Form.Label>Password</Form.Label>
+                      <InputGroup hasValidation>
+                        <Form.Control
+                          name="password"
+                          type="password"
+                          value={form.values.password}
+                          isInvalid={form.touched.password === true && form.errors.password != null}
+                          onChange={form.handleChange}
+                          onBlur={form.handleBlur}
+                          placeholder="admin"
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {form.errors.password}
+                        </Form.Control.Feedback>
+                      </InputGroup>
+                    </Form.Group>
+                  )}
 
                   {state?.error != null && <Alert variant="danger">{state.error.message}</Alert>}
 
@@ -104,6 +142,14 @@ const Index = () => {
                     disabled={!form.isValid || form.isSubmitting}
                   >
                     Sign in
+                  </Button>
+
+                  <Button
+                    className="mx-2"
+                    variant="outline-secondary"
+                    onClick={() => setIsAdmin((state) => !state)}
+                  >
+                    Login as {isAdmin ? "player" : "admin"}
                   </Button>
                 </Form>
               )}
@@ -123,8 +169,20 @@ const Index = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Link href={Routes.PLAYERS}>
-              <Nav.Link>Player</Nav.Link>
+            <Link href={Routes.INDEX}>
+              <Nav.Link>Players</Nav.Link>
+            </Link>
+            <Link href={Routes.TEAMS}>
+              <Nav.Link>Teams</Nav.Link>
+            </Link>
+            <Link href={Routes.GAMES}>
+              <Nav.Link>Games</Nav.Link>
+            </Link>
+            <Link href={Routes.COMPETITIONS}>
+              <Nav.Link>Competitions</Nav.Link>
+            </Link>
+            <Link href={Routes.SCORES}>
+              <Nav.Link>Scores</Nav.Link>
             </Link>
           </Nav>
         </Navbar.Collapse>
@@ -133,10 +191,19 @@ const Index = () => {
       <Container className="my-3">
         <Row className="justify-content-md-center">
           <Switch>
-            <Route path={Routes.PLAYERS}>{() => <Player />}</Route>
-
+            <Route path={Routes.INDEX}>{() => <Players />}</Route>
+            <Route path={Routes.TEAMS}>{() => <Teams />}</Route>
+            <Route path={Routes.GAMES}>{() => <Games />}</Route>
+            <Route path={Routes.COMPETITIONS}>{() => <Competitions />}</Route>
+            <Route path={Routes.SCORES}>{() => <Scores />}</Route>
             <Redirect to={Routes.INDEX} />
           </Switch>
+        </Row>
+      </Container>
+
+      <Container className="my-5">
+        <Row className="justify-content-md-center align-items-center">
+          <Button onClick={handleLogout}>Logout {role === Role.Admin ? "Admin" : "Player"}</Button>
         </Row>
       </Container>
     </>

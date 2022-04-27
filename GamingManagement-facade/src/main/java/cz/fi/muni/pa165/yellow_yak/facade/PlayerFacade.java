@@ -6,6 +6,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
+ * Facade for Player
+ *
  * @author oreqizer
  */
 public interface PlayerFacade {
@@ -14,15 +16,16 @@ public interface PlayerFacade {
      * Creates a new player
      * @param name player name
      * @param email player email
+     * @param teamId ID of the team
      * @return the created player
      */
-    public PlayerDTO create(@NotNull String name, @NotNull String email);
+    public PlayerDTO create(@NotNull String name, @NotNull String email, Long teamId);
 
     /**
      * Removes the player
      * @param id id to remove
      */
-    public void remove(@NotNull Long id);
+    public boolean remove(@NotNull Long id);
 
     /**
      * Finds a player by id

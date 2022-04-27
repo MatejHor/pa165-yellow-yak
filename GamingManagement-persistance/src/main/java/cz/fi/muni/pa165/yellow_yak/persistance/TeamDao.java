@@ -2,10 +2,12 @@ package cz.fi.muni.pa165.yellow_yak.persistance;
 
 import cz.fi.muni.pa165.yellow_yak.entity.Team;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * Team DAO interface
+ *
  * @author Matej Knazik
  */
 public interface TeamDao {
@@ -20,9 +22,9 @@ public interface TeamDao {
     /**
      * Remove team
      *
-     * @param team team entity
+     * @param id team entity
      */
-    void remove(Team team);
+    void remove(Long id);
 
     /**
      * Update existing team
@@ -36,7 +38,7 @@ public interface TeamDao {
      *
      * @return list of all teams from the database
      */
-    List<Team> getAll();
+    List<Team> findAll();
 
     /**
      * Get team by an id
@@ -60,5 +62,5 @@ public interface TeamDao {
      * @param createdAt date to filter by
      * @return list of teams with specified creation date
      */
-    List<Team> findByCreatedAt(LocalDateTime createdAt);
+    List<Team> findByCreatedAt(LocalDate createdAt);
 }

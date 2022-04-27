@@ -18,10 +18,11 @@ export default function fetch<T>(path: string, init: RequestInit = {}): Promise<
   const token = load();
 
   return window
-    .fetch(`${process.env.REACT_APP_API_URL ?? ""}${path}`, {
+    .fetch(`${process.env.REACT_APP_API_URL ?? "http://localhost:8080/pa165/rest"}${path}`, {
       ...init,
       headers: {
         ...headers,
+        "Content-Type": "application/json",
         Authorization: token === null ? "" : `Bearer ${token}`,
       },
     })

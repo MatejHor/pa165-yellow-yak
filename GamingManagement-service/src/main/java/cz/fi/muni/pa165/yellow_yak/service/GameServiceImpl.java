@@ -2,19 +2,26 @@ package cz.fi.muni.pa165.yellow_yak.service;
 
 import cz.fi.muni.pa165.yellow_yak.entity.Game;
 import cz.fi.muni.pa165.yellow_yak.persistance.GameDao;
+import cz.fi.muni.pa165.yellow_yak.persistance.CompetitionDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * Implementation for game service layer
+ *
  * @author Lukas Mikula
  */
 @Service
 public class GameServiceImpl implements GameService{
-    @Inject
+    @Autowired
     private GameDao gameDao;
+
+    @Autowired
+    private CompetitionDao competitionDao;
 
     @Override
     public Game create(String name) {
@@ -22,17 +29,17 @@ public class GameServiceImpl implements GameService{
 
         Game game = new Game();
         game.setName(name);
-        game.setCreatedAt(LocalDateTime.now());
+        game.setCreatedAt(LocalDate.now());
 
         gameDao.create(game);
         return game;
     }
 
     @Override
-    public void remove(Long id) {
-        if (id == null) return;
-
+    public boolean remove(Long id) {
+        competitionDao.findByGame(gameDao.findById(id)).stream().forEach(competition -> competitionDao.remove(competition));
         gameDao.remove(gameDao.findById(id));
+        return gameDao.findById(id) == null;
     }
 
     @Override

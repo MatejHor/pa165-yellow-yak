@@ -6,6 +6,8 @@ import cz.fi.muni.pa165.yellow_yak.entity.Team;
 import java.util.List;
 
 /**
+ * Player DAO interface
+ *
  * @author Matej Horniak, oreqizer
  */
 public interface PlayerDao {
@@ -32,9 +34,9 @@ public interface PlayerDao {
 
     /**
      * Remove player
-     * @param p player to remove
+     * @param id player to remove
      */
-    void remove(Player p);
+    void remove(Long id);
 
     /**
      * Update player

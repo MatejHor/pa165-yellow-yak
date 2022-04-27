@@ -7,10 +7,12 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
+ * Score entity
+ *
  * @author oreqizer
  */
 @Entity
@@ -37,10 +39,10 @@ public class Score {
 
     private int placement;
 
-    private int result;
+    private String result;
 
     @CreatedDate
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     @Override
     public boolean equals(Object o) {

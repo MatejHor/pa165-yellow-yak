@@ -5,10 +5,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.validation.constraints.NotNull;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
+
 /**
+ * DTO layer for competition
+ *
  * @author Lukas Mikula
  */
 @Getter
@@ -22,10 +25,9 @@ public class CompetitionDTO {
     private String name;
     private String prices;
 
-    @NotNull
-    private LocalDateTime startedAt;
-    private LocalDateTime finishedAt;
-    private LocalDateTime createdAt;
+    private LocalDate startedAt;
+    private LocalDate finishedAt;
+    private LocalDate createdAt;
 
     @Override
     public boolean equals(Object o) {

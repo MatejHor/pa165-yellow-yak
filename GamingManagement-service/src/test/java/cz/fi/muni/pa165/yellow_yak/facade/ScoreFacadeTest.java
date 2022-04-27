@@ -25,9 +25,14 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
+ * Tests for score facade
+ *
  * @author Matej Horniak, oreqizer, Lukas Mikula
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
@@ -51,6 +56,7 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
     private Player player;
     private Score score;
     private ScoreDTO scoreDTO;
+    private List<Competition> competitions;
 
     @BeforeClass
     public void init() throws ServiceException {
@@ -77,6 +83,9 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
         competitionDTO.setId(competition.getId());
         competitionDTO.setName(competition.getName());
         competitionDTO.setGame(gameDTO);
+
+        competitions = new ArrayList<>();
+        competitions.add(competition);
 
         player = new Player();
         player.setId(1337L);
@@ -119,14 +128,51 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
         scoreFacade.create(null, 1L);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createZeroCompetitionId() {
+        scoreFacade.create(0L, 1L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createNegativeCompetitionId() {
+        scoreFacade.create(-1330L, 1L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createZeroPlayerId() {
+        scoreFacade.create(1L, 0L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void createNegativePlayerId() {
+        scoreFacade.create(1L, -1330L);
+    }
+
     @Test
     public void remove() {
-        scoreFacade.remove(1337L);
+        Mockito.doReturn(true).when(scoreService).remove(score.getId());
+        Assert.assertTrue(scoreFacade.remove(1338L));
+    }
+
+    @Test
+    public void removeNotExists() {
+        Mockito.doReturn(true).when(scoreService).remove(1337L);
+        Assert.assertTrue(scoreFacade.remove(1337L));
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void removeNullId() {
         scoreFacade.remove(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeZeroId() {
+        scoreFacade.remove(0L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void removeNegativeId() {
+        scoreFacade.remove(-1330L);
     }
 
     @Test
@@ -141,9 +187,19 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
         scoreFacade.findById(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdZeroId() {
+        scoreFacade.findById(0L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByIdNegativeId() {
+        scoreFacade.findById(-1330L);
+    }
+
     @Test
     public void setResult() {
-        int result = 420;
+        String result = "1:3";
         Mockito.doReturn(score).when(scoreService).setResult(score.getId(), result);
 
         Assert.assertEquals(scoreFacade.setResult(score.getId(), result), scoreDTO);
@@ -151,7 +207,22 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void setResultNullId() {
-        scoreFacade.setResult(null, 1);
+        scoreFacade.setResult(null, "1:2");
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void setResultEmptyStringResult() {
+        scoreFacade.setResult(null, "");
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void setResultZeroId() {
+        scoreFacade.setResult(0L, "1:2");
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void setResultNegativeId() {
+        scoreFacade.setResult(-1330L, "1:2");
     }
 
     @Test
@@ -167,8 +238,28 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByPlayerGameZeroGameId() {
+        scoreFacade.findByPlayerGame(1L, 0L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByPlayerGameNegativeGameId() {
+        scoreFacade.findByPlayerGame(1L, -1330L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByPlayerGameNullPlayerId() {
         scoreFacade.findByPlayerGame(null, 1L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByPlayerGameZeroPlayerId() {
+        scoreFacade.findByPlayerGame(0L, 1L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByPlayerGameNegativePlayerId() {
+        scoreFacade.findByPlayerGame(-1330L, 1L);
     }
 
     @Test
@@ -183,4 +274,29 @@ public class ScoreFacadeTest extends AbstractTestNGSpringContextTests {
         scoreFacade.findByCompetition(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByCompetitionZeroCompetitionId() {
+        scoreFacade.findByCompetition(0L);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void findByCompetitionNegativeCompetitionId() {
+        scoreFacade.findByCompetition(-1330L);
+    }
+
+    @Test
+    public void findByGamePlayerDate() {
+        Mockito.doReturn(Collections.singletonList(score)).when(scoreService).findByPlayerAndCompetitionAndDate(
+                player.getId(),
+                competitions,
+                LocalDate.now());
+        Mockito.doReturn(competitions).when(competitionService).findByGame(game.getId());
+
+        Assert.assertEquals(scoreFacade.findByGamePlayerDate(
+                player.getId(),
+                game.getId(),
+                LocalDate.now())
+                , Collections.singletonList(scoreDTO));
+
+    }
 }

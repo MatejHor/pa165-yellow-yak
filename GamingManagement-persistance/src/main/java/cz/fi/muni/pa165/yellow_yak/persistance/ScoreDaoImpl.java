@@ -3,15 +3,16 @@ package cz.fi.muni.pa165.yellow_yak.persistance;
 import cz.fi.muni.pa165.yellow_yak.entity.Competition;
 import cz.fi.muni.pa165.yellow_yak.entity.Score;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * Implementation for score DAO
+ *
  * @author oreqizer, Matej Horniak
  */
 @Repository
@@ -37,8 +38,8 @@ public class ScoreDaoImpl implements ScoreDao {
     }
 
     @Override
-    public void remove(Score s) {
-        em.remove(this.findById(s.getId()));
+    public void remove(Long id) {
+        em.remove(this.findById(id));
     }
 
     @Override
@@ -49,7 +50,7 @@ public class ScoreDaoImpl implements ScoreDao {
     @Override
     public List<Score> findByPlayerAndCompetitionAndDate(Long playerId,
                                                          List<Competition> competitions,
-                                                         LocalDateTime createdAt) {
+                                                         LocalDate createdAt) {
         return em.createQuery(
                 "select s from Score s" +
                         " join s.player as p join s.competition as c " +
@@ -85,14 +86,23 @@ public class ScoreDaoImpl implements ScoreDao {
     }
 
     @Override
+    public List<Score> findByPlayer(Long playerId) {
+        return em.createQuery(
+                "select s from Score s " +
+                        "join s.player as p " +
+                        "where p.id = :playerId", Score.class)
+                .setParameter("playerId", playerId)
+                .getResultList();
+    }
+
+
+    @Override
     public List<Score> findCompetitionResults(Long competitionId) {
         return em.createQuery(
                 "select s from Score s " +
                         "join s.competition as c " +
                         "where c.id = :competitionId " +
-                        "and s.result > 0 " +
-                        "and s.result is not null " +
-                        "order by s.result desc", Score.class)
+                        "and s.result is not null ", Score.class)
                 .setParameter("competitionId", competitionId)
                 .getResultList();
     }

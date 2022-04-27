@@ -1,6 +1,5 @@
 package cz.fi.muni.pa165.yellow_yak;
 
-import cz.fi.muni.pa165.yellow_yak.entity.Member;
 import cz.fi.muni.pa165.yellow_yak.entity.Player;
 import cz.fi.muni.pa165.yellow_yak.entity.Team;
 import cz.fi.muni.pa165.yellow_yak.persistance.PlayerDao;
@@ -17,12 +16,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.PersistenceUnit;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 /**
+ * Tests for player DAO
+ *
  * @author Matej Knazik
  */
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
@@ -36,15 +38,29 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
     private PlayerDao playerDao;
 
     private Player testPlayer;
+    private Team testTeam;
 
     @BeforeMethod
     private void beforeEach() {
+        EntityManager em = emf.createEntityManager();
+
+        Team team = new Team();
+        team.setName("kekegas");
+        team.setCreatedAt(LocalDate.now());
+
+        em.getTransaction().begin();
+        em.persist(team);
+        em.getTransaction().commit();
+        em.close();
+
+        testTeam = team;
+
         Player testPlayer1 = new Player();
 
         testPlayer1.setUsername("ReadyPlayerOne");
-        testPlayer1.setCreatedAt(LocalDateTime.now());
+        testPlayer1.setCreatedAt(LocalDate.now());
         testPlayer1.setEmail("festergut@gmail.com");
-
+        testPlayer1.setTeam(team);
 
         playerDao.create(testPlayer1);
         testPlayer = testPlayer1;
@@ -52,7 +68,7 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
 
     @AfterMethod
     private void afterEach() {
-        playerDao.findAll().forEach(player -> playerDao.remove(player));
+        playerDao.findAll().forEach(player -> playerDao.remove(player.getId()));
     }
 
     @Test
@@ -60,7 +76,7 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(playerDao.findAll().size(), 1);
         Player testPlayer2 = new Player();
         testPlayer2.setUsername("ReadyPlayerTwo");
-        testPlayer2.setCreatedAt(LocalDateTime.now());
+        testPlayer2.setCreatedAt(LocalDate.now());
         testPlayer2.setEmail("patchwerk@gmail.com");
         playerDao.create(testPlayer2);
         Assert.assertEquals(playerDao.findAll().size(), 2);
@@ -99,7 +115,7 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void removePlayerTest() {
         Assert.assertEquals(playerDao.findAll().size(), 1);
-        playerDao.remove(testPlayer);
+        playerDao.remove(testPlayer.getId());
         Assert.assertEquals(playerDao.findAll().size(), 0);
     }
 
@@ -109,14 +125,14 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(playerDao.findAll().get(0), testPlayer);
         Player testPlayer2 = new Player();
         testPlayer2.setUsername("ReadyPlayerTwo");
-        testPlayer2.setCreatedAt(LocalDateTime.now());
+        testPlayer2.setCreatedAt(LocalDate.now());
         testPlayer2.setEmail("patchwerk@gmail.com");
         playerDao.create(testPlayer2);
         Assert.assertEquals(playerDao.findAll().size(), 2);
         List<Player> expectedPlayers = Arrays.asList(testPlayer, testPlayer2);
         Assert.assertEquals(playerDao.findAll(), expectedPlayers);
-        playerDao.remove(testPlayer);
-        playerDao.remove(testPlayer2);
+        playerDao.remove(testPlayer.getId());
+        playerDao.remove(testPlayer2.getId());
         Assert.assertEquals(playerDao.findAll().size(), 0);
     }
 
@@ -124,7 +140,7 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
     public void findPlayerByIdTest() {
         Player receivedPlayer = playerDao.findById(testPlayer.getId());
         Assert.assertEquals(receivedPlayer, testPlayer);
-        playerDao.remove(testPlayer);
+        playerDao.remove(testPlayer.getId());
         receivedPlayer = playerDao.findById(testPlayer.getId());
         Assert.assertNull(receivedPlayer);
     }
@@ -137,53 +153,31 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
 
         Player testPlayer2 = new Player();
         testPlayer2.setUsername(testPlayer.getUsername());
-        testPlayer2.setCreatedAt(LocalDateTime.now());
+        testPlayer2.setCreatedAt(LocalDate.now());
         testPlayer2.setEmail("patchwerk@gmail.com");
         playerDao.create(testPlayer2);
         expectedPlayers = Arrays.asList(testPlayer, testPlayer2);
         receivedPlayers = playerDao.findByUsername(testPlayer.getUsername());
         Assert.assertEquals(receivedPlayers, expectedPlayers);
 
-        playerDao.remove(testPlayer);
-        playerDao.remove(testPlayer2);
+        playerDao.remove(testPlayer.getId());
+        playerDao.remove(testPlayer2.getId());
         receivedPlayers = playerDao.findByUsername(testPlayer.getUsername());
         Assert.assertEquals(receivedPlayers.size(), 0);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void removePlayerTestNull() {
         playerDao.remove(null);
     }
 
     @Test
     public void findPlayerByTeamTest() {
-        EntityManager em = emf.createEntityManager();
-
-        Team team = new Team();
-        team.setName("kekegas");
-        team.setCreatedAt(LocalDateTime.now());
-
-        Member member = new Member();
-        member.setPlayer(testPlayer);
-        member.setTeam(team);
-        member.setCreatedAt(LocalDateTime.now());
-
-        em.getTransaction().begin();
-        em.persist(team);
-        em.persist(member);
-        em.getTransaction().commit();
-
-        List<Player> res = playerDao.findByTeam(team);
+        List<Player> res = playerDao.findByTeam(testTeam);
 
         Assert.assertNotNull(res);
         Assert.assertEquals(res.size(), 1);
         Assert.assertEquals(res.get(0), testPlayer);
-
-        em.getTransaction().begin();
-        em.remove(member);
-        em.remove(team);
-        em.getTransaction().commit();
-        em.close();
     }
 
 }

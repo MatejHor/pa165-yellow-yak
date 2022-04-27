@@ -20,7 +20,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +30,8 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 /**
+ * Tests for score service layer
+ *
  * @author Lukas Mikula, Matej Horniak
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
@@ -57,7 +60,7 @@ public class ScoreServiceTest extends AbstractTestNGSpringContextTests {
 
     private Score score;
     private List<Competition> competitions;
-    private LocalDateTime created;
+    private LocalDate created;
     private Competition competition;
     private Player player;
     private Game game;
@@ -75,9 +78,9 @@ public class ScoreServiceTest extends AbstractTestNGSpringContextTests {
         Competition competitionTest = new Competition();
         competitionTest.setPrices("TestPrices");
         competitionTest.setName("TestNameCompetition");
-        competitionTest.setCreatedAt(LocalDateTime.now());
+        competitionTest.setCreatedAt(LocalDate.now());
         competitionTest.setId(1L);
-        competitionTest.setStartedAt(LocalDateTime.now());
+        competitionTest.setStartedAt(LocalDate.now());
         competitionTest.setGame(gameTest);
 
         competitions = new ArrayList<>();
@@ -90,7 +93,7 @@ public class ScoreServiceTest extends AbstractTestNGSpringContextTests {
         Score scoreTest = new Score();
         scoreTest.setCompetition(competitionTest);
         scoreTest.setPlayer(playerTest);
-        created = LocalDateTime.of(2021, 4, 25, 12, 00);
+        created = LocalDate.of(2021, 4, 25);
         scoreTest.setCreatedAt(created);
 
         score = scoreTest;
@@ -103,7 +106,7 @@ public class ScoreServiceTest extends AbstractTestNGSpringContextTests {
         when(scoreDao.findByPlayerAndCompetitionAndDate(1L, null, created)).thenReturn(Collections.emptyList());
         when(scoreDao.findByPlayerAndCompetitionAndDate(1L, competitions, null)).thenReturn(Collections.emptyList());
         when(scoreDao.findByPlayerAndCompetitionAndDate(null, null, null)).thenReturn(Collections.emptyList());
-        when(scoreDao.findByPlayerAndCompetitionAndDate(2L, competitions, LocalDateTime.now())).thenReturn(Collections.emptyList());
+        when(scoreDao.findByPlayerAndCompetitionAndDate(2L, competitions, LocalDate.now())).thenReturn(Collections.emptyList());
 
         when(scoreDao.findByCompetition(1L)).thenReturn(Collections.singletonList(score));
         when(scoreDao.findByCompetition(null)).thenReturn(Collections.emptyList());
@@ -168,7 +171,7 @@ public class ScoreServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findByPlayerAndCompetitionAndDateNonExisting() {
-        List<Score> scoreTestList = scoreService.findByPlayerAndCompetitionAndDate(2L, competitions, LocalDateTime.now());
+        List<Score> scoreTestList = scoreService.findByPlayerAndCompetitionAndDate(2L, competitions, LocalDate.now());
 
         Assert.assertNotNull(scoreTestList);
         Assert.assertEquals(scoreTestList.size(), 0);
@@ -300,7 +303,7 @@ public class ScoreServiceTest extends AbstractTestNGSpringContextTests {
         doReturn(score).when(scoreDao).findById(score.getId());
         doReturn(Collections.singletonList(score)).when(scoreDao).findCompetitionResults(score.getCompetition().getId());
 
-        int result = 420;
+        String result = "3:1";
         Score res = scoreService.setResult(score.getId(), result);
 
         Assert.assertNotNull(res);

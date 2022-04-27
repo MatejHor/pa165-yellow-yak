@@ -3,21 +3,22 @@ import { Alert, Button, Form } from "react-bootstrap";
 
 import { deletePlayer, usePlayersByUsername } from "../../../../services/player";
 import Player from "../../../../components/Player";
+import { useIsAdmin } from "../../../../services/authContext";
 
 const UsernameAutocomplete = () => {
-  const ref = React.useRef<HTMLInputElement>(null);
-  const value = ref.current?.value ?? "";
-  const { data, error, revalidate } = usePlayersByUsername(value);
+  const isAdmin = useIsAdmin();
+  const [value, setValue] = React.useState("");
+  const { data, error, mutate } = usePlayersByUsername(value);
 
   const handleDelete = React.useCallback(
     (id: number) => {
       deletePlayer(id)
         .then(() => {
-          return revalidate();
+          return mutate();
         })
         .catch(() => {});
     },
-    [revalidate],
+    [mutate],
   );
 
   return (
@@ -26,7 +27,13 @@ const UsernameAutocomplete = () => {
 
       <Form.Group controlId="username">
         <Form.Label>Username</Form.Label>
-        <Form.Control ref={ref} name="username" type="username" placeholder="Enter username" />
+        <Form.Control
+          value={value}
+          onChange={(ev) => setValue(ev.target.value)}
+          name="username"
+          type="username"
+          placeholder="Enter username"
+        />
       </Form.Group>
 
       {error != null && <Alert variant="danger">{error.message}</Alert>}
@@ -35,11 +42,13 @@ const UsernameAutocomplete = () => {
         <Player
           key={player.id}
           data={player}
-          renderActions={(id) => (
-            <Button type="primary" onClick={() => handleDelete(id)}>
-              Delete
-            </Button>
-          )}
+          renderActions={(id) =>
+            isAdmin && (
+              <Button type="primary" onClick={() => handleDelete(id)}>
+                Delete
+              </Button>
+            )
+          }
         />
       ))}
     </div>

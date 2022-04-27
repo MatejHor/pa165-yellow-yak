@@ -22,6 +22,8 @@ import java.util.List;
 import static org.mockito.Mockito.when;
 
 /**
+ * Tests for team service layer
+ *
  * @author Matej Knazik
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
@@ -63,7 +65,7 @@ public class TeamServiceTest extends AbstractTestNGSpringContextTests {
         when(teamDao.findByName(testTeam.getName())).thenReturn(Arrays.asList(testTeam, testTeam2));
         when(teamDao.findByName(null)).thenReturn(Collections.emptyList());
 
-        when(teamDao.getAll()).thenReturn(Arrays.asList(testTeam, testTeam2));
+        when(teamDao.findAll()).thenReturn(Arrays.asList(testTeam, testTeam2));
     }
 
     @Test

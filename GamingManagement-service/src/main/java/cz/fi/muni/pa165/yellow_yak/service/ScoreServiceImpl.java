@@ -8,11 +8,14 @@ import cz.fi.muni.pa165.yellow_yak.persistance.ScoreDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.IntStream;
 
 /**
+ * Implementation for score service layer
+ *
  * @author Matej Horniak
  */
 @Service
@@ -30,7 +33,7 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     public List<Score> findByPlayerAndCompetitionAndDate(Long playerId,
                                                          List<Competition> competitions,
-                                                         LocalDateTime createdAt) {
+                                                         LocalDate createdAt) {
         return scoreDao.findByPlayerAndCompetitionAndDate(playerId, competitions, createdAt);
     }
 
@@ -49,10 +52,11 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public void remove(Long id) {
+    public boolean remove(Long id) {
         if (id == null)
-            return;
-        scoreDao.remove(scoreDao.findById(id));
+            return false;
+        scoreDao.remove(id);
+        return scoreDao.findById(id) == null;
     }
 
     @Override
@@ -63,7 +67,7 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public Score setResult(Long id, int result) {
+    public Score setResult(Long id, String result) {
         Score score = scoreDao.findById(id);
         score.setResult(result);
 

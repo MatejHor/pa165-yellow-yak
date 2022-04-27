@@ -5,10 +5,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
+ * DTO layer for Game
+ *
  * @author Lukas Mikula
  */
 @Getter
@@ -18,7 +20,7 @@ public class GameDTO {
     private Long id;
     @NotNull
     private String name;
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     @Override
     public int hashCode() {

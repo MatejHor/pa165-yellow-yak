@@ -15,12 +15,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 /**
+ * Tests for score DAO
+ *
  * @author oreqizer, Matej Horniak
  */
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
@@ -44,23 +46,23 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
 
         Game gameTest = new Game();
         gameTest.setName("GameTest" + new Random().nextInt());
-        gameTest.setCreatedAt(LocalDateTime.now());
+        gameTest.setCreatedAt(LocalDate.now());
 
         Competition competitionTest = new Competition();
         competitionTest.setName("Competition" + new Random().nextInt());
         competitionTest.setPrices("wtf");
         competitionTest.setGame(gameTest);
-        competitionTest.setCreatedAt(LocalDateTime.now());
-        competitionTest.setStartedAt(LocalDateTime.now());
+        competitionTest.setCreatedAt(LocalDate.now());
+        competitionTest.setStartedAt(LocalDate.now());
 
         Player playerTest = new Player();
         playerTest.setUsername("TestName");
         playerTest.setEmail("test@email.com");
-        playerTest.setCreatedAt(LocalDateTime.now());
+        playerTest.setCreatedAt(LocalDate.now());
 
         Score scoreTest = new Score();
-        scoreTest.setResult(420);
-        scoreTest.setCreatedAt(LocalDateTime.now());
+        scoreTest.setResult("3:2");
+        scoreTest.setCreatedAt(LocalDate.now());
         scoreTest.setCompetition(competitionTest);
         scoreTest.setPlayer(playerTest);
 
@@ -80,14 +82,14 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
 
     @AfterMethod
     private void remove() {
-        scoreDao.remove(score);
+        scoreDao.remove(score.getId());
     }
 
     @Test
     public void createScore() {
         Score scoreTest = new Score();
         scoreTest.setPlacement(1337);
-        scoreTest.setCreatedAt(LocalDateTime.now());
+        scoreTest.setCreatedAt(LocalDate.now());
         scoreTest.setCompetition(competition);
         scoreTest.setPlayer(player);
 
@@ -125,18 +127,18 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
     public void removeScore() {
         Score scoreTest = new Score();
         scoreTest.setPlacement(1337);
-        scoreTest.setCreatedAt(LocalDateTime.now());
+        scoreTest.setCreatedAt(LocalDate.now());
         scoreTest.setCompetition(competition);
         scoreTest.setPlayer(player);
 
         scoreDao.create(scoreTest);
         Assert.assertNotNull(scoreDao.findById(scoreTest.getId()));
 
-        scoreDao.remove(scoreTest);
+        scoreDao.remove(scoreTest.getId());
         Assert.assertNull(scoreDao.findById(scoreTest.getId()));
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void removeScoreTestNull() {
         scoreDao.remove(null);
     }
@@ -258,8 +260,28 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    public void findByPlayerTest() {
+        List<Score> result = scoreDao.findByPlayer(
+                player.getId());
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.size(), 1);
+        Score resultScore = result.get(0);
+        Assert.assertEquals(resultScore, score);
+    }
+
+    @Test
     public void findByCompetitionTestNotCompetition() {
         List<Score> result = scoreDao.findByCompetition(
+                null);
+
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.size(), 0);
+    }
+
+    @Test
+    public void findByPlayerTestNotCompetition() {
+        List<Score> result = scoreDao.findByPlayer(
                 null);
 
         Assert.assertNotNull(result);
@@ -273,11 +295,11 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
         Player player = new Player();
         player.setUsername("Second");
         player.setEmail("test@email.com");
-        player.setCreatedAt(LocalDateTime.now());
+        player.setCreatedAt(LocalDate.now());
 
         Score score2 = new Score();
-        score2.setResult(419);
-        score2.setCreatedAt(LocalDateTime.now());
+        score2.setResult("3:1");
+        score2.setCreatedAt(LocalDate.now());
         score2.setCompetition(competition);
         score2.setPlayer(player);
 
@@ -301,10 +323,10 @@ public class ScoreDaoTest extends AbstractTestNGSpringContextTests {
         Player player = new Player();
         player.setUsername("Second");
         player.setEmail("test@email.com");
-        player.setCreatedAt(LocalDateTime.now());
+        player.setCreatedAt(LocalDate.now());
 
         Score score2 = new Score();
-        score2.setCreatedAt(LocalDateTime.now());
+        score2.setCreatedAt(LocalDate.now());
         score2.setCompetition(competition);
         score2.setPlayer(player);
 

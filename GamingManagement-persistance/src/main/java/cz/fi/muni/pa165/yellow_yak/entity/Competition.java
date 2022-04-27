@@ -7,10 +7,12 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
+ * Competition entity
+ *
  * @author Lukas Mikula
  */
 @Entity
@@ -37,13 +39,12 @@ public class Competition {
 
     private String prices;
 
-    @NotNull
-    private LocalDateTime startedAt;
+    private @NotNull LocalDate startedAt;
 
-    private LocalDateTime finishedAt;
+    private LocalDate finishedAt;
 
     @CreatedDate
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     @Override
     public boolean equals(Object o) {

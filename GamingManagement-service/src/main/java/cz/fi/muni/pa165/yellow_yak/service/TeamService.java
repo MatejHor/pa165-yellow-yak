@@ -8,6 +8,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
+ * Team service layer interface
+ *
  * @author Matej Knazik
  */
 public interface TeamService {
@@ -23,7 +25,7 @@ public interface TeamService {
      * Removes the team
      * @param teamId team ID to remove
      */
-    public void remove(@NotNull Long teamId);
+    public boolean remove(@NotNull Long teamId);
 
     /**
      * Finds a team by an team id
